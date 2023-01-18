@@ -1,0 +1,29 @@
+.landing{
+    background-color: #9c37b7;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.login-body{
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 5%;
+    margin-left: 25%;
+    width: 50%;
+    height: 80%;
+    position: fixed;
+}
+
+.login-heading{
+    position: fixed;
+    margin-top: 150px;
+    margin-left: 350px;
+}
+
+.form{
+    position: fixed;
+    margin-top: 500px !important;
+}

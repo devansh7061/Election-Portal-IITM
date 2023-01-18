@@ -1,0 +1,9 @@
+.buttons{
+    float: right;
+    margin-right: 5px;
+    margin-top: 0px;
+}
+.buttons .logout-btn{
+    margin-right: 10px;
+    margin-top: 0px;
+}
