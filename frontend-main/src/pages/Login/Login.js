@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
+import { Navigate } from "react-router-dom";
 import {
   HStack,
   VStack,
@@ -17,6 +18,7 @@ function verifyLogin(
   e,
   {
     setLoggedIn,
+    isLoggedIn,
     setCourse,
     setDepartment,
     setHasVoted,
@@ -45,7 +47,7 @@ function verifyLogin(
                     hasVoted
                 }
             }
-        `,
+        `
   };
   fetch("http://localhost:5000/graphql", {
     method: "POST",
@@ -61,10 +63,10 @@ function verifyLogin(
       return res.json();
     })
     .then((resData) => {
-      // if (resData.data.login.hasVoted === "true") {
-      //   setError(true);
-      //   throw new Error("You have already voted, come next year!");
-      // }
+      if (resData.data.login.hasVoted === "true") {
+        setError(true);
+        throw new Error("You have already voted, come next year!");
+      }
       if (resData.data.login.token) {
         setToken(resData.data.login.token);
         setCourse(resData.data.login.course);
@@ -72,7 +74,10 @@ function verifyLogin(
         setHostel(resData.data.login.hostel);
         setHasVoted(resData.data.login.hasVoted);
         setRollNo(rollNo);
-        setLoggedIn(true);
+        console.log(isLoggedIn);
+        setLoggedIn("true");
+        console.log(isLoggedIn);
+        
       }
     })
     .catch((err) => {
@@ -80,16 +85,23 @@ function verifyLogin(
     });
 }
 
-function Login({ isLoggedIn, setLoggedIn }) {
+function Login() {
   const setToken = useContextStore((state) => state.setToken);
   const setCourse = useContextStore((state) => state.setCourse);
   const setDepartment = useContextStore((state) => state.setDepartment);
   const setHostel = useContextStore((state) => state.setHostel);
   const setHasVoted = useContextStore((state) => state.setHasVoted);
   const setRollNo = useContextStore((state) => state.setRollNo);
+  const isLoggedIn = useContextStore((state) => state.isLoggedIn);
+  console.log(isLoggedIn);
+  const loggedInStatus = (isLoggedIn == "true");
+  const setLoggedIn = useContextStore((state) => state.setLoggedIn);
   const [error, setError] = useState(false);
   return (
-    <div className="landing">
+    loggedInStatus ? (
+      <Navigate to ="/home" replace />
+    ) : (
+        <div className="landing">
       <div className="login-body">
         <HStack spacing="400px">
           <>
@@ -109,6 +121,7 @@ function Login({ isLoggedIn, setLoggedIn }) {
                 onSubmit={(e) =>
                   verifyLogin(e, {
                     setLoggedIn,
+                    isLoggedIn,
                     setToken,
                     setCourse,
                     setDepartment,
@@ -156,6 +169,7 @@ function Login({ isLoggedIn, setLoggedIn }) {
         </HStack>
       </div>
     </div>
+    )
   );
 }
 

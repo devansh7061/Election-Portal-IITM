@@ -41,9 +41,9 @@ module.exports = {
         }
     },
     candidates: async ({hostel, department, course}, req) => {
-        // if (!req.isAuth) {
-        //     throw new Error('Unauthenticated!');
-        // }
+        if (!req.isAuth) {
+            throw new Error('Unauthenticated!');
+        }
         try {
             let candidates = await Candidate.find();
             let hostelCandidates = [];
@@ -77,7 +77,8 @@ module.exports = {
                 post: args.candidateInput.post,
                 poll: args.candidateInput.poll,
                 category: args.candidateInput.category,
-                picture: args.candidateInput.picture
+                picture: args.candidateInput.picture,
+                competition: args.candidateInput.competition
             })
             const result = await candidate.save();
 

@@ -10,14 +10,14 @@ import {
   Heading,
   Center,
 } from "@chakra-ui/react";
-function oneCandidateCard({ name, rollNo }) {
+function oneCandidateCard({ name, rollNo, picture }) {
   return (
     <div>
       <Card maxW="sm">
         <CardBody>
           <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Green double couch with wooden legs"
+            src={picture}
+            alt={name }
             borderRadius="lg"
           />
           <Stack mt="6" spacing="3">
@@ -29,14 +29,14 @@ function oneCandidateCard({ name, rollNo }) {
             </Center>
           </Stack>
         </CardBody>
-        <Divider />
+        {/* <Divider />
         <Center>
           <CardFooter>
             <Button variant="solid" colorScheme="blue">
               Select
             </Button>
           </CardFooter>
-        </Center>
+        </Center> */}
       </Card>
     </div>
   );

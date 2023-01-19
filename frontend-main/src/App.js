@@ -1,17 +1,24 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
+import Protected from "./components/Protected";
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Login isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />}
+          element={<Login />}
         ></Route>
-        <Route path="/home" element={<Home />}></Route>
+        <Route
+          path="/home"
+          element={
+            <Protected>
+              <Home />
+            </Protected>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -9,6 +9,10 @@ const contextStore = (set) => ({
   studentId: "",
   hasVoted: "",
   rollNo: "",
+  isLoggedIn: "false",
+  setLoggedIn: (LoggedInStatus) => {
+    set(() => ({ isLoggedIn: LoggedInStatus }));
+  },
   setRollNo: (studentRollNo) => {
     set(() => ({ rollNo: studentRollNo }));
   },

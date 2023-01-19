@@ -26,6 +26,10 @@ const candidateSchema = new Schema({
   category: {
     type: String,
     required: true
+  },
+  competition: {
+    type: Boolean,
+    required: true
   }
 });
 

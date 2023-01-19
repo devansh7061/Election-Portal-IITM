@@ -18,6 +18,7 @@ module.exports = buildSchema(`
         poll: String!
         picture: String!
         category: String!
+        competition: Boolean!
     }
 
     type AuthData {
@@ -36,6 +37,7 @@ module.exports = buildSchema(`
         poll: String!
         category: String!
         picture: String!
+        competition: Boolean!
     }
     input StudentInput {
         rollNo: String!
