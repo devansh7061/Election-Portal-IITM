@@ -9,8 +9,8 @@ import {
   Select,
   Heading,
   Center,
-} from "@chakra-ui/react";
-function manyCandidateCard({ name, rollNo, picture }) {
+} from "@chakra-ui/react"
+function ManyCandidateCard({ name, rollNo, picture, preferences}) {
   return (
     <div>
       <Card maxW="sm">
@@ -28,10 +28,18 @@ function manyCandidateCard({ name, rollNo, picture }) {
         <Divider />
         <Center>
           <CardFooter>
-            <Select variant="filled" placeholder="Select your preference" />
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <Select
+              variant="filled"
+              placeholder="Select your preference"
+            >
+              {preferences.map((preference, i) => {
+                return (
+                  <option key={i} value={preference}>
+                    {preference}
+                  </option>
+                );
+              })}
+            </Select>
           </CardFooter>
         </Center>
       </Card>
@@ -39,4 +47,4 @@ function manyCandidateCard({ name, rollNo, picture }) {
   );
 }
 
-export default manyCandidateCard
+export default ManyCandidateCard

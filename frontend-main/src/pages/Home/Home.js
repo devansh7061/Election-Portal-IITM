@@ -7,15 +7,17 @@ import {
   Heading,
   Center,
   HStack,
+  Wrap,
+  WrapItem
 } from "@chakra-ui/react";
-import OneCandidateCard from "../../components/oneCandidateCard";
-import ManyCandidateCard from "../../components/manyCandidateCard";
-import Reject from "../../components/Reject";
-import Abstain from "../../components/Abstain";
 import useContextStore from "../../store/contextStore";
 import loadCandidates from "../../constants/loadCandidates";
-
-function Home({isLoggedIn, setLoggedIn}) {
+import { institutePosts } from "../../constants/institutePosts";
+import { hostelPosts } from "../../constants/hostelPosts";
+import Institute from "../../components/Institute";
+import Hostel from "../../components/Hostel";
+import Department from "../../components/Department";
+function Home() {
   const setHasVoted = useContextStore((state) => state.setHasVoted);
   const rollNo = useContextStore((state) => state.rollNo);
   const department = useContextStore((state) => state.department);
@@ -25,25 +27,7 @@ function Home({isLoggedIn, setLoggedIn}) {
   const [instituteCandidates, setInstituteCandidates] = useState([]);
   const [hostelCandidates, setHostelCandidates] = useState([]);
   const [departmentCandidates, setDepartmentCandidates] = useState([]);
-  const institutePosts = [
-    "Academic Affairs Secretary",
-    "Co Curricular Affairs Secretary",
-    "Cultural Affairs Secretary (Arts)",
-    "Cultural Affairs Secretary (Literary)",
-    "Hostel Affairs Secretary",
-    "International and Alumni Relations Secretary",
-    "Sports Secretary (Institute)",
-    "Students General Secretary",
-  ];
-  const hostelPosts = [
-    "General Secretary(Hostel)",
-    "Health and Hygiene Secretary",
-    "Hostel Legislator",
-    "Literary Secretary",
-    "Social Secretary",
-    "Sports Secretary(Hostel)",
-    "Technical Affairs Secretary",
-  ];
+  
   useEffect(() => {
     loadCandidates({
       hostel,
@@ -55,9 +39,10 @@ function Home({isLoggedIn, setLoggedIn}) {
       hostelCandidates,
       setHostelCandidates,
       departmentCandidates,
+      setDepartmentCandidates
     });
   }, []);
-  console.log(instituteCandidates);
+  console.log(departmentCandidates);
   return (
     <>
       <Box className="navbar" bg="black" w="100%" p={6} color="white">
@@ -67,99 +52,12 @@ function Home({isLoggedIn, setLoggedIn}) {
           <Text fontSize="xl">Welcome {rollNo}!</Text>
         </Flex>
       </Box>
-      <div className="institute">
-        <Center>
-          <Heading as="h1" size="4xl" noOfLines={1}>
-            Institute Elections
-          </Heading>
-        </Center>
-        <br></br>
-        {institutePosts.map((post) => {
-          return (
-            <>
-              <Center>
-                <Heading as="h2" size="xl" noOfLines={1}>
-                  {post}
-                </Heading>
-              </Center>
-              <br></br>
-              <HStack spacing="150px">
-                {instituteCandidates.map((candidate) => {
-                  if (candidate.post === post) {
-                    if (candidate.competition === false) {
-                      return (
-                        <OneCandidateCard
-                          name={candidate.name}
-                          rollNo={candidate.rollNo}
-                          picture={candidate.picture}
-                        />
-                      );
-                    } else {
-                      return (
-                        <ManyCandidateCard
-                          name={candidate.name}
-                          rollNo={candidate.rollNo}
-                        />
-                      );
-                    }
-                  } else {
-                    return <></>;
-                  }
-                })}
-                <Abstain />
-                <Reject />
-              </HStack>
-            </>
-          );
-        })}
-      </div>
+      <Institute institutePosts={institutePosts} instituteCandidates={ instituteCandidates} />
       <br></br>
-      <div className="hostel">
-        <Center>
-          <Heading as="h1" size="4xl" noOfLines={1}>
-            Hostel Elections
-          </Heading>
-        </Center>
-        <br></br>
-        {hostelPosts.map((post) => {
-          return (
-            <>
-              <Center>
-                <Heading as="h2" size="xl" noOfLines={1}>
-                  {post}
-                </Heading>
-                <br></br>
-              </Center>
-              <HStack spacing="150px">
-                {instituteCandidates.map((candidate) => {
-                  if (candidate.post === post) {
-                    if (candidate.competition === false) {
-                      return (
-                        <OneCandidateCard
-                          name={candidate.name}
-                          rollNo={candidate.rollNo}
-                          picture={candidate.picture}
-                        />
-                      );
-                    } else {
-                      return (
-                        <ManyCandidateCard
-                          name={candidate.name}
-                          rollNo={candidate.rollNo}
-                        />
-                      );
-                    }
-                  } else {
-                    return <></>;
-                  }
-                })}
-                <Abstain />
-                <Reject />
-              </HStack>
-            </>
-          );
-        })}
-      </div>
+      <Hostel hostelPosts={hostelPosts} hostelCandidates={ hostelCandidates} />
+      <br></br>
+      <Department departmentCandidates={departmentCandidates} course={ course} />
+      <br></br>
     </>
   );
 }

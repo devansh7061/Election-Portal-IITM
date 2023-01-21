@@ -7,7 +7,8 @@ function loadCandidates({
   hostelCandidates,
   departmentCandidates,
   setInstituteCandidates,
-  setHostelCandidates
+  setHostelCandidates,
+  setDepartmentCandidates
 }) {
   const requestBody = {
     query: `
@@ -52,6 +53,7 @@ function loadCandidates({
       });
       setInstituteCandidates(instituteCandidates);
       setHostelCandidates(hostelCandidates);
+      setDepartmentCandidates(departmentCandidates);
     })
     .catch((err) => {
       console.log(err);
