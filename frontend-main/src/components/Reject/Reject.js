@@ -10,7 +10,7 @@ function handleClick(e, { active, setActive,setVariable, variable }) {
   e.preventDefault();
   setActive(!active);
   if (variable == "Reject") {
-    setVariable("");
+    setVariable(null);
   } else {
     setVariable("Reject");
   }

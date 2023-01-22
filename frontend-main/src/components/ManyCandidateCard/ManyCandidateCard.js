@@ -13,27 +13,26 @@ import {
 
 function handleChange(e, {index, p1, p2, p3, setP1, setP2, setP3}) {
   e.preventDefault();
-  console.log(e.target.value);
-  if (e.target.value == 1 && p1 != "") {
+  if (e.target.value == 1 && p1 != null) {
     setP1(index);
     throw new Error("Two candidates cannot have same preference")
   }
-  if (e.target.value == 2 && p2 != "") {
+  if (e.target.value == 2 && p2 != null) {
     setP2(index);
     throw new Error("Two candidates cannot have same preference");
 
   }
-  if (e.target.value == 3 && p3 != "") {
+  if (e.target.value == 3 && p3 != null) {
     setP3(index);
     throw new Error("Two candidates cannot have same preference");
   }
-  if (e.target.value == 1 && p1 == "") {
+  if (e.target.value == 1 && p1 == null) {
     setP1(index);
   }
-  if (e.target.value == 2 && p2 == "") {
+  if (e.target.value == 2 && p2 == null) {
     setP2(index);
   }
-  if (e.target.value == 3 && p3 == "") {
+  if (e.target.value == 3 && p3 == null) {
     setP3(index);
   }
 }

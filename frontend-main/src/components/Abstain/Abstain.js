@@ -6,7 +6,7 @@ function handleClick(e, { active, setActive, variable, setVariable }) {
   e.preventDefault();
   setActive(!active);
   if (variable == "Abstain") {
-    setVariable("");
+    setVariable(null);
   } else {
     setVariable("Abstain");
   }

@@ -17,7 +17,7 @@ function handleClick(e, { active, setActive, setVariable, variable, index }) {
   e.preventDefault();
   setActive(!active);
   if (variable == index) {
-    setVariable("");
+    setVariable(null);
   } else {
     setVariable(index);
   }

@@ -1,18 +1,18 @@
 import create from "zustand";
 
 const voteStore = (set) => ({
-  instiAAS: "",
-  instiCOCAS: "",
-  instiCULSECA: "",
-  instiCULSECL: "",
-  instiHAS: "",
-  instiIAR: "",
-  instiSS: "",
-  instiSGS: "",
-  hostelSGS: "",
-  hostelSGSP1: "",
-  hostelSGSP2: "",
-  hostelSGSP3: "",
+  instiAAS: null,
+  instiCOCAS: null,
+  instiCULSECA: null,
+  instiCULSECL: null,
+  instiHAS: null,
+  instiIAR: null,
+  instiSS: null,
+  instiSGS: null,
+  hostelSGS: null,
+  hostelSGSP1: null,
+  hostelSGSP2: null,
+  hostelSGSP3: null,
   setHostelSGSP3: (HostelSGSP3) => {
     set(() => ({ hostelSGSP3: HostelSGSP3 }));
   },
