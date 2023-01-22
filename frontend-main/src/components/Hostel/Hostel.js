@@ -1,12 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Center, Heading, Wrap, WrapItem } from "@chakra-ui/react";
-import Reject from "./Reject";
-import Abstain from "./Abstain";
-import OneCandidateCard from "./oneCandidateCard";
-import ManyCandidateCard from "./ManyCandidateCard";
+import HostelSGS from "./HostelSGS/HostelSGS";
 
-let preferences = [1, 2, 3];
-function Hostel({ hostelCandidates, hostelPosts }) {
+function Hostel({ hostelSGSCandidates }) {
   return (
     <div className="hostel">
       <Center>
@@ -15,7 +11,8 @@ function Hostel({ hostelCandidates, hostelPosts }) {
         </Heading>
       </Center>
       <br></br>
-      {hostelPosts.map((post) => {
+      <HostelSGS hostelSGSCandidates={hostelSGSCandidates} />
+      {/* {hostelPosts.map((post) => {
         return (
           <>
             <Center>
@@ -59,7 +56,7 @@ function Hostel({ hostelCandidates, hostelPosts }) {
             <br></br>
           </>
         );
-      })}
+      })} */}
     </div>
   );
 }

@@ -4,19 +4,23 @@ import {
   Flex,
   Spacer,
   Text,
+  Button,
   Heading,
   Center,
   HStack,
   Wrap,
-  WrapItem
+  WrapItem,
 } from "@chakra-ui/react";
 import useContextStore from "../../store/contextStore";
+import useVoteStore from "../../store/voteStore";
 import loadCandidates from "../../constants/loadCandidates";
-import { institutePosts } from "../../constants/institutePosts";
-import { hostelPosts } from "../../constants/hostelPosts";
-import Institute from "../../components/Institute";
-import Hostel from "../../components/Hostel";
+import Institute from "../../components/Institute/Institute";
+import Hostel from "../../components/Hostel/Hostel";
 import Department from "../../components/Department";
+
+function handleClick(e) {
+  e.preventDefault();
+}
 function Home() {
   const setHasVoted = useContextStore((state) => state.setHasVoted);
   const rollNo = useContextStore((state) => state.rollNo);
@@ -24,25 +28,45 @@ function Home() {
   const course = useContextStore((state) => state.course);
   const hostel = useContextStore((state) => state.hostel);
   const token = useContextStore((state) => state.token);
-  const [instituteCandidates, setInstituteCandidates] = useState([]);
-  const [hostelCandidates, setHostelCandidates] = useState([]);
+  const [instiAASCandidates, setInstiAASCandidates] = useState([]);
+  const [instiCOCASCandidates, setInstiCOCASCandidates] = useState([]);
+  const [instiCULSECACandidates, setInstiCULSECACandidates] = useState([]);
+  const [instiCULSECLCandidates, setInstiCULSECLCandidates] = useState([]);
+  const [instiHASCandidates, setInstiHASCandidates] = useState([]);
+  const [instiIARCandidates, setInstiIARCandidates] = useState([]);
+  const [instiSSCandidates, setInstiSSCandidates] = useState([]);
+  const [instiSGSCandidates, setInstiSGSCandidates] = useState([]);
+  const [hostelSGSCandidates, setHostelSGSCandidates] = useState([]);
   const [departmentCandidates, setDepartmentCandidates] = useState([]);
-  
+
   useEffect(() => {
     loadCandidates({
       hostel,
       course,
       department,
       token,
-      instituteCandidates,
-      setInstituteCandidates,
-      hostelCandidates,
-      setHostelCandidates,
+      instiAASCandidates,
+      setInstiAASCandidates,
+      instiCOCASCandidates,
+      setInstiCOCASCandidates,
+      instiCULSECACandidates,
+      setInstiCULSECACandidates,
+      instiCULSECLCandidates,
+      setInstiCULSECLCandidates,
+      instiHASCandidates,
+      setInstiHASCandidates,
+      instiIARCandidates,
+      setInstiIARCandidates,
+      instiSSCandidates,
+      setInstiSSCandidates,
+      instiSGSCandidates,
+      setInstiSGSCandidates,
+      hostelSGSCandidates,
+      setHostelSGSCandidates,
       departmentCandidates,
-      setDepartmentCandidates
+      setDepartmentCandidates,
     });
   }, []);
-  console.log(departmentCandidates);
   return (
     <>
       <Box className="navbar" bg="black" w="100%" p={6} color="white">
@@ -52,12 +76,24 @@ function Home() {
           <Text fontSize="xl">Welcome {rollNo}!</Text>
         </Flex>
       </Box>
-      <Institute institutePosts={institutePosts} instituteCandidates={ instituteCandidates} />
+      <Institute
+        instiAASCandidates={instiAASCandidates}
+        instiCOCASCandidates={instiCOCASCandidates}
+        instiCULSECACandidates={instiCULSECACandidates}
+        instiCULSECLCandidates={instiCULSECLCandidates}
+        instiHASCandidates={instiHASCandidates}
+        instiIARCandidates={instiIARCandidates}
+        instiSSCandidates={instiSSCandidates}
+        instiSGSCandidates={instiSGSCandidates}
+      />
       <br></br>
-      <Hostel hostelPosts={hostelPosts} hostelCandidates={ hostelCandidates} />
+      <Hostel hostelSGSCandidates={hostelSGSCandidates} />
       <br></br>
-      <Department departmentCandidates={departmentCandidates} course={ course} />
+      {/* <Department departmentCandidates={departmentCandidates} course={course} /> */}
       <br></br>
+      <Center>
+        <Button colorScheme="blue" onClick={(e) => handleClick(e)}>Vote</Button>
+      </Center>
     </>
   );
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { Center, Heading, HStack } from "@chakra-ui/react";
-import Reject from "./Reject";
-import Abstain from "./Abstain";
-import OneCandidateCard from "./oneCandidateCard";
-import ManyCandidateCard from "./ManyCandidateCard";
+import Reject from "./Reject/Reject";
+import Abstain from "./Abstain/Abstain";
+import OneCandidateCard from "./OneCandidateCard/OneCandidateCard";
+import ManyCandidateCard from "./ManyCandidateCard/ManyCandidateCard";
 function Department({ departmentCandidates, course }) {
   return (
     <div className="department">

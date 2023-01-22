@@ -29,8 +29,8 @@ const contextStore = (set) => ({
     set(() => ({ course: studentCourse }));
   },
   setHasVoted: (studentHasVoted) => {
-        set(() => ({ hasVoted: studentHasVoted }));
-  }
+    set(() => ({ hasVoted: studentHasVoted }));
+  },
 });
 
 const useContextStore = create(

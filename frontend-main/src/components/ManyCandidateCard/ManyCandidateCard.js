@@ -10,7 +10,34 @@ import {
   Heading,
   Center,
 } from "@chakra-ui/react"
-function ManyCandidateCard({ name, rollNo, picture, preferences}) {
+
+function handleChange(e, {index, p1, p2, p3, setP1, setP2, setP3}) {
+  e.preventDefault();
+  console.log(e.target.value);
+  if (e.target.value == 1 && p1 != "") {
+    setP1(index);
+    throw new Error("Two candidates cannot have same preference")
+  }
+  if (e.target.value == 2 && p2 != "") {
+    setP2(index);
+    throw new Error("Two candidates cannot have same preference");
+
+  }
+  if (e.target.value == 3 && p3 != "") {
+    setP3(index);
+    throw new Error("Two candidates cannot have same preference");
+  }
+  if (e.target.value == 1 && p1 == "") {
+    setP1(index);
+  }
+  if (e.target.value == 2 && p2 == "") {
+    setP2(index);
+  }
+  if (e.target.value == 3 && p3 == "") {
+    setP3(index);
+  }
+}
+function ManyCandidateCard({ name, rollNo, picture, preferences, index, p1, p2, p3, setP1, setP2, setP3}) {
   return (
     <div>
       <Card maxW="sm">
@@ -31,6 +58,7 @@ function ManyCandidateCard({ name, rollNo, picture, preferences}) {
             <Select
               variant="filled"
               placeholder="Select your preference"
+              onChange={(e) => handleChange(e, {index, p1, p2, p3, setP1, setP2, setP3})}
             >
               {preferences.map((preference, i) => {
                 return (
