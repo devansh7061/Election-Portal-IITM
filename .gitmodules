@@ -1,0 +1,3 @@
+[submodule "contract-backend"]
+	path = contract-backend
+	url = ./contract-backend/
