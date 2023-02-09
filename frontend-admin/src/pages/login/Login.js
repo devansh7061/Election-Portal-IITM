@@ -14,7 +14,7 @@ import "./Login.css";
 
 function Login({ isLoggedIn, setLoggedIn }) {
   return isLoggedIn ? (
-    <Navigate to="/admin" replace />
+    <Navigate to="/navbar" replace />
   ) : (
     <div className="form">
       <Center>
@@ -57,7 +57,7 @@ function verifyLogin(e, { setLoggedIn }) {
     .then((resp) => {
       if (resp.data.message === "Successful Login!") {
         setLoggedIn(true);
-        <Navigate to="/admin"></Navigate>;
+        <Navigate to="/navbar"></Navigate>;
         e.preventDefault();
       } else {
         alert(resp.data.message);

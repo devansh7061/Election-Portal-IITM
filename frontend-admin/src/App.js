@@ -1,8 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
-import Admin from "./pages/admin/Admin";
+import Navbar from "./pages/admin/Navbar";
 import Login from "./pages/login/Login";
 import Protected from "./components/Protected";
+import StartEnd from "./pages/admin/StartEnd.js";
+import AddVoter from "./pages/admin/AddVoter.js";
+import AddNode from "./pages/admin/AddNode.js";
+import ViewStats from "./pages/admin/ViewStats.js";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -14,12 +18,36 @@ function App() {
           element={<Login isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />}
         />
         <Route
-          path="/admin"
+          path="/navbar"
           element={
             <Protected isLoggedIn={isLoggedIn}>
-              <Admin isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
+              <Navbar isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
             </Protected>
           }
+        />
+        <Route
+        path="/addvoter"
+        element= {
+          <AddVoter />
+        }
+        />
+        <Route
+        path="/addnode"
+        element= {
+          <AddNode />
+        }
+        />
+        <Route
+        path="/viewstats"
+        element= {
+          <ViewStats />
+        }
+        />
+        <Route
+        path="/startend"
+        element= {
+          <StartEnd />
+        }
         />
       </Routes>
     </BrowserRouter>
