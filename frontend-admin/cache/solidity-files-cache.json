@@ -1,0 +1,267 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\addHostelPollsA.sol": {
+      "lastModificationDate": 1674970380535,
+      "contentHash": "fd90b922f955f892d6cbefee68e98d1b",
+      "sourceName": "contracts/addHostelPollsA.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../contracts/preElection.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "AddHostelPollsA"
+      ]
+    },
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\preElection.sol": {
+      "lastModificationDate": 1676219321069,
+      "contentHash": "8c0acb83537f6ea15f6299fb7a260f4a",
+      "sourceName": "contracts/preElection.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "PreElection"
+      ]
+    },
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\election.sol": {
+      "lastModificationDate": 1676223222701,
+      "contentHash": "9fbd1c1f323c35037a2c2dd5b0a79444",
+      "sourceName": "contracts/election.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../contracts/preElection.sol",
+        "../contracts/addHostelPollsA.sol",
+        "../contracts/addHostelPollsB.sol",
+        "../contracts/addHostelPollsC.sol",
+        "../contracts/addHostelPollsD.sol",
+        "../contracts/addOtherPolls.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "Election"
+      ]
+    },
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\addHostelPollsB.sol": {
+      "lastModificationDate": 1674970398024,
+      "contentHash": "603c3420358c029f76920fb6819c24bd",
+      "sourceName": "contracts/addHostelPollsB.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../contracts/preElection.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "AddHostelPollsB"
+      ]
+    },
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\addHostelPollsC.sol": {
+      "lastModificationDate": 1674970418023,
+      "contentHash": "e2525e9d330ecabb319ea7db3171157d",
+      "sourceName": "contracts/addHostelPollsC.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../contracts/preElection.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "AddHostelPollsC"
+      ]
+    },
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\addHostelPollsD.sol": {
+      "lastModificationDate": 1674970446511,
+      "contentHash": "cb12d44b347c408125697c0a5a69e358",
+      "sourceName": "contracts/addHostelPollsD.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../contracts/preElection.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "AddHostelPollsD"
+      ]
+    },
+    "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\addOtherPolls.sol": {
+      "lastModificationDate": 1674970459519,
+      "contentHash": "9cf9f02aea15eef2dc26dabdbed19a91",
+      "sourceName": "contracts/addOtherPolls.sol",
+      "solcConfig": {
+        "version": "0.7.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../contracts/preElection.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.0"
+      ],
+      "artifacts": [
+        "AddOtherPolls"
+      ]
+    }
+  }
+}
