@@ -6,10 +6,17 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 const fs = require("fs");
+const fsExtra = require('fs-extra');
 
 let contractAddresses = {};
 
 async function main() {
+  
+  // The issue with ethers or truffle is that they don not create new artifact files everytime
+  // the contract is compiled, and hence sometime the script calls the previous version of the deployment
+  // instead of calling the new one. Hence we clean the artifacts folder to freshly compile and deploy
+  fsExtra.emptyDirSync("../artifacts/build-info");
+  fsExtra.emptyDirSync("../artifacts/contracts");
 
   const PreElection = await hre.ethers.getContractFactory("PreElection");
   const preElection = await PreElection.deploy();

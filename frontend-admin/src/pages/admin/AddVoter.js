@@ -34,6 +34,6 @@ const AddVoter = () => {
         </div>
         </>
       )
-}
+};
 
 export default AddVoter;

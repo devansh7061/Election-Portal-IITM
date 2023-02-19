@@ -73,7 +73,7 @@ contract Election is
         return isValid;
     }
 
-    function addVote(bytes32[] calldata votecode) public onlyAdmin {
+    function addVote(bytes32[] memory votecode) public {
         for (uint256 i = 0; i < votecode.length; i++) {
             bytes32 thisPollCode = votecode[i];
             // central poll
@@ -85,7 +85,10 @@ contract Election is
                     thisPollCode[1],
                     thisPollCode[2]
                 );
-                require(centralPollExists(pollPositionCode), "INVALID_POLL");
+                require(
+                    centralPollExists(pollPositionCode),
+                    "INVALID_CENTRAL_POLL"
+                );
                 // abstained vote
                 if (
                     keccak256(abi.encodePacked(thisPollCode[3])) ==
@@ -121,7 +124,7 @@ contract Election is
                 );
                 require(
                     hostelPollExists(pollHostelPositionCode),
-                    "INVALID_POLL"
+                    "INVALID_HOSTEL_POLL"
                 );
                 if (
                     keccak256(abi.encodePacked(thisPollCode[5])) ==
@@ -153,7 +156,7 @@ contract Election is
                 );
                 require(
                     departmentPollExists(pollDepartmentPositionCode),
-                    "INVALID_POLL"
+                    "INVALID_DEPARTMENT_POLL"
                 );
                 if (
                     keccak256(abi.encodePacked(thisPollCode[5])) ==

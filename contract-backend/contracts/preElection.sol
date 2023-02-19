@@ -5,7 +5,11 @@ pragma solidity ^0.7.0;
 contract PreElection {
     /**** PRE-ELECTION SETUP ****/
 
-    address admin = 0xFADD4867EbbAb3Eb04b3C908f8631697a0CE3308;
+    address admin;
+
+    constructor() {
+        admin = msg.sender;
+    }
 
     // @storage struct of a Poll
     // bytes8[] candidates is an array of roll numbers
@@ -21,13 +25,13 @@ contract PreElection {
 
     // @storage list of all admins (wallet addresses of all the booth laptops)
     // @storage verification mapping of admin existing
-    address[] admins;
-    mapping(address => bool) public adminExists;
+    address[] internal nodes;
+    mapping(address => bool) internal nodeExists;
 
     // @storage the main storage structure which consists of PollStruct inside
-    mapping(bytes4 => PollStruct) public departmentPolls;
-    mapping(bytes2 => PollStruct) public centralPolls;
-    mapping(bytes4 => PollStruct) public hostelPolls;
+    mapping(bytes4 => PollStruct) internal departmentPolls;
+    mapping(bytes2 => PollStruct) internal centralPolls;
+    mapping(bytes4 => PollStruct) internal hostelPolls;
 
     // @mod admin functions
     modifier onlyAdmin() {
@@ -35,23 +39,29 @@ contract PreElection {
         _;
     }
 
-    // @func adding a new admin to the list of admins, for setting up a new device
+    // @func adding a new node to the list of nodes, for setting up a new device
     // @param address of the new admin
-    function addAdmin(address _admin) public onlyAdmin {
-        admins.push(_admin);
-        adminExists[_admin] = true;
+    function addNode(address _node) public onlyAdmin {
+        require(nodeExists[_node] != true, "NODE_EXISTS");
+        nodes.push(_node);
+        nodeExists[_node] = true;
     }
 
-    constructor() {
-        admin = msg.sender;
-        adminExists[admin] = true;
+    modifier onlyNode() {
+        require(nodeExists[msg.sender] == true, "INVALID_NODE");
+        _;
     }
-
-    bool start = false;
 
     // @func to start election process
+    bool public start = false;
+
     function startElection() public onlyAdmin {
+        require(start == false, "ELECTION_ALREADY_STARTED");
         start = true;
+    }
+
+    function viewElectionStarted() public view returns (bool) {
+        return start;
     }
 
     modifier electionStarted() {
@@ -59,11 +69,16 @@ contract PreElection {
         _;
     }
 
-    bool end = false;
-
     // @func to end election process
+    bool public end = false;
+
     function endElection() public onlyAdmin {
+        require((start == true) && (end == false), "ELECTION_ALREADY_ENDED");
         end = true;
+    }
+
+    function viewElectionEnded() public view returns (bool) {
+        return end;
     }
 
     modifier electionEnded() {
@@ -71,14 +86,14 @@ contract PreElection {
         _;
     }
 
-    function viewAdmins() public view onlyAdmin returns (address[] memory) {
-        return admins;
+    function viewNodes() public view onlyAdmin returns (address[] memory) {
+        return nodes;
     }
 
     // @storage list of all polls, to check whether the incoming data belongs to an actual existing poll
-    bytes2[] centralPollCodes;
-    bytes4[] hostelPollCodes;
-    bytes4[] departmentPollCodes;
+    bytes2[] internal centralPollCodes;
+    bytes4[] internal hostelPollCodes;
+    bytes4[] internal departmentPollCodes;
 
     // @func for getting bytes2 object out of the votecode
     function concat2(bytes1 a, bytes1 b) internal pure returns (bytes2) {

@@ -3,7 +3,16 @@ import { Box, Flex, Button, Spacer, Text , HStack, Center} from "@chakra-ui/reac
 import "./Admin.css";
 import Navbar from "../admin/Navbar.js";
 
+function generateResults() {
+    
+}
+
 function StartEnd () {
+
+    const generateResults = (e) => {
+        e.preventDefault();
+        console.log('The link was clicked.');
+        }
       return (
         <>
         <Navbar />
@@ -25,7 +34,16 @@ function StartEnd () {
                     End Election
                     </Button>
                 <Spacer />
+                <Button
+                    colorScheme="black"
+                    variant="outline"
+                    _hover={{ bg:"grey"}}
+                    onClick={generateResults}
+                    >
+                    Generate results
+                    </Button>
             </HStack>
+            
         </Center>
         </>
       )

@@ -1,8 +1,10 @@
 import React from "react";
 import "./Admin.css";
 import Navbar from "./Navbar.js";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/react';
+import CentralPolls from "./CentralPolls.js"
 import HostelPolls from "./HostelPolls.js"
+import DepartmentPolls from "./DepartmentPolls";
 
 
 const ViewStats = () => {
@@ -11,19 +13,25 @@ const ViewStats = () => {
         <Navbar/>
         <Tabs isFitted variant='line' colorScheme='black'>
           <TabList>
-            <Tab>Central Polls</Tab>
-            <Tab>Hostel Polls</Tab>
-            <Tab>Department Polls</Tab>
+            <Tab>
+              <Text as='b'>Central Polls</Text>
+              </Tab>
+            <Tab>
+              <Text as='b'>Hostel Polls</Text>
+            </Tab>
+            <Tab>
+              <Text as='b'>Department Polls</Text>
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              <HostelPolls />
+              <CentralPolls />
             </TabPanel>
             <TabPanel>
               <HostelPolls />
             </TabPanel>
             <TabPanel>
-              <HostelPolls />
+              <DepartmentPolls />
             </TabPanel>
           </TabPanels>
         </Tabs>
