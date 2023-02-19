@@ -10,10 +10,15 @@ import "./InstiIAR.css";
 function InstiIAR({ instiIARCandidates }) {
   console.log(instiIARCandidates);
   const totalCandidates = instiIARCandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiIAR = useVoteStore((state) => state.instiIAR);
   const setInstiIAR = useVoteStore((state) => state.setInstiIAR);
+  const instiIARPreferences = useVoteStore(
+    (state) => state.instiIARPreferences
+  );
+  const setInstiIARPreferences = useVoteStore(
+    (state) => state.setInstiIARPreferences
+  );
   return (
     <div>
       <Center>
@@ -24,13 +29,17 @@ function InstiIAR({ instiIARCandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiIARCandidates.map((candidate) => {
+          {instiIARCandidates.map((candidate,i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiIARPreferences}
+                setPreferences={setInstiIARPreferences}
+                variable={instiIAR}
+                setVariable={setInstiIAR}
+                index={i}
               />
             );
           })}

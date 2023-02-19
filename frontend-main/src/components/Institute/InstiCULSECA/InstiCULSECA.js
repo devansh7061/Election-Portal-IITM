@@ -9,10 +9,15 @@ import "./InstiCULSECA.css";
 
 function InstiCULSECA({ instiCULSECACandidates }) {
   const totalCandidates = instiCULSECACandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiCULSECA = useVoteStore((state) => state.instiCULSECA);
   const setInstiCULSECA = useVoteStore((state) => state.setInstiCULSECA);
+  const instiCULSECAPreferences = useVoteStore(
+    (state) => state.instiCULSECAPreferences
+  );
+  const setInstiCULSECAPreferences = useVoteStore(
+    (state) => state.setInstiCULSECAPreferences
+  );
   return (
     <div>
       <Center>
@@ -23,13 +28,17 @@ function InstiCULSECA({ instiCULSECACandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiCULSECACandidates.map((candidate) => {
+          {instiCULSECACandidates.map((candidate,i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiCULSECAPreferences}
+                setPreferences={setInstiCULSECAPreferences}
+                variable={instiCULSECA}
+                setVariable={setInstiCULSECA}
+                index={i}
               />
             );
           })}

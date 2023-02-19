@@ -9,10 +9,15 @@ import "./InstiCULSECL.css";
 
 function InstiCULSECL({ instiCULSECLCandidates }) {
   const totalCandidates = instiCULSECLCandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiCULSECL = useVoteStore((state) => state.instiCULSECL);
   const setInstiCULSECL = useVoteStore((state) => state.setInstiCULSECL);
+  const instiCULSECLPreferences = useVoteStore(
+    (state) => state.instiCULSECLPreferences
+  );
+  const setInstiCULSECLPreferences = useVoteStore(
+    (state) => state.setInstiCULSECLPreferences
+  );
   return (
     <div>
       <Center>
@@ -23,13 +28,17 @@ function InstiCULSECL({ instiCULSECLCandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiCULSECLCandidates.map((candidate) => {
+          {instiCULSECLCandidates.map((candidate,i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiCULSECLPreferences}
+                setPreferences={setInstiCULSECLPreferences}
+                variable={instiCULSECL}
+                setVariable={setInstiCULSECL}
+                index={i}
               />
             );
           })}
@@ -39,7 +48,7 @@ function InstiCULSECL({ instiCULSECLCandidates }) {
       </div>
       <div className={many ? "hide" : "show"}>
         <HStack spacing="150px">
-          {instiCULSECLCandidates.map((candidate, index) => {
+          {instiCULSECLCandidates.map((candidate, i) => {
             return (
               <OneCandidateCard
                 name={candidate.name}
@@ -47,7 +56,7 @@ function InstiCULSECL({ instiCULSECLCandidates }) {
                 picture={candidate.picture}
                 variable={instiCULSECL}
                 setVariable={setInstiCULSECL}
-                index={index}
+                index={i}
               />
             );
           })}
