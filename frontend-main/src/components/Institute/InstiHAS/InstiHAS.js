@@ -10,10 +10,15 @@ import "./InstiHAS.css";
 function InstiHAS({ instiHASCandidates }) {
     console.log(instiHASCandidates);
     const totalCandidates = instiHASCandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiHAS = useVoteStore((state) => state.instiHAS);
   const setInstiHAS = useVoteStore((state) => state.setInstiHAS);
+  const instiHASPreferences = useVoteStore(
+    (state) => state.instiHASPreferences
+  );
+  const setInstiHASPreferences = useVoteStore(
+    (state) => state.setInstiHASPreferences
+  );
   return (
     <div>
       <Center>
@@ -24,13 +29,17 @@ function InstiHAS({ instiHASCandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiHASCandidates.map((candidate) => {
+          {instiHASCandidates.map((candidate,i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiHASPreferences}
+                setPreferences={setInstiHASPreferences}
+                variable={instiHAS}
+                setVariable={setInstiHAS}
+                index={i}
               />
             );
           })}

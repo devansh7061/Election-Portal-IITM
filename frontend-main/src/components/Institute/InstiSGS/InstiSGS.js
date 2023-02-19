@@ -10,10 +10,11 @@ import "./InstiSGS.css";
 function InstiSGS({ instiSGSCandidates }) {
   console.log(instiSGSCandidates);
   const totalCandidates = instiSGSCandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiSGS = useVoteStore((state) => state.instiSGS);
   const setInstiSGS = useVoteStore((state) => state.setInstiSGS);
+  const instiSGSPreferences = useVoteStore((state) => state.instiSGSPreferences);
+  const setInstiSGSPreferences = useVoteStore((state) => state.setInstiSGSPreferences);
   return (
     <div>
       <Center>
@@ -24,13 +25,17 @@ function InstiSGS({ instiSGSCandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiSGSCandidates.map((candidate) => {
+          {instiSGSCandidates.map((candidate, i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiSGSPreferences}
+                setPreferences={setInstiSGSPreferences}
+                variable={instiSGS}
+                setVariable={setInstiSGS}
+                index={i}
               />
             );
           })}

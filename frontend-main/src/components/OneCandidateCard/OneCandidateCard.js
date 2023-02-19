@@ -16,16 +16,18 @@ import "./OneCandidateCard.css";
 function handleClick(e, { active, setActive, setVariable, variable, index }) {
   e.preventDefault();
   setActive(!active);
-  if (variable == index) {
-    setVariable(null);
+  if (variable==null || variable =="Abstain" || variable=="Reject") {
+    let order = [{ preference: 1, candidate: index }];
+    setVariable(order);
   } else {
-    setVariable(index);
+    setVariable(null);
   }
 }
 function OneCandidateCard({ name, rollNo, picture, setVariable, variable, index }) {
   const [active, setActive] = useState(false);
+  console.log(variable);
   return (
-    <div className={variable == index ? "active" : ""}>
+    <div className={(variable==null || variable=="Abstain" || variable=="Reject") ? "" : "active"}>
       <Card
         maxW="sm"
         onClick={(e) =>

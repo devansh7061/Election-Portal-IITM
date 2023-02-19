@@ -9,10 +9,15 @@ import { Center, Heading, HStack } from "@chakra-ui/react";
 
 function InstiCOCAS({ instiCOCASCandidates }) {
   const totalCandidates = instiCOCASCandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiCOCAS = useVoteStore((state) => state.instiCOCAS);
   const setInstiCOCAS = useVoteStore((state) => state.setInstiCOCAS);
+  const instiCOCASPreferences = useVoteStore(
+    (state) => state.instiCOCASPreferences
+  );
+  const setInstiCOCASPreferences = useVoteStore(
+    (state) => state.setInstiCOCASPreferences
+  );
   return (
     <div>
       <Center>
@@ -23,13 +28,17 @@ function InstiCOCAS({ instiCOCASCandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiCOCASCandidates.map((candidate) => {
+          {instiCOCASCandidates.map((candidate,i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiCOCASPreferences}
+                setPreferences={setInstiCOCASPreferences}
+                variable={instiCOCAS}
+                setVariable={setInstiCOCAS}
+                index={i}
               />
             );
           })}

@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Center, Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import HostelSGS from "./HostelSGS/HostelSGS";
+import HostelSS from "./HostelSS/HostelSS";
+import HostelHHS from "./HostelHHS/HostelHHS";
+import HostelHL from "./HostelHL/HostelHL";
+import HostelLL from "./HostelLL/HostelLL";
+import HostelSL from "./HostelSL/HostelSL";
+import HostelTAS from "./HostelTAS/HostelTAS";
 
-function Hostel({ hostelSGSCandidates }) {
+function Hostel({ hostelSGSCandidates, hostelSSCandidates, hostelHHSCandidates, hostelHLCandidates, hostelLLCandidates, hostelSLCandidates, hostelTASCandidates }) {
   return (
     <div className="hostel">
       <Center>
@@ -12,51 +18,12 @@ function Hostel({ hostelSGSCandidates }) {
       </Center>
       <br></br>
       <HostelSGS hostelSGSCandidates={hostelSGSCandidates} />
-      {/* {hostelPosts.map((post) => {
-        return (
-          <>
-            <Center>
-              <Heading as="h2" size="xl" noOfLines={1}>
-                {post}
-              </Heading>
-            </Center>
-            <br></br>
-            <Wrap>
-              {hostelCandidates.map((candidate) => {
-                if (candidate.post === post) {
-                  if (candidate.competition === false) {
-                    return (
-                      <WrapItem>
-                        <OneCandidateCard
-                          name={candidate.name}
-                          rollNo={candidate.rollNo}
-                          picture={candidate.picture}
-                        />
-                      </WrapItem>
-                    );
-                  } else {
-                    return (
-                      <WrapItem>
-                        <ManyCandidateCard
-                          name={candidate.name}
-                          rollNo={candidate.rollNo}
-                          picture={candidate.picture}
-                          preferences={preferences}
-                        />
-                      </WrapItem>
-                    );
-                  }
-                } else {
-                  return <></>;
-                }
-              })}
-              <Abstain />
-              <Reject />
-            </Wrap>
-            <br></br>
-          </>
-        );
-      })} */}
+      <HostelSS hostelSSCandidates={hostelSSCandidates}></HostelSS>
+      <HostelHHS hostelHHSCandidates={hostelHHSCandidates} />
+      <HostelHL hostelHLCandidates={hostelHLCandidates} />
+      <HostelLL hostelLLCandidates={hostelLLCandidates} />
+      <HostelSL hostelSLCandidates={hostelSLCandidates} />
+      <HostelTAS hostelTASCandidates={hostelTASCandidates} />
     </div>
   );
 }

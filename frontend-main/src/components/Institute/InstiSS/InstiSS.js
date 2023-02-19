@@ -10,10 +10,15 @@ import "./InstiSS.css";
 function InstiSS({ instiSSCandidates }) {
   console.log(instiSSCandidates);
   const totalCandidates = instiSSCandidates.length;
-  const many = totalCandidates > 2 ? true : false;
-  const preferences = [1, 2, 3];
+  const many = totalCandidates > 1 ? true : false;
   const instiSS = useVoteStore((state) => state.instiSS);
   const setInstiSS = useVoteStore((state) => state.setInstiSS);
+  const instiSSPreferences = useVoteStore(
+    (state) => state.instiSSPreferences
+  );
+  const setInstiSSPreferences = useVoteStore(
+    (state) => state.setInstiSSPreferences
+  );
   return (
     <div>
       <Center>
@@ -24,13 +29,17 @@ function InstiSS({ instiSSCandidates }) {
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiSSCandidates.map((candidate) => {
+          {instiSSCandidates.map((candidate,i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={preferences}
+                preferences={instiSSPreferences}
+                setPreferences={setInstiSSPreferences}
+                variable={instiSS}
+                setVariable={setInstiSS}
+                index={i}
               />
             );
           })}

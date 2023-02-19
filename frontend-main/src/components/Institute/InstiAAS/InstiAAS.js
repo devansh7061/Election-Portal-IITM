@@ -9,10 +9,15 @@ import "./InstiAAS.css"
 
 function InstiAAS({instiAASCandidates}) {
     const totalCandidates = instiAASCandidates.length;
-    const many = (totalCandidates > 2) ? true : false;
-    const preferences = [1, 2, 3];
+    const many = (totalCandidates > 1) ? true : false;
     const instiAAS = useVoteStore((state) => state.instiAAS);
     const setInstiAAS = useVoteStore((state) => state.setInstiAAS);
+    const instiAASPreferences = useVoteStore(
+      (state) => state.instiAASPreferences
+    );
+    const setInstiAASPreferences = useVoteStore(
+      (state) => state.setInstiAASPreferences
+    );
     return (
       <div>
         <Center>
@@ -23,13 +28,17 @@ function InstiAAS({instiAASCandidates}) {
         <br></br>
         <div className={many ? "show" : "hide"}>
           <HStack spacing="150px">
-            {instiAASCandidates.map((candidate) => {
+            {instiAASCandidates.map((candidate, i) => {
               return (
                 <ManyCandidateCard
                   name={candidate.name}
                   rollNo={candidate.rollNo}
                   picture={candidate.picture}
-                  preferences={preferences}
+                  preferences={instiAASPreferences}
+                  setPreferences={setInstiAASPreferences}
+                  variable={instiAAS}
+                  setVariable={setInstiAAS}
+                  index={i}
                 />
               );
             })}

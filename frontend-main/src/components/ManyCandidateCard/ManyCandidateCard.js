@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from "react";
 import {
   Card,
   CardBody,
@@ -6,37 +6,55 @@ import {
   Image,
   Stack,
   Divider,
-  Select,
   Heading,
   Center,
-} from "@chakra-ui/react"
-
-function handleChange(e, {index, p1, p2, p3, setP1, setP2, setP3}) {
-  e.preventDefault();
-  if (e.target.value == 1 && p1 != null) {
-    setP1(index);
-    throw new Error("Two candidates cannot have same preference")
+} from "@chakra-ui/react";
+import Select from "react-select";
+function handleChange(e, { index, variable, setVariable, selectedOption, setSelectedOption }) {
+  console.log(index);
+  console.log(e);
+  let order;
+  if (variable == null || variable == "Abstain" || variable == "Reject") {
+    order = [{ preference: e.value, candidate: index }];
+    // console.log(order);
+    setVariable(order);
+  } else {
+    if (e == null) {
+      order = variable.filter((x) => x.preference !== selectedOption);
+    } else {
+      order = [...variable, { preference: e.value, candidate: index }];
+    }
+    // console.log(order);
+    setVariable(order);
   }
-  if (e.target.value == 2 && p2 != null) {
-    setP2(index);
-    throw new Error("Two candidates cannot have same preference");
-
-  }
-  if (e.target.value == 3 && p3 != null) {
-    setP3(index);
-    throw new Error("Two candidates cannot have same preference");
-  }
-  if (e.target.value == 1 && p1 == null) {
-    setP1(index);
-  }
-  if (e.target.value == 2 && p2 == null) {
-    setP2(index);
-  }
-  if (e.target.value == 3 && p3 == null) {
-    setP3(index);
+  if (e != null) {
+    setSelectedOption(e.value);
+  } else {
+    setSelectedOption(null);
   }
 }
-function ManyCandidateCard({ name, rollNo, picture, preferences, index, p1, p2, p3, setP1, setP2, setP3}) {
+function ManyCandidateCard({
+  name,
+  rollNo,
+  picture,
+  preferences,
+  setPreferences,
+  variable,
+  setVariable,
+  index,
+}) {
+  let updatedPreferences = preferences;
+  const [selectedOption, setSelectedOption] = useState(null);
+  const voteMap = variable;
+  // console.log(voteMap);
+  if (variable == null || variable == "Abstain" || variable == "Reject") {
+    // console.log("Phatne se pehle", variable);
+  } else {
+    voteMap.map((item) => {
+      updatedPreferences = updatedPreferences.filter((x) => x.value !== item.preference);
+      // console.log(updatedPreferences);
+    });
+  }
   return (
     <div>
       <Card maxW="sm">
@@ -57,16 +75,12 @@ function ManyCandidateCard({ name, rollNo, picture, preferences, index, p1, p2, 
             <Select
               variant="filled"
               placeholder="Select your preference"
-              onChange={(e) => handleChange(e, {index, p1, p2, p3, setP1, setP2, setP3})}
-            >
-              {preferences.map((preference, i) => {
-                return (
-                  <option key={i} value={preference}>
-                    {preference}
-                  </option>
-                );
-              })}
-            </Select>
+              onChange={(e) =>
+                handleChange(e, { index, variable, setVariable, selectedOption, setSelectedOption })
+              }
+              options={updatedPreferences}
+              isClearable={true}
+            />
           </CardFooter>
         </Center>
       </Card>
@@ -74,4 +88,4 @@ function ManyCandidateCard({ name, rollNo, picture, preferences, index, p1, p2, 
   );
 }
 
-export default ManyCandidateCard
+export default ManyCandidateCard;

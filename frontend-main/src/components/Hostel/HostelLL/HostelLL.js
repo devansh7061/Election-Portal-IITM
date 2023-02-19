@@ -5,63 +5,63 @@ import { Center, Heading, HStack } from "@chakra-ui/react";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard";
 import useVoteStore from "../../../store/voteStore";
-import "./HostelSGS.css";
+import "./HostelLL.css";
 
-function HostelSGS({ hostelSGSCandidates }) {
-  const totalCandidates = hostelSGSCandidates.length;
+function HostelLL({ hostelLLCandidates }) {
+  const totalCandidates = hostelLLCandidates.length;
   const many = totalCandidates > 1 ? true : false;
-  const hostelSGS = useVoteStore((state) => state.hostelSGS);
-  const setHostelSGS = useVoteStore((state) => state.setHostelSGS);
-  const hostelSGSPreferences = useVoteStore((state) => state.hostelSGSPreferences);
-  const setHostelSGSPreferences = useVoteStore((state) => state.setHostelSGSPreferences);
+  const hostelLL = useVoteStore((state) => state.hostelLL);
+  const setHostelLL = useVoteStore((state) => state.setHostelLL);
+  const hostelLLPreferences = useVoteStore((state) => state.hostelLLPreferences);
+  const setHostelLLPreferences = useVoteStore((state) => state.setHostelLLPreferences);
   return (
     <div>
       <Center>
         <Heading as="h2" size="xl" noOfLines={1}>
-          General Secretary (Hostel)
+          Literary Secretary
         </Heading>
       </Center>
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {hostelSGSCandidates.map((candidate, i) => {
+          {hostelLLCandidates.map((candidate, i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                preferences={hostelSGSPreferences}
-                setPreferences={setHostelSGSPreferences}
-                variable={hostelSGS}
-                setVariable={setHostelSGS}
+                preferences={hostelLLPreferences}
+                setPreferences={setHostelLLPreferences}
+                variable={hostelLL}
+                setVariable={setHostelLL}
                 index={i}
               />
             );
           })}
-          <Abstain variable={hostelSGS} setVariable={setHostelSGS} />
-          <Reject variable={hostelSGS} setVariable={setHostelSGS} />
+          <Abstain variable={hostelLL} setVariable={setHostelLL} />
+          <Reject variable={hostelLL} setVariable={setHostelLL} />
         </HStack>
       </div>
       <div className={many ? "hide" : "show"}>
         <HStack spacing="150px">
-          {hostelSGSCandidates.map((candidate, i) => {
+          {hostelLLCandidates.map((candidate, i) => {
             return (
               <OneCandidateCard
                 name={candidate.name}
                 rollNo={candidate.rollNo}
                 picture={candidate.picture}
-                variable={hostelSGS}
-                setVariable={setHostelSGS}
+                variable={hostelLL}
+                setVariable={setHostelLL}
                 index={i}
               />
             );
           })}
-          <Abstain variable={hostelSGS} setVariable={setHostelSGS} />
-          <Reject variable={hostelSGS} setVariable={setHostelSGS} />
+          <Abstain variable={hostelLL} setVariable={setHostelLL} />
+          <Reject variable={hostelLL} setVariable={setHostelLL} />
         </HStack>
       </div>
     </div>
   );
 }
 
-export default HostelSGS;
+export default HostelLL;
