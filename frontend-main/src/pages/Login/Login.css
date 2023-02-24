@@ -19,8 +19,15 @@
 
 .login-heading{
     position: fixed;
-    margin-top: 150px;
+    margin-top:80px;
     margin-left: 350px;
+}
+
+.login-image{
+    position: fixed;
+    margin-top: 200px;
+    margin-left: 0px !important;
+    margin-right: 400px;
 }
 
 .form{

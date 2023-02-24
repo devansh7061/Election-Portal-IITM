@@ -15,7 +15,15 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
-  hostel: {
+  currentHostel: {
+    type: String,
+    required: true,
+  },
+  virtualHostel: {
+    type: String,
+    required: true,
+  },
+  program: {
     type: String,
     required: true,
   },
@@ -27,6 +35,10 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
+  residencyType: {
+    type: String,
+    required: true
+  }
 });
 
 module.exports = mongoose.model('Student', studentSchema);

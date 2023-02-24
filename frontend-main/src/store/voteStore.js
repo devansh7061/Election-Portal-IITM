@@ -3,6 +3,8 @@ import create from "zustand";
 const voteStore = (set) => ({
   instiAAS: null,
   instiAASPreferences: null,
+  instiRAS: null,
+  instiRASPreferences: null,
   instiCOCAS: null,
   instiCOCASPreferences: null,
   instiCULSECA: null,
@@ -31,6 +33,14 @@ const voteStore = (set) => ({
   hostelSLPreferences: null,
   hostelTAS: null,
   hostelTASPreferences: null,
+  departmentLegislator: null,
+  departmentPreferences: null,
+  setDepartmentLegislator: (DepartmentLegislator) => {
+    set(() => ({departmentLegislator: DepartmentLegislator}))
+  },
+  setDepartmentPreferences: (DepartmentPreferences) => {
+    set(() => ({departmentPreferences: DepartmentPreferences}))
+  },
   setHostelSGS: (HostelSGS) => {
     set(() => ({ hostelSGS: HostelSGS }));
   },
@@ -120,6 +130,12 @@ const voteStore = (set) => ({
   },
   setInstiAASPreferences: (InstiAASPreferences) => {
     set(() => ({ instiAASPreferences: InstiAASPreferences }));
+  },
+  setInstiRAS: (InstiRAS) => {
+    set(() => ({ instiRAS: InstiRAS }));
+  },
+  setInstiRASPreferences: (InstiRASPreferences) => {
+    set(() => ({ instiRASPreferences: InstiRASPreferences }));
   },
 });
 

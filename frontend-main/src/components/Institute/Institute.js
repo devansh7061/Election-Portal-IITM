@@ -8,9 +8,11 @@ import InstiHAS from "./InstiHAS/InstiHAS";
 import InstiIAR from "./InstiIAR/InstiIAR";
 import InstiSS from "./InstiSS/InstiSS";
 import InstiSGS from "./InstiSGS/InstiSGS";
+import InstiRAS from "./InstiRAS/InstiRAS";
 
 function Institute({
   instiAASCandidates,
+  instiRASCandidates,
   instiCOCASCandidates,
   instiCULSECACandidates,
   instiCULSECLCandidates,
@@ -18,7 +20,14 @@ function Institute({
   instiIARCandidates,
   instiSSCandidates,
   instiSGSCandidates,
+  course
 }) {
+  let studentCategory;
+  if (course == "MS" || course == "Ph.D") {
+    studentCategory = "Research"
+  } else {
+    studentCategory = "Academic"
+  }
   return (
     <div className="institute">
       <Center>
@@ -27,7 +36,10 @@ function Institute({
         </Heading>
       </Center>
       <br></br>
-      <InstiAAS instiAASCandidates={instiAASCandidates} />
+      {studentCategory == "Academic" && (
+        <InstiAAS instiAASCandidates={instiAASCandidates} />
+      )}
+      {studentCategory == "Research" && (<InstiRAS instiRASCandidates={instiRASCandidates} />)}
       <InstiCOCAS instiCOCASCandidates={instiCOCASCandidates} />
       <InstiCULSECA instiCULSECACandidates={instiCULSECACandidates} />
       <InstiCULSECL instiCULSECLCandidates={instiCULSECLCandidates} />

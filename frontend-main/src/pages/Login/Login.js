@@ -11,6 +11,7 @@ import {
   Button,
   Alert,
   AlertIcon,
+  Image
 } from "@chakra-ui/react";
 import useContextStore from "../../store/contextStore";
 
@@ -25,7 +26,8 @@ function verifyLogin(
     setHostel,
     setToken,
     setError,
-    setRollNo
+    setRollNo,
+    setResidencyType
   }
 ) {
   e.preventDefault();
@@ -41,10 +43,11 @@ function verifyLogin(
                     token
                     studentId
                     tokenExpiration
-                    hostel
-                    course
+                    virtualHostel
+                    program
                     department
                     hasVoted
+                    residencyType
                 }
             }
         `
@@ -69,10 +72,11 @@ function verifyLogin(
       }
       if (resData.data.login.token) {
         setToken(resData.data.login.token);
-        setCourse(resData.data.login.course);
+        setCourse(resData.data.login.program);
         setDepartment(resData.data.login.department);
         setHostel(resData.data.login.hostel);
         setHasVoted(resData.data.login.hasVoted);
+        setResidencyType(resData.data.login.residencyType);
         setRollNo(rollNo);
         console.log(isLoggedIn);
         setLoggedIn("true");
@@ -93,27 +97,35 @@ function Login() {
   const setHasVoted = useContextStore((state) => state.setHasVoted);
   const setRollNo = useContextStore((state) => state.setRollNo);
   const isLoggedIn = useContextStore((state) => state.isLoggedIn);
+  const setResidencyType = useContextStore((state) => state.setResidencyType);
   console.log(isLoggedIn);
   const loggedInStatus = (isLoggedIn == "true");
   const setLoggedIn = useContextStore((state) => state.setLoggedIn);
   const [error, setError] = useState(false);
-  return (
-    loggedInStatus ? (
-      <Navigate to ="/home" replace />
-    ) : (
-        <div className="landing">
+  return loggedInStatus ? (
+    <Navigate to="/home" replace />
+  ) : (
+    <div className="landing">
       <div className="login-body">
         <HStack spacing="400px">
           <>
             <VStack>
               <div className="login-heading">
-                <Heading size="md">IIT Madras Voters Portal</Heading>
+                <Heading size="md">IIT Madras Voting Portal</Heading>
                 <Center>
                   <Heading size="md">2023</Heading>
                 </Center>
               </div>
             </VStack>
-            <VStack></VStack>
+            <VStack>
+              <div className="login-image">
+                <Image
+                  src="https://i.imgflip.com/7c0zjo.jpg"
+                    alt="I want you to vote for right candidate"
+                    boxSize="300px"
+                ></Image>
+              </div>
+            </VStack>
           </>
           <div className="form">
             <Center>
@@ -128,7 +140,8 @@ function Login() {
                     setHostel,
                     setHasVoted,
                     setError,
-                    setRollNo
+                    setRollNo,
+                    setResidencyType,
                   })
                 }
               >
@@ -169,7 +182,6 @@ function Login() {
         </HStack>
       </div>
     </div>
-    )
   );
 }
 

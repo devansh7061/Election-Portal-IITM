@@ -10,6 +10,10 @@ const contextStore = (set) => ({
   hasVoted: "",
   rollNo: "",
   isLoggedIn: "false",
+  residencyType: "",
+  setResidencyType: (ResidencyType) => {
+    set(() => ({residencyType: ResidencyType}))
+  },
   setLoggedIn: (LoggedInStatus) => {
     set(() => ({ isLoggedIn: LoggedInStatus }));
   },

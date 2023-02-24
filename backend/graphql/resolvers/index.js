@@ -40,7 +40,7 @@ module.exports = {
             throw error;
         }
     },
-    candidates: async ({hostel, department, course}, req) => {
+    candidates: async ({virtualHostel, department, program}, req) => {
         if (!req.isAuth) {
             throw new Error('Unauthenticated!');
         }
@@ -49,14 +49,34 @@ module.exports = {
             let hostelCandidates = [];
             let instituteCandidates = [];
             let departmentCandidates = [];
+            let studentCategory;
+            if (program == "MS" || program == "Ph.D") {
+                studentCategory = "Research"
+            } else {
+                studentCategory = "Academic"
+            }
             candidates.map((candidate) => {
-                if (candidate.category == hostel) {
+                if (candidate.category == virtualHostel) {
                     hostelCandidates = [...hostelCandidates, candidate];
                 }
-                if (candidate.category == "Institute") {
+                if (candidate.poll == "Institute" && candidate.category==studentCategory) {
                     instituteCandidates = [...instituteCandidates, candidate];
                 }
-                if (candidate.category == course && candidate.poll == department) {
+                if (candidate.category == department && candidate.poll == "Department") {
+                    if (studentCategory == "Research" && candidate.post == "DEPARTMENT LEGISLATOR (RESEARCH)") {
+                        departmentCandidates = [
+                          ...departmentCandidates,
+                          candidate,
+                        ];
+                    }
+                    if (studentCategory == "Academic" && candidate.post == "DEPARTMENT LEGISLATOR (ACADEMIC)" && program!="M.Tech") {
+                        departmentCandidates = [
+                          ...departmentCandidates,
+                          candidate,
+                        ];
+                    }
+                }
+                if (candidate.category == "M.Tech" && candidate.poll == "Department") {
                     departmentCandidates = [...departmentCandidates, candidate];
                 }
             })
@@ -78,7 +98,6 @@ module.exports = {
                 poll: args.candidateInput.poll,
                 category: args.candidateInput.category,
                 picture: args.candidateInput.picture,
-                competition: args.candidateInput.competition
             })
             const result = await candidate.save();
 
@@ -102,9 +121,12 @@ module.exports = {
                 rollNo: args.studentInput.rollNo,
                 password: hashedPassword,
                 department: args.studentInput.department,
-                hostel: args.studentInput.hostel,
+                virtualHostel: args.studentInput.virtualHostel,
+                currentHostel: args.studentInput.currentHostel,
                 course: args.studentInput.course,
-                hasVoted: false
+                program: args.studentInput.program,
+                hasVoted: false,
+                residencyType: args.studentInput.residencyType
             });
 
             const result = await student.save();
@@ -127,15 +149,19 @@ module.exports = {
         if (!isEqual) {
             throw new Error("Password is incorrect");
         }
-        const hostel = student.hostel;
-        const course = student.course;
+        if (student.hasVoted == "true") {
+            throw new Error("U have already voted");
+        }
+        const virtualHostel = student.virtualHostel;
+        const program = student.program;
         const department = student.department;
         const hasVoted = student.hasVoted;
+        const residencyType = student.residencyType;
         const token = jwt.sign(
           { studentId: student.id, rollNo: student.rollNo },
           "InstiElections",
           { expiresIn: "1h" }
         );
-        return { studentId: student.id, token: token, tokenExpiration: 1, hostel: hostel, department: department, course: course, hasVoted: hasVoted };
+        return { studentId: student.id, token: token, tokenExpiration: 1, virtualHostel: virtualHostel, department: department, program: program, hasVoted: hasVoted, residencyType: residencyType };
     }
 }

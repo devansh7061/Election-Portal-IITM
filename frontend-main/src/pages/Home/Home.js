@@ -19,7 +19,7 @@ import useVoteStore from "../../store/voteStore";
 import loadCandidates from "../../constants/loadCandidates";
 import Institute from "../../components/Institute/Institute";
 import Hostel from "../../components/Hostel/Hostel";
-import Department from "../../components/Department";
+import Department from "../../components/Department/Department";
 import "./Home.css";
 
 const pollMap = new Map([
@@ -80,7 +80,7 @@ function validateForm({
   hostelSL,
   hostelSS,
   hostelTAS,
-  setFormError
+  setFormError,
 }) {
   if (instiAAS == null) {
     setFormError("Please select preference for Academic Affairs Secretary");
@@ -232,7 +232,7 @@ function handleClick(
     instiIARTotalCandidates,
     instiSSTotalCandidates,
     instiSGSTotalCandidates,
-    setFormError
+    setFormError,
   }
 ) {
   e.preventDefault();
@@ -253,7 +253,7 @@ function handleClick(
       hostelSL,
       hostelSS,
       hostelTAS,
-      setFormError
+      setFormError,
     });
     let result = instiAAS;
     const instiAASString = generateString1(
@@ -396,6 +396,7 @@ function handleClick(
 }
 function Home() {
   const setHasVoted = useContextStore((state) => state.setHasVoted);
+  const residencyType = useContextStore((state) => state.residencyType);
   const [formError, setFormError] = useState(null);
   const rollNo = useContextStore((state) => state.rollNo);
   const department = useContextStore((state) => state.department);
@@ -403,6 +404,7 @@ function Home() {
   const hostel = useContextStore((state) => state.hostel);
   const token = useContextStore((state) => state.token);
   const instiAAS = useVoteStore((state) => state.instiAAS);
+  const instiRAS = useVoteStore((state) => state.instiRAS);
   const instiCOCAS = useVoteStore((state) => state.instiCOCAS);
   const instiCULSECA = useVoteStore((state) => state.instiCULSECA);
   const instiCULSECL = useVoteStore((state) => state.instiCULSECL);
@@ -419,6 +421,8 @@ function Home() {
   const hostelTAS = useVoteStore((state) => state.hostelTAS);
   const [instiAASCandidates, setInstiAASCandidates] = useState([]);
   const [instiAASTotalCandidates, setInstiAASTotalCandidates] = useState();
+  const [instiRASCandidates, setInstiRASCandidates] = useState([]);
+  const [instiRASTotalCandidates, setInstiRASTotalCandidates] = useState();
   const [instiCOCASCandidates, setInstiCOCASCandidates] = useState([]);
   const [instiCOCASTotalCandidates, setInstiCOCASTotalCandidates] = useState();
   const [instiCULSECACandidates, setInstiCULSECACandidates] = useState([]);
@@ -455,6 +459,9 @@ function Home() {
     (state) => state.setInstiSGSPreferences
   );
   const setInstiAASPreferences = useVoteStore(
+    (state) => state.setInstiAASPreferences
+  );
+  const setInstiRASPreferences = useVoteStore(
     (state) => state.setInstiAASPreferences
   );
   const setInstiCOCASPreferences = useVoteStore(
@@ -506,6 +513,9 @@ function Home() {
       instiAASCandidates,
       setInstiAASCandidates,
       setInstiAASTotalCandidates,
+      instiRASCandidates,
+      setInstiRASCandidates,
+      setInstiRASTotalCandidates,
       instiCOCASCandidates,
       setInstiCOCASTotalCandidates,
       setInstiCOCASCandidates,
@@ -552,6 +562,7 @@ function Home() {
       setDepartmentCandidates,
       setInstiSGSPreferences,
       setInstiAASPreferences,
+      setInstiRASPreferences,
       setInstiCOCASPreferences,
       setInstiCULSECAPreferences,
       setInstiCULSECLPreferences,
@@ -578,6 +589,7 @@ function Home() {
       </Box>
       <Institute
         instiAASCandidates={instiAASCandidates}
+        instiRASCandidates={instiRASCandidates}
         instiCOCASCandidates={instiCOCASCandidates}
         instiCULSECACandidates={instiCULSECACandidates}
         instiCULSECLCandidates={instiCULSECLCandidates}
@@ -585,19 +597,23 @@ function Home() {
         instiIARCandidates={instiIARCandidates}
         instiSSCandidates={instiSSCandidates}
         instiSGSCandidates={instiSGSCandidates}
+        course={course}
       />
       <br></br>
-      <Hostel
-        hostelSGSCandidates={hostelSGSCandidates}
-        hostelSSCandidates={hostelSSCandidates}
-        hostelHHSCandidates={hostelHHSCandidates}
-        hostelHLCandidates={hostelHLCandidates}
-        hostelLLCandidates={hostelLLCandidates}
-        hostelSLCandidates={hostelSLCandidates}
-        hostelTASCandidates={hostelTASCandidates}
-      />
+      {residencyType == "H" && (
+        <Hostel
+          hostelSGSCandidates={hostelSGSCandidates}
+          hostelSSCandidates={hostelSSCandidates}
+          hostelHHSCandidates={hostelHHSCandidates}
+          hostelHLCandidates={hostelHLCandidates}
+          hostelLLCandidates={hostelLLCandidates}
+          hostelSLCandidates={hostelSLCandidates}
+          hostelTASCandidates={hostelTASCandidates}
+        />
+      )}
+
       <br></br>
-      {/* <Department departmentCandidates={departmentCandidates} course={course} /> */}
+      <Department departmentCandidates={departmentCandidates} course={course} />
       <br></br>
       <Center>
         <Button
@@ -607,6 +623,8 @@ function Home() {
               hostel,
               instiAAS,
               instiAASTotalCandidates,
+              instiRAS,
+              instiRASTotalCandidates,
               instiCOCAS,
               instiCOCASTotalCandidates,
               instiCULSECA,
@@ -635,20 +653,18 @@ function Home() {
               hostelTASTotalCandidates,
               hostelHL,
               hostelHLTotalCandidates,
-              setFormError
+              setFormError,
             })
           }
         >
           Vote
         </Button>
       </Center>
-      <div className={(formError==null)?"hide":""}>
+      <div className={formError == null ? "hide" : ""}>
         <Center>
           <Alert status="error">
             <AlertIcon />
-            <AlertTitle>
-              {formError}
-            </AlertTitle>
+            <AlertTitle>{formError}</AlertTitle>
           </Alert>
         </Center>
       </div>

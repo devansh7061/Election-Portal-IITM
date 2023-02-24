@@ -27,10 +27,6 @@ const candidateSchema = new Schema({
     type: String,
     required: true
   },
-  competition: {
-    type: Boolean,
-    required: true
-  }
 });
 
 module.exports = mongoose.model('Candidate', candidateSchema);
