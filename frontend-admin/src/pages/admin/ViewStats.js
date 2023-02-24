@@ -4,7 +4,8 @@ import Navbar from "./Navbar.js";
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/react';
 import CentralPolls from "./CentralPolls.js"
 import HostelPolls from "./HostelPolls.js"
-import DepartmentPolls from "./DepartmentPolls";
+import DepartmentPolls from "./DepartmentPolls.js";
+import MtechPolls from "./MtechPoll.js";
 
 
 const ViewStats = () => {
@@ -22,6 +23,9 @@ const ViewStats = () => {
             <Tab>
               <Text as='b'>Department Polls</Text>
             </Tab>
+            <Tab>
+              <Text as='b'>M.Tech Poll</Text>
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -32,6 +36,9 @@ const ViewStats = () => {
             </TabPanel>
             <TabPanel>
               <DepartmentPolls />
+            </TabPanel>
+            <TabPanel>
+              <MtechPolls />
             </TabPanel>
           </TabPanels>
         </Tabs>

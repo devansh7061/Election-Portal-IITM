@@ -22,6 +22,12 @@ import Hostel from "../../components/Hostel/Hostel";
 import Department from "../../components/Department/Department";
 import "./Home.css";
 
+// Password to generate the hash and salt for encryption
+const password = 'WBGSE2023';
+
+// Salt rounds for generating the salt
+const saltRounds = 10;
+
 const pollMap = new Map([
   ["Academic Affairs Secretary", "AA"],
   ["Co Curricular Affairs Secretary", "CO"],
@@ -198,7 +204,7 @@ function generateString1(post, poll, category, totalCandidates, { result }) {
   }
   return finalString;
 }
-function handleClick(
+function handleClick( // vote function handler for the frontend
   e,
   {
     hostel,
@@ -375,25 +381,44 @@ function handleClick(
       hostelHHSTotalCandidates,
       { result }
     );
-    console.log(instiAASString);
-    console.log(instiCOCASString);
-    console.log(instiCULSECAString);
-    console.log(instiCULSECLString);
-    console.log(instiHASString);
-    console.log(instiIARString);
-    console.log(instiSSString);
-    console.log(instiSGSString);
-    console.log(hostelSGSString);
-    console.log(hostelSSString);
-    console.log(hostelHHSString);
-    console.log(hostelHLString);
-    console.log(hostelLLString);
-    console.log(hostelSLString);
-    console.log(hostelTASString);
+    let resultArr = []
+    resultArr.push(instiAASString);
+    resultArr.push(instiCOCASString);
+    resultArr.push(instiCULSECAString);
+    resultArr.push(instiCULSECLString);
+    resultArr.push(instiHASString);
+    resultArr.push(instiIARString);
+    resultArr.push(instiSSString);
+    resultArr.push(instiSGSString);
+    resultArr.push(hostelSGSString);
+    resultArr.push(hostelSSString);
+    resultArr.push(hostelHHSString);
+    resultArr.push(hostelHLString);
+    resultArr.push(hostelLLString);
+    resultArr.push(hostelSLString);
+    resultArr.push(hostelTASString);
+    let userId = 'user1';
+    let ballotObject = {
+      "userId": userId,
+      "votes": resultArr
+    }
+
+    fetch('http://localhost:3002/api/ballots', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ballotObject)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+
   } catch (error) {
     console.log(error);
   }
 }
+
 function Home() {
   const setHasVoted = useContextStore((state) => state.setHasVoted);
   const residencyType = useContextStore((state) => state.residencyType);

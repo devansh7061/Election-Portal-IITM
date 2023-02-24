@@ -22,11 +22,6 @@ function AddVoter() {
             <FormHelperText color="grey.700">
               Enter the wallet address from the wallet
             </FormHelperText>
-            <FormLabel>IP address</FormLabel>
-            <Input type="text" id="ipaddress" />
-            <FormHelperText color="grey.700">
-              Enter the IP address of your device
-            </FormHelperText>
             <Center>
               <Button mt={4} colorScheme="gray" variant="outline" type="Submit">
                 Submit

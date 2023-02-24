@@ -23,7 +23,7 @@ contract Election is
     // if some pollCode which doesn't exist is sent, the transaction won't pass through
     // add a require condition where this function has to return true before each segment in the addVote function
     function hostelPollExists(bytes4 hostelPollCode)
-        public
+        internal
         view
         returns (bool)
     {
@@ -40,7 +40,7 @@ contract Election is
     }
 
     function centralPollExists(bytes2 centralPollCode)
-        public
+        internal
         view
         returns (bool)
     {
@@ -57,7 +57,7 @@ contract Election is
     }
 
     function departmentPollExists(bytes4 departmentPollCode)
-        public
+        internal
         view
         returns (bool)
     {
@@ -73,7 +73,26 @@ contract Election is
         return isValid;
     }
 
-    function addVote(bytes32[] memory votecode) public {
+    function mtechPollExists(bytes4 _mtechPollCode)
+        internal
+        pure
+        returns (bool)
+    {
+        bool isValid = false;
+        if (
+            keccak256(abi.encodePacked(_mtechPollCode)) ==
+            keccak256(abi.encodePacked("MT"))
+        ) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    function addVote(bytes32[] memory votecode)
+        public
+        onlyNode
+        electionStarted
+    {
         for (uint256 i = 0; i < votecode.length; i++) {
             bytes32 thisPollCode = votecode[i];
             // central poll
@@ -105,7 +124,7 @@ contract Election is
                 }
                 // preferential vote
                 else {
-                    uint256 vote = bytes32ToCentralVote(thisPollCode);
+                    uint256 vote = bytes32ToCentralOrMtechVote(thisPollCode);
                     centralPolls[pollPositionCode].votes.push(vote);
                 }
                 // totalVotes incremented by 1
@@ -152,7 +171,7 @@ contract Election is
                     thisPollCode[1],
                     thisPollCode[2],
                     thisPollCode[3],
-                    thisPollCode[3]
+                    thisPollCode[4]
                 );
                 require(
                     departmentPollExists(pollDepartmentPositionCode),
@@ -176,6 +195,42 @@ contract Election is
                 }
                 // totalVotes incremented by 1
                 departmentPolls[pollDepartmentPositionCode].totalVotes += 1;
+            }
+            // mtech poll
+            else if (
+                keccak256(abi.encodePacked(thisPollCode[0])) ==
+                keccak256(abi.encodePacked(bytes1("4")))
+            ) {
+                bytes2 pollPositionCode = concat2(
+                    thisPollCode[1],
+                    thisPollCode[2]
+                );
+                require(
+                    keccak256(abi.encodePacked(pollPositionCode)) ==
+                        keccak256(abi.encodePacked("MT")),
+                    "INVALID_MTECH_POLL"
+                );
+                // abstained vote
+                if (
+                    keccak256(abi.encodePacked(thisPollCode[3])) ==
+                    keccak256(abi.encodePacked(bytes1("1")))
+                ) {
+                    mtechPoll[pollPositionCode].abstainedVotes += 1;
+                }
+                // rejected vote
+                else if (
+                    keccak256(abi.encodePacked(thisPollCode[4])) ==
+                    keccak256(abi.encodePacked(bytes1("1")))
+                ) {
+                    mtechPoll[pollPositionCode].rejectedVotes += 1;
+                }
+                // preferential vote
+                else {
+                    uint256 vote = bytes32ToCentralOrMtechVote(thisPollCode);
+                    mtechPoll[pollPositionCode].votes.push(vote);
+                }
+                // totalVotes incremented by 1
+                mtechPoll[pollPositionCode].totalVotes += 1;
             }
         }
     }
@@ -227,6 +282,21 @@ contract Election is
         ];
     }
 
+    function getMtechPollDetails(bytes2 pollPositionCode)
+        public
+        view
+        onlyAdmin
+        returns (uint256[4] memory details)
+    {
+        return [
+            mtechPoll[pollPositionCode].abstainedVotes,
+            mtechPoll[pollPositionCode].rejectedVotes,
+            mtechPoll[pollPositionCode].totalVotes -
+                mtechPoll[pollPositionCode].abstainedVotes,
+            mtechPoll[pollPositionCode].totalVotes
+        ];
+    }
+
     // @func find votes of each candidate in a poll
     // @param bytes2 pollCode if central bytes4 pollCode if anything else
     // @output uint256[], where each element is the vote of some candidate
@@ -248,12 +318,21 @@ contract Election is
         return hostelPolls[pollHostelPositionCode].votes;
     }
 
-    function getDepartmentPollVotes(bytes2 pollDepartmentPositionCode)
+    function getDepartmentPollVotes(bytes4 pollDepartmentPositionCode)
         public
         view
         onlyAdmin
         returns (uint256[] memory)
     {
         return departmentPolls[pollDepartmentPositionCode].votes;
+    }
+
+    function getMtechPollVotes(bytes2 pollPositionCode)
+        public
+        view
+        onlyAdmin
+        returns (uint256[] memory)
+    {
+        return mtechPoll[pollPositionCode].votes;
     }
 }

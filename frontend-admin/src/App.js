@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
-import Navbar from "./pages/admin/Navbar";
-import Login from "./pages/login/Login";
+import Navbar from "./pages/admin/Navbar.js";
+import Login from "./pages/login/Login.js";
 import Protected from "./components/Protected";
 import StartEnd from "./pages/admin/StartEnd.js";
 import AddVoter from "./pages/admin/AddVoter.js";

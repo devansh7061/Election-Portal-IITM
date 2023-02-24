@@ -32,6 +32,7 @@ contract PreElection {
     mapping(bytes4 => PollStruct) internal departmentPolls;
     mapping(bytes2 => PollStruct) internal centralPolls;
     mapping(bytes4 => PollStruct) internal hostelPolls;
+    mapping(bytes2 => PollStruct) internal mtechPoll;
 
     // @mod admin functions
     modifier onlyAdmin() {
@@ -75,6 +76,7 @@ contract PreElection {
     function endElection() public onlyAdmin {
         require((start == true) && (end == false), "ELECTION_ALREADY_ENDED");
         end = true;
+        start = false;
     }
 
     function viewElectionEnded() public view returns (bool) {
@@ -127,7 +129,7 @@ contract PreElection {
         return result;
     }
 
-    function bytesToCentralVote(bytes memory data)
+    function bytesToCentralOrMtechVote(bytes memory data)
         internal
         pure
         returns (uint256)
@@ -167,12 +169,12 @@ contract PreElection {
         return result;
     }
 
-    function bytes32ToCentralVote(bytes32 votecode)
+    function bytes32ToCentralOrMtechVote(bytes32 votecode)
         internal
         pure
         returns (uint256)
     {
-        return (bytesToCentralVote(bytes32ToBytes(votecode)));
+        return (bytesToCentralOrMtechVote(bytes32ToBytes(votecode)));
     }
 
     function bytes32ToHostOrDepVote(bytes32 votecode)

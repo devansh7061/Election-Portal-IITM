@@ -210,9 +210,8 @@ contract AddOtherPolls is PreElection {
         hostelPolls["AMPD"] = AMPD;
         departmentPollCodes.push("AMPD");
 
-        PollStruct memory MTMT;
-        MTMT.noOfCandidates = 3;
-        hostelPolls["MTMT"] = MTMT;
-        departmentPollCodes.push("MTMT");
+        PollStruct memory MT;
+        MT.noOfCandidates = 3;
+        mtechPoll["MT"] = MT;
     }
 }
