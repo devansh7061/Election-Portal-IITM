@@ -39,8 +39,8 @@
       ]
     },
     "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\preElection.sol": {
-      "lastModificationDate": 1676219321069,
-      "contentHash": "8c0acb83537f6ea15f6299fb7a260f4a",
+      "lastModificationDate": 1677070581746,
+      "contentHash": "4d092253d7df4480d7c41750bd9de485",
       "sourceName": "contracts/preElection.sol",
       "solcConfig": {
         "version": "0.7.0",
@@ -74,8 +74,8 @@
       ]
     },
     "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\election.sol": {
-      "lastModificationDate": 1676223222701,
-      "contentHash": "9fbd1c1f323c35037a2c2dd5b0a79444",
+      "lastModificationDate": 1677070565566,
+      "contentHash": "2fa2dbccea886f21ee1cd17df8c984f6",
       "sourceName": "contracts/election.sol",
       "solcConfig": {
         "version": "0.7.0",
@@ -227,8 +227,8 @@
       ]
     },
     "D:\\vote-block\\Election-Portal-Pilot\\frontend-admin\\contracts\\addOtherPolls.sol": {
-      "lastModificationDate": 1674970459519,
-      "contentHash": "9cf9f02aea15eef2dc26dabdbed19a91",
+      "lastModificationDate": 1677070531873,
+      "contentHash": "a6b358442eac90c5562eef34df87ac2d",
       "sourceName": "contracts/addOtherPolls.sol",
       "solcConfig": {
         "version": "0.7.0",
