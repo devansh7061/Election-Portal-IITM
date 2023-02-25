@@ -56,27 +56,36 @@ module.exports = {
                 studentCategory = "Academic"
             }
             candidates.map((candidate) => {
-                if (candidate.category == virtualHostel) {
-                    hostelCandidates = [...hostelCandidates, candidate];
+                if (
+                  candidate.category.toUpperCase() ==
+                    virtualHostel.toUpperCase() &&
+                  candidate.poll == "Hostel"
+                ) {
+                  hostelCandidates = [...hostelCandidates, candidate];
                 }
                 if (candidate.poll == "Institute" && candidate.category==studentCategory) {
                     instituteCandidates = [...instituteCandidates, candidate];
                 }
-                if (candidate.category == department && candidate.poll == "Department") {
-                    if (studentCategory == "Research" && candidate.post == "DEPARTMENT LEGISLATOR (RESEARCH)") {
-                        departmentCandidates = [
-                          ...departmentCandidates,
-                          candidate,
-                        ];
-                    }
-                    if (studentCategory == "Academic" && candidate.post == "DEPARTMENT LEGISLATOR (ACADEMIC)" && program!="M.Tech") {
-                        departmentCandidates = [
-                          ...departmentCandidates,
-                          candidate,
-                        ];
-                    }
+                if (
+                  candidate.category.toUpperCase() ==
+                    department.toUpperCase() &&
+                  candidate.poll == "Department"
+                ) {
+                  if (
+                    studentCategory == "Research" &&
+                    candidate.post == "DEPARTMENT LEGISLATOR (RESEARCH)"
+                  ) {
+                    departmentCandidates = [...departmentCandidates, candidate];
+                  }
+                  if (
+                    studentCategory == "Academic" &&
+                    candidate.post == "DEPARTMENT LEGISLATOR (ACADEMIC)" &&
+                    program != "M.Tech"
+                  ) {
+                    departmentCandidates = [...departmentCandidates, candidate];
+                  }
                 }
-                if (candidate.category == "M.Tech" && candidate.poll == "Department") {
+                if (candidate.category == "M.Tech" && candidate.poll == "Department" && program == "M.Tech") {
                     departmentCandidates = [...departmentCandidates, candidate];
                 }
             })

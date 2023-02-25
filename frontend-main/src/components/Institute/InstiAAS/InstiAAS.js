@@ -17,7 +17,8 @@ function InstiAAS({instiAASCandidates}) {
     );
     const setInstiAASPreferences = useVoteStore(
       (state) => state.setInstiAASPreferences
-    );
+  );
+  console.log(instiAASPreferences, "dgegegeg")
     return (
       <div>
         <Center>

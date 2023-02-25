@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -13,6 +14,8 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
+  VStack,
+  Image,
 } from "@chakra-ui/react";
 import useContextStore from "../../store/contextStore";
 import useVoteStore from "../../store/voteStore";
@@ -23,7 +26,7 @@ import Department from "../../components/Department/Department";
 import "./Home.css";
 
 // Password to generate the hash and salt for encryption
-const password = 'WBGSE2023';
+const password = "WBGSE2023";
 
 // Salt rounds for generating the salt
 const saltRounds = 10;
@@ -87,6 +90,7 @@ function validateForm({
   hostelSS,
   hostelTAS,
   setFormError,
+  residencyType,
 }) {
   if (instiAAS == null) {
     setFormError("Please select preference for Academic Affairs Secretary");
@@ -138,35 +142,39 @@ function validateForm({
     setFormError("Please select preference for Students General Secretary");
     throw new Error("Please select preference for Students General Secretary");
   }
-  if (hostelSGS == null) {
-    setFormError("Please select preference for General Secretary(Hostel)");
-    throw new Error("Please select preference for General Secretary(Hostel)");
-  }
-  if (hostelHHS == null) {
-    setFormError("Please select preference for Health and Hygiene Secretary");
-    throw new Error(
-      "Please select preference for Health and Hygiene Secretary"
-    );
-  }
-  if (hostelSL == null) {
-    setFormError("Please select preference for Social Secretary");
-    throw new Error("Please select preference for Social Secretary");
-  }
-  if (hostelLL == null) {
-    setFormError("Please select preference for Literary Secretary");
-    throw new Error("Please select preference for Literary Secretary");
-  }
-  if (hostelHL == null) {
-    setFormError("Please select preference for Hostel Legislator");
-    throw new Error("Please select preference for Hostel Legislator");
-  }
-  if (hostelTAS == null) {
-    setFormError("Please select preference for Technical Affairs Secretary");
-    throw new Error("Please select preference for Technical Affairs Secretary");
-  }
-  if (hostelSS == null) {
-    setFormError("Please select preference for Sports Secretary");
-    throw new Error("Please select preference for Sports Secretary");
+  if (residencyType == "H") {
+    if (hostelSGS == null) {
+      setFormError("Please select preference for General Secretary(Hostel)");
+      throw new Error("Please select preference for General Secretary(Hostel)");
+    }
+    if (hostelHHS == null) {
+      setFormError("Please select preference for Health and Hygiene Secretary");
+      throw new Error(
+        "Please select preference for Health and Hygiene Secretary"
+      );
+    }
+    if (hostelSL == null) {
+      setFormError("Please select preference for Social Secretary");
+      throw new Error("Please select preference for Social Secretary");
+    }
+    if (hostelLL == null) {
+      setFormError("Please select preference for Literary Secretary");
+      throw new Error("Please select preference for Literary Secretary");
+    }
+    if (hostelHL == null) {
+      setFormError("Please select preference for Hostel Legislator");
+      throw new Error("Please select preference for Hostel Legislator");
+    }
+    if (hostelTAS == null) {
+      setFormError("Please select preference for Technical Affairs Secretary");
+      throw new Error(
+        "Please select preference for Technical Affairs Secretary"
+      );
+    }
+    if (hostelSS == null) {
+      setFormError("Please select preference for Sports Secretary");
+      throw new Error("Please select preference for Sports Secretary");
+    }
   }
 }
 
@@ -239,6 +247,10 @@ function handleClick( // vote function handler for the frontend
     instiSSTotalCandidates,
     instiSGSTotalCandidates,
     setFormError,
+    setHasVoted,
+    navigate,
+    setLoggedIn,
+    residencyType,
   }
 ) {
   e.preventDefault();
@@ -260,6 +272,7 @@ function handleClick( // vote function handler for the frontend
       hostelSS,
       hostelTAS,
       setFormError,
+      residencyType,
     });
     let result = instiAAS;
     const instiAASString = generateString1(
@@ -325,63 +338,65 @@ function handleClick( // vote function handler for the frontend
       instiSGSTotalCandidates,
       { result }
     );
-    result = hostelSGS;
-    const hostelSGSString = generateString1(
-      "General Secretary (Hostel)",
-      "Hostel",
-      hostel,
-      hostelSGSTotalCandidates,
-      { result }
-    );
-    result = hostelSS;
-    const hostelSSString = generateString1(
-      "Sports Secretary (Hostel)",
-      "Hostel",
-      hostel,
-      hostelSSTotalCandidates,
-      { result }
-    );
-    result = hostelLL;
-    const hostelLLString = generateString1(
-      "Literary Secretary",
-      "Hostel",
-      hostel,
-      hostelLLTotalCandidates,
-      { result }
-    );
-    result = hostelSL;
-    const hostelSLString = generateString1(
-      "Social Secretary",
-      "Hostel",
-      hostel,
-      hostelSLTotalCandidates,
-      { result }
-    );
-    result = hostelTAS;
-    const hostelTASString = generateString1(
-      "Technical Affairs Secretary",
-      "Hostel",
-      hostel,
-      hostelTASTotalCandidates,
-      { result }
-    );
-    result = hostelHL;
-    const hostelHLString = generateString1(
-      "Hostel Legislator",
-      "Hostel",
-      hostel,
-      hostelHLTotalCandidates,
-      { result }
-    );
-    result = hostelHHS;
-    const hostelHHSString = generateString1(
-      "Health and Hygiene Secretary",
-      "Hostel",
-      hostel,
-      hostelHHSTotalCandidates,
-      { result }
-    );
-    let resultArr = []
+    if (residencyType == "H") {
+      result = hostelSGS;
+      const hostelSGSString = generateString1(
+        "General Secretary (Hostel)",
+        "Hostel",
+        hostel,
+        hostelSGSTotalCandidates,
+        { result }
+      );
+      result = hostelSS;
+      const hostelSSString = generateString1(
+        "Sports Secretary (Hostel)",
+        "Hostel",
+        hostel,
+        hostelSSTotalCandidates,
+        { result }
+      );
+      result = hostelLL;
+      const hostelLLString = generateString1(
+        "Literary Secretary",
+        "Hostel",
+        hostel,
+        hostelLLTotalCandidates,
+        { result }
+      );
+      result = hostelSL;
+      const hostelSLString = generateString1(
+        "Social Secretary",
+        "Hostel",
+        hostel,
+        hostelSLTotalCandidates,
+        { result }
+      );
+      result = hostelTAS;
+      const hostelTASString = generateString1(
+        "Technical Affairs Secretary",
+        "Hostel",
+        hostel,
+        hostelTASTotalCandidates,
+        { result }
+      );
+      result = hostelHL;
+      const hostelHLString = generateString1(
+        "Hostel Legislator",
+        "Hostel",
+        hostel,
+        hostelHLTotalCandidates,
+        { result }
+      );
+      result = hostelHHS;
+      const hostelHHSString = generateString1(
+        "Health and Hygiene Secretary",
+        "Hostel",
+        hostel,
+        hostelHHSTotalCandidates,
+        { result }
+      );
+    }
+    let resultArr = [];
     resultArr.push(instiAASString);
     resultArr.push(instiCOCASString);
     resultArr.push(instiCULSECAString);
@@ -390,30 +405,32 @@ function handleClick( // vote function handler for the frontend
     resultArr.push(instiIARString);
     resultArr.push(instiSSString);
     resultArr.push(instiSGSString);
-    resultArr.push(hostelSGSString);
-    resultArr.push(hostelSSString);
-    resultArr.push(hostelHHSString);
-    resultArr.push(hostelHLString);
-    resultArr.push(hostelLLString);
-    resultArr.push(hostelSLString);
-    resultArr.push(hostelTASString);
-    let userId = 'user1';
+    // resultArr.push(hostelSGSString);
+    // resultArr.push(hostelSSString);
+    // resultArr.push(hostelHHSString);
+    // resultArr.push(hostelHLString);
+    // resultArr.push(hostelLLString);
+    // resultArr.push(hostelSLString);
+    // resultArr.push(hostelTASString);
+    let userId = "user1";
     let ballotObject = {
-      "userId": userId,
-      "votes": resultArr
-    }
+      userId: userId,
+      votes: resultArr,
+    };
 
-    fetch('http://localhost:3002/api/ballots', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(ballotObject)
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-
+    // fetch('http://localhost:3002/api/ballots', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(ballotObject)
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    //   .catch(error => console.error(error));
+    setHasVoted(true);
+    setLoggedIn(false);
+    navigate("/");
   } catch (error) {
     console.log(error);
   }
@@ -421,6 +438,8 @@ function handleClick( // vote function handler for the frontend
 
 function Home() {
   const setHasVoted = useContextStore((state) => state.setHasVoted);
+  const setLoggedIn = useContextStore((state) => state.setLoggedIn);
+  const navigate = useNavigate();
   const residencyType = useContextStore((state) => state.residencyType);
   const [formError, setFormError] = useState(null);
   const rollNo = useContextStore((state) => state.rollNo);
@@ -479,6 +498,7 @@ function Home() {
   const [hostelHLTotalCandidates, setHostelHLTotalCandidates] = useState();
   const [hostelTASTotalCandidates, setHostelTASTotalCandidates] = useState();
   const [departmentCandidates, setDepartmentCandidates] = useState([]);
+  const [departmentTotalCandidates, setDepartmentTotalCandidates] = useState();
 
   const setInstiSGSPreferences = useVoteStore(
     (state) => state.setInstiSGSPreferences
@@ -487,7 +507,7 @@ function Home() {
     (state) => state.setInstiAASPreferences
   );
   const setInstiRASPreferences = useVoteStore(
-    (state) => state.setInstiAASPreferences
+    (state) => state.setInstiRASPreferences
   );
   const setInstiCOCASPreferences = useVoteStore(
     (state) => state.setInstiCOCASPreferences
@@ -528,6 +548,9 @@ function Home() {
   const setHostelTASPreferences = useVoteStore(
     (state) => state.setHostelTASPreferences
   );
+  const setDepartmentPreferences = useVoteStore(
+    (state) => state.setDepartmentPreferences
+  );
 
   useEffect(() => {
     loadCandidates({
@@ -538,6 +561,7 @@ function Home() {
       instiAASCandidates,
       setInstiAASCandidates,
       setInstiAASTotalCandidates,
+      setDepartmentTotalCandidates,
       instiRASCandidates,
       setInstiRASCandidates,
       setInstiRASTotalCandidates,
@@ -601,6 +625,7 @@ function Home() {
       setHostelLLPreferences,
       setHostelTASPreferences,
       setHostelHLPreferences,
+      setDepartmentPreferences,
     });
   }, []);
   return (
@@ -679,12 +704,17 @@ function Home() {
               hostelHL,
               hostelHLTotalCandidates,
               setFormError,
+              setHasVoted,
+              navigate,
+              setLoggedIn,
+              residencyType,
             })
           }
         >
           Vote
         </Button>
       </Center>
+      <br></br>
       <div className={formError == null ? "hide" : ""}>
         <Center>
           <Alert status="error">
@@ -693,6 +723,22 @@ function Home() {
           </Alert>
         </Center>
       </div>
+      <br></br>
+      <Box className="navbar" bg="black" w="100%" p={4} color="white">
+        <Center>
+          <VStack>
+            <Text fontSize="lg" fontFamily="cursive">
+              Made with ❤
+            </Text>
+            <Text fontSize="lg" fontFamily="cursive">
+              Devansh Saini & Anirudh Varna
+            </Text>
+            <Text fontSize="lg" fontFamily="cursive" color="#fec901">
+              © Webops and Blockchain Club, IIT Madras
+            </Text>
+          </VStack>
+        </Center>
+      </Box>
     </>
   );
 }

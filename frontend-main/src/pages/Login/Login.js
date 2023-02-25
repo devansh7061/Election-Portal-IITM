@@ -74,7 +74,7 @@ function verifyLogin(
         setToken(resData.data.login.token);
         setCourse(resData.data.login.program);
         setDepartment(resData.data.login.department);
-        setHostel(resData.data.login.hostel);
+        setHostel(resData.data.login.virtualHostel);
         setHasVoted(resData.data.login.hasVoted);
         setResidencyType(resData.data.login.residencyType);
         setRollNo(rollNo);

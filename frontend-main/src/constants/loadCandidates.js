@@ -69,6 +69,8 @@ function loadCandidates({
   setInstiIARTotalCandidates,
   setInstiSSTotalCandidates,
   setInstiSGSTotalCandidates,
+  setDepartmentPreferences,
+  setDepartmentTotalCandidates
 }) {
   const requestBody = {
     query: `
@@ -101,103 +103,102 @@ function loadCandidates({
     .then((resData) => {
       resData.data.candidates.map((candidate) => {
         if (
-          candidate.category == "Institute" &&
-          candidate.post == "ACADEMIC AFFAIRS SECRETARY "
+          candidate.poll == "Institute" &&
+          candidate.post == "ACADEMIC AFFAIRS SECRETARY"
         ) {
           instiAASCandidates = [...instiAASCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
+          candidate.poll == "Institute" &&
           candidate.post == "RESEARCH AFFAIRS SECRETARY"
         ) {
           instiRASCandidates = [...instiRASCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
+          candidate.poll == "Institute" &&
           candidate.post == "CO-CURRICULAR AFFAIRS SECRETARY"
         ) {
           instiCOCASCandidates = [...instiCOCASCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
-          candidate.post == "CULTURAL AFFAIRS SECRETARY (ARTS) "
+          candidate.poll == "Institute" &&
+          candidate.post == "CULTURAL AFFAIRS SECRETARY (ARTS)"
         ) {
           instiCULSECACandidates = [...instiCULSECACandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
-          candidate.post == "CULTURAL AFFAIRS SECRETARY (LITERARY) "
+          candidate.poll == "Institute" &&
+          candidate.post == "CULTURAL AFFAIRS SECRETARY (LITERARY)"
         ) {
           instiCULSECLCandidates = [...instiCULSECLCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
+          candidate.poll == "Institute" &&
           candidate.post == "HOSTEL AFFAIRS SECRETARY"
         ) {
           instiHASCandidates = [...instiHASCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
+          candidate.poll == "Institute" &&
           candidate.post == "INTERNATIONAL AND ALUMNI RELATIONS SECRETARY"
         ) {
           instiIARCandidates = [...instiIARCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
+          candidate.poll == "Institute" &&
           candidate.post == "SPORTS SECRETARY (INSTITUTE)"
         ) {
           instiSSCandidates = [...instiSSCandidates, candidate];
         }
         if (
-          candidate.category == "Institute" &&
-          candidate.post == "STUDENTS GENERAL SECRETARY "
+          candidate.poll == "Institute" &&
+          candidate.post == "STUDENTS GENERAL SECRETARY"
         ) {
           instiSGSCandidates = [...instiSGSCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "GENERAL SECRETARY"
         ) {
           hostelSGSCandidates = [...hostelSGSCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "HEALTH & HYGIENE SECRETARY"
         ) {
           hostelHHSCandidates = [...hostelHHSCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "HOSTEL LEGISLATOR"
         ) {
           hostelHLCandidates = [...hostelHLCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "LITERARY SECRETARY"
         ) {
           hostelLLCandidates = [...hostelLLCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "SOCIAL SECRETARY"
         ) {
           hostelSLCandidates = [...hostelSLCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "SPORTS SECRETARY"
         ) {
           hostelSSCandidates = [...hostelSSCandidates, candidate];
         }
         if (
-          candidate.category == hostel &&
+          candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "TECHNICAL AFFAIRS SECRETARY"
         ) {
           hostelTASCandidates = [...hostelTASCandidates, candidate];
         }
         if (
-          candidate.category == department &&
           candidate.poll == "Department"
         ) {
           departmentCandidates = [...departmentCandidates, candidate];
@@ -211,6 +212,7 @@ function loadCandidates({
         instiAASPreferences.push({ value: i, label: i });
       }
       setInstiAASPreferences(instiAASPreferences);
+      console.log("PPPPP", instiAASPreferences)
       setInstiRASCandidates(instiRASCandidates);
       const totalInstiRASCandidates = instiRASCandidates.length;
       setInstiRASTotalCandidates(totalInstiRASCandidates);
@@ -332,6 +334,13 @@ function loadCandidates({
       }
       setHostelTASPreferences(hostelTASPreferences);
       setDepartmentCandidates(departmentCandidates);
+      const totalDepartmentCandidates = departmentCandidates.length;
+      setDepartmentTotalCandidates(totalDepartmentCandidates);
+      let departmentPreferences = [];
+      for (let i = 1; i <= totalDepartmentCandidates; i++) {
+        departmentPreferences.push({ value: i, label: i });
+      }
+      setDepartmentPreferences(departmentPreferences);
     })
     .catch((err) => {
       console.log(err);
