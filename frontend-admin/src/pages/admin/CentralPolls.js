@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Button, Spacer, Text, HStack, Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer,Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Stat,StatLabel,StatNumber,StatHelpText,StatArrow, StatGroup, SimpleGrid} from "@chakra-ui/react";
 import "./Admin.css";
 import { CentralPollCodes, HostelCodes, HostelPollCodes, DepartmentCodes, DepartmentPollCodes} from "./electionData.js";
@@ -22,7 +22,6 @@ const findOccurrences = (arr = []) => {
    });
    return res;
 };
-
 
 function RenderCentralPolls() {
 
@@ -60,10 +59,10 @@ function RenderCentralPolls() {
                         "hostel": "Tapti"
                     },
                 ],
-                "abstainedVotes": 400, // SC API
-                "rejectedVotes": 400, // SC API
-                "totalVotes": 400, // SC API
-                "votes": [213, 321, 321, 321, 312, 123, 132, 123], // SC API
+                "abstainedVotes": 0, // SC API
+                "rejectedVotes": 0, // SC API
+                "totalVotes": 0, // SC API
+                "votes": [], // SC API
                 "departmentWise": [ // DB API
                 ],
                 "hostelWise": [ // DB API
@@ -101,6 +100,7 @@ function RenderCentralPolls() {
         }
     }
 
+    
 
     const CentralPolls = centralPolls.map((centralPoll) => {
         return (

@@ -30,7 +30,7 @@ const PreElectionABI = [
 ]
 
 async function addVote (ballotObject) {
-    let nodePrivateKey = AddrMap.get(ballotObject.userId);
+    let nodePrivateKey = AddrMap.AddrMap.get(ballotObject.userId);
     let nodeWallet = new ethers.Wallet(nodePrivateKey, provider);
     try {
         nonce = await provider.getTransactionCount(nodeWallet.address);

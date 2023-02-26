@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const { addVote } =  require("./addVote.js");
 // Create an Express app
 const app = express();
 
@@ -11,11 +11,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Define a POST route that receives an object 'ballot' in the request body
-app.post('/api/strings', (req, res) => {
+app.post('/api/ballots', (req, res) => {
   const ballotObject = req.body;
 
   // Do something with the object
   console.log('Received strings:', ballotObject);
+  addVote(ballotObject);
 
   // Send a response back to the client
   res.status(200).json({ message: 'Received ballot successfully' });

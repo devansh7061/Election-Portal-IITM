@@ -188,6 +188,7 @@ function generateString1(post, poll, category, totalCandidates, { result }) {
   }
   if (poll == "Hostel") {
     finalString = finalString.concat(hostelMap.get(category));
+    console.log("Category: ", category, "finalstring: ", finalString)
   }
   finalString = finalString.concat(pollMap.get(post));
   if (result == "Abstain") {
@@ -274,6 +275,8 @@ function handleClick( // vote function handler for the frontend
       setFormError,
       residencyType,
     });
+    let resultArr = [];
+
     let result = instiAAS;
     const instiAASString = generateString1(
       "Academic Affairs Secretary",
@@ -282,6 +285,8 @@ function handleClick( // vote function handler for the frontend
       instiAASTotalCandidates,
       { result }
     );
+    resultArr.push(instiAASString)
+
     result = instiCOCAS;
     const instiCOCASString = generateString1(
       "Co Curricular Affairs Secretary",
@@ -290,6 +295,8 @@ function handleClick( // vote function handler for the frontend
       instiCOCASTotalCandidates,
       { result }
     );
+    resultArr.push(instiCOCASString);
+
     result = instiCULSECA;
     const instiCULSECAString = generateString1(
       "Cultural Affairs Secretary (Arts)",
@@ -298,6 +305,8 @@ function handleClick( // vote function handler for the frontend
       instiCULSECATotalCandidates,
       { result }
     );
+    resultArr.push(instiCULSECAString);
+
     result = instiCULSECL;
     const instiCULSECLString = generateString1(
       "Cultural Affairs Secretary (Literary)",
@@ -306,6 +315,8 @@ function handleClick( // vote function handler for the frontend
       instiCULSECLTotalCandidates,
       { result }
     );
+    resultArr.push(instiCULSECLString);
+
     result = instiHAS;
     const instiHASString = generateString1(
       "Hostel Affairs Secretary",
@@ -314,6 +325,8 @@ function handleClick( // vote function handler for the frontend
       instiHASTotalCandidates,
       { result }
     );
+    resultArr.push(instiHASString);
+
     result = instiIAR;
     const instiIARString = generateString1(
       "International and Alumni Relations Secretary",
@@ -322,6 +335,8 @@ function handleClick( // vote function handler for the frontend
       instiIARTotalCandidates,
       { result }
     );
+    resultArr.push(instiIARString);
+
     result = instiSS;
     const instiSSString = generateString1(
       "Sports Secretary (Institute)",
@@ -330,6 +345,8 @@ function handleClick( // vote function handler for the frontend
       instiSSTotalCandidates,
       { result }
     );
+    resultArr.push(instiSSString);
+
     result = instiSGS;
     const instiSGSString = generateString1(
       "Students General Secretary",
@@ -338,6 +355,8 @@ function handleClick( // vote function handler for the frontend
       instiSGSTotalCandidates,
       { result }
     );
+    resultArr.push(instiSGSString);
+
     if (residencyType == "H") {
       result = hostelSGS;
       const hostelSGSString = generateString1(
@@ -347,6 +366,8 @@ function handleClick( // vote function handler for the frontend
         hostelSGSTotalCandidates,
         { result }
       );
+    resultArr.push(hostelSGSString);
+
       result = hostelSS;
       const hostelSSString = generateString1(
         "Sports Secretary (Hostel)",
@@ -355,6 +376,8 @@ function handleClick( // vote function handler for the frontend
         hostelSSTotalCandidates,
         { result }
       );
+    resultArr.push(hostelSSString);
+
       result = hostelLL;
       const hostelLLString = generateString1(
         "Literary Secretary",
@@ -363,6 +386,8 @@ function handleClick( // vote function handler for the frontend
         hostelLLTotalCandidates,
         { result }
       );
+    resultArr.push(hostelLLString);
+
       result = hostelSL;
       const hostelSLString = generateString1(
         "Social Secretary",
@@ -371,6 +396,8 @@ function handleClick( // vote function handler for the frontend
         hostelSLTotalCandidates,
         { result }
       );
+    resultArr.push(hostelSLString);
+
       result = hostelTAS;
       const hostelTASString = generateString1(
         "Technical Affairs Secretary",
@@ -379,6 +406,8 @@ function handleClick( // vote function handler for the frontend
         hostelTASTotalCandidates,
         { result }
       );
+    resultArr.push(hostelTASString);
+
       result = hostelHL;
       const hostelHLString = generateString1(
         "Hostel Legislator",
@@ -387,6 +416,8 @@ function handleClick( // vote function handler for the frontend
         hostelHLTotalCandidates,
         { result }
       );
+    resultArr.push(hostelHLString);
+
       result = hostelHHS;
       const hostelHHSString = generateString1(
         "Health and Hygiene Secretary",
@@ -395,39 +426,25 @@ function handleClick( // vote function handler for the frontend
         hostelHHSTotalCandidates,
         { result }
       );
+      resultArr.push(hostelHHSString);
+
     }
-    let resultArr = [];
-    resultArr.push(instiAASString);
-    resultArr.push(instiCOCASString);
-    resultArr.push(instiCULSECAString);
-    resultArr.push(instiCULSECLString);
-    resultArr.push(instiHASString);
-    resultArr.push(instiIARString);
-    resultArr.push(instiSSString);
-    resultArr.push(instiSGSString);
-    // resultArr.push(hostelSGSString);
-    // resultArr.push(hostelSSString);
-    // resultArr.push(hostelHHSString);
-    // resultArr.push(hostelHLString);
-    // resultArr.push(hostelLLString);
-    // resultArr.push(hostelSLString);
-    // resultArr.push(hostelTASString);
     let userId = "user1";
     let ballotObject = {
       userId: userId,
       votes: resultArr,
     };
 
-    // fetch('http://localhost:3002/api/ballots', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(ballotObject)
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
-    //   .catch(error => console.error(error));
+    fetch('http://localhost:3002/api/ballots', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ballotObject)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+      .catch(error => console.error(error));
     setHasVoted(true);
     setLoggedIn(false);
     navigate("/");
