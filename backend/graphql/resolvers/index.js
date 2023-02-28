@@ -86,6 +86,25 @@ module.exports = {
       throw error;
     }
   },
+  batchStats: async ({ course }) => {
+    try {
+      const students = await Student.find();
+      let votesCasted = 0;
+      let totalVotes = 0;
+      students.map((student) => {
+        if (student.course == course) {
+          totalVotes++;
+          if (student.hasVoted == "true") {
+            votesCasted++;
+          }
+        }
+      });
+      let turnout = (votesCasted * 100) / totalVotes;
+      return { turnout: turnout };
+    } catch (error) {
+      throw error;
+    }
+  },
   candidates: async ({ virtualHostel, department, program }, req) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated!");
@@ -206,6 +225,21 @@ module.exports = {
       throw err;
     }
   },
+  studentVoted: async ({ rollNo }) => {
+    // if (!req.isAuth) {
+    //   throw new Error("Unauthenticated");
+    // }
+    try {
+      Student.findOneAndUpdate({ rollNo: rollNo }, { hasVoted: "true" }, (error, data) => {
+      if (error) {
+        throw new Error("Invalid rollNo")
+      } 
+      })
+      return {hasVoted: "true"}
+    } catch (error) {
+      throw error
+    }
+  },
   login: async ({ rollNo, password }, req) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated");
@@ -218,7 +252,7 @@ module.exports = {
     if (!isEqual) {
       throw new Error("Password is incorrect");
     }
-    if (student.hasVoted == "true") {
+    if (student.hasVoted.toUpperCase() == "TRUE") {
       throw new Error("U have already voted");
     }
     const virtualHostel = student.virtualHostel;

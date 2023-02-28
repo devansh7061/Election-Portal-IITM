@@ -217,6 +217,7 @@ function handleClick( // vote function handler for the frontend
   e,
   {
     hostel,
+    rollNo,
     instiAAS,
     instiCOCAS,
     instiCULSECA,
@@ -446,6 +447,27 @@ function handleClick( // vote function handler for the frontend
     .then(data => console.log(data))
       .catch(error => console.error(error));
     setHasVoted(true);
+    const requestBody = {
+      query: `
+                query{
+                  studentVoted(rollNo: "${rollNo}") {
+                    hasVoted
+                  }
+                }
+      `
+    }
+    fetch("http://localhost:5000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((res) => {
+      if (res.status != 200 && res.status != 201) {
+        throw new Error("Failed");
+      }
+      return res.json();
+    })
     setLoggedIn(false);
     navigate("/");
   } catch (error) {
@@ -688,6 +710,7 @@ function Home() {
           onClick={(e) =>
             handleClick(e, {
               hostel,
+              rollNo,
               instiAAS,
               instiAASTotalCandidates,
               instiRAS,
@@ -744,13 +767,13 @@ function Home() {
       <Box className="navbar" bg="black" w="100%" p={4} color="white">
         <Center>
           <VStack>
-            <Text fontSize="lg" fontFamily="cursive">
+            <Text fontSize="lg">
               Made with ❤
             </Text>
-            <Text fontSize="lg" fontFamily="cursive">
+            <Text fontSize="lg">
               Devansh Saini & Anirudh Varna
             </Text>
-            <Text fontSize="lg" fontFamily="cursive" color="#fec901">
+            <Text fontSize="lg" color="#fec901">
               © Webops and Blockchain Club, IIT Madras
             </Text>
           </VStack>

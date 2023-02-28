@@ -52,6 +52,14 @@ module.exports = buildSchema(`
         turnout: Int!
     }
 
+    type BatchTurnout {
+        turnout: Int!
+    }
+
+    type StudentVoted {
+        hasVoted: String!
+    }
+
     input DeviceInput {
         username: String!
         password: String!
@@ -82,6 +90,8 @@ module.exports = buildSchema(`
         deviceLogin(username: String!, password: String): DeviceData!
         departmentStats(department: String!): DepartmentTurnout!
         hostelStats(hostel: String!): HostelTurnout!
+        batchStats(course: String!): BatchTurnout!
+        studentVoted(rollNo: String!): StudentVoted!
     }
     type RootMutation {
         createStudent(studentInput: StudentInput): Student

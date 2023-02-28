@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
@@ -7,6 +8,7 @@ const graphQLSchema = require("./graphql/schema/index");
 const graphqlResolvers = require("./graphql/resolvers/index");
 const loginRouter = require("./routes/login");
 const isAuth = require("./middleware/is-auth");
+const csvRoutes = require("./routes/csvRoutes");
 const app = express();
 
 app.use(bodyParser.json());
@@ -15,33 +17,32 @@ app.use(isAuth);
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "PUT, POST, GET, DELETE, OPTIONS"
   );
-  if (req.method === 'OPTIONS' ) {
+  if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
   next();
-})
+});
 app.use(
-    "/graphql",
-    graphqlHTTP({
-        schema: graphQLSchema,
-        rootValue: graphqlResolvers,
-        graphiql: true
-    })
-)
+  "/graphql",
+  graphqlHTTP({
+    schema: graphQLSchema,
+    rootValue: graphqlResolvers,
+    graphiql: true,
+  })
+);
 
 app.get("/", (req, res, next) => {
-    res.send("Hello World!");
-    console.log("hi");
+  res.send("Hello World!");
+  console.log("hi");
 });
-app.use("/", loginRouter)
+app.use("/", loginRouter);
+app.use("/uploadCsv", csvRoutes);
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 mongoose
   .connect(
