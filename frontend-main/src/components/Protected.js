@@ -5,7 +5,7 @@ const Protected = ({ children }) => {
   const isLoggedIn = useContextStore((state) => state.isLoggedIn);
   console.log(isLoggedIn);
   if (isLoggedIn == "false") {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
   return children;
 };

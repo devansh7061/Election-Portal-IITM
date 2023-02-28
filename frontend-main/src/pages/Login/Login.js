@@ -1,21 +1,29 @@
 import React, { useState } from "react";
-import "./Login.css";
 import { Navigate } from "react-router-dom";
 import {
-  HStack,
-  VStack,
+  Flex,
   Heading,
-  Center,
-  FormControl,
   Input,
   Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Avatar,
+  FormControl,
+  InputRightElement,
+  Center,
   Alert,
-  AlertIcon,
-  Image
+  AlertIcon
 } from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
 import useContextStore from "../../store/contextStore";
 
-function verifyLogin(
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
+
+function handleSubmit(
   e,
   {
     setLoggedIn,
@@ -27,7 +35,8 @@ function verifyLogin(
     setToken,
     setError,
     setRollNo,
-    setResidencyType
+    setResidencyType,
+    deviceToken
   }
 ) {
   e.preventDefault();
@@ -57,10 +66,12 @@ function verifyLogin(
     body: JSON.stringify(requestBody),
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + deviceToken,
     },
   })
     .then((res) => {
       if (res.status !== 200 && res.status !== 201) {
+        setError(true);
         throw new Error("Failed");
       }
       return res.json();
@@ -68,7 +79,7 @@ function verifyLogin(
     .then((resData) => {
       if (resData.data.login.hasVoted === "true") {
         setError(true);
-        throw new Error("You have already voted, come next year!");
+        throw new Error("You have already voted!");
       }
       if (resData.data.login.token) {
         setToken(resData.data.login.token);
@@ -85,11 +96,14 @@ function verifyLogin(
       }
     })
     .catch((err) => {
+      setError(true);
       console.log(err);
     });
 }
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowClick = () => setShowPassword(!showPassword);
   const setToken = useContextStore((state) => state.setToken);
   const setCourse = useContextStore((state) => state.setCourse);
   const setDepartment = useContextStore((state) => state.setDepartment);
@@ -98,6 +112,7 @@ function Login() {
   const setRollNo = useContextStore((state) => state.setRollNo);
   const isLoggedIn = useContextStore((state) => state.isLoggedIn);
   const setResidencyType = useContextStore((state) => state.setResidencyType);
+  const deviceToken = useContextStore((state) => state.deviceToken);
   console.log(isLoggedIn);
   const loggedInStatus = (isLoggedIn == "true");
   const setLoggedIn = useContextStore((state) => state.setLoggedIn);
@@ -105,82 +120,98 @@ function Login() {
   return loggedInStatus ? (
     <Navigate to="/home" replace />
   ) : (
-    <div className="landing">
-      <div className="login-body">
-        <HStack spacing="400px">
-          <>
-            <VStack>
-              <div className="login-heading">
-                <Heading size="md">IIT Madras Voting Portal</Heading>
-                <Center>
-                  <Heading size="md">2023</Heading>
-                </Center>
-              </div>
-            </VStack>
-            <VStack>
-              <div className="login-image">
-                <Image
-                  src="https://i.imgflip.com/7c0zjo.jpg"
-                    alt="I want you to vote for right candidate"
-                    boxSize="300px"
-                ></Image>
-              </div>
-            </VStack>
-          </>
-          <div className="form">
-            <Center>
-              <form
-                onSubmit={(e) =>
-                  verifyLogin(e, {
-                    setLoggedIn,
-                    isLoggedIn,
-                    setToken,
-                    setCourse,
-                    setDepartment,
-                    setHostel,
-                    setHasVoted,
-                    setError,
-                    setRollNo,
-                    setResidencyType,
-                  })
-                }
+    <div>
+      <Flex
+        flexDirection="column"
+        width="100wh"
+        height="100vh"
+        backgroundColor="gray.200"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack
+          flexDir="column"
+          mb="2"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Avatar bg="gray" />
+          <Heading color="blackAlpha.800">Student Login</Heading>
+          <Box minW={{ base: "90%", md: "468px" }}>
+            <form>
+              <Stack
+                spacing={4}
+                p="1rem"
+                backgroundColor="whiteAlpha.900"
+                boxShadow="md"
               >
                 <FormControl>
-                  <VStack spacing="40px">
-                    <Heading size="md">Login</Heading>
-                    <Input placeholder="Roll No" width="auto" id="rollNo" />
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input placeholder="rollNo" id="rollNo" />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      color="gray.300"
+                      children={<CFaLock color="gray.300" />}
+                    />
                     <Input
+                      type={showPassword ? "text" : "password"}
                       placeholder="Password"
-                      width="auto"
-                      type="password"
                       id="password"
                     />
-                  </VStack>
-                  <Center>
-                    <Button
-                      mt={4}
-                      colorScheme="purple"
-                      variant="outline"
-                      type="Submit"
-                    >
-                      Submit
-                    </Button>
-                  </Center>
-                  <br></br>
-                  <Center>
-                    {error ? (
-                      <Alert status="info">
-                        <AlertIcon />
-                        You have already voted, come next year!
-                      </Alert>
-                    ) : null}
-                  </Center>
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                        {showPassword ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
                 </FormControl>
-              </form>
+                <Button
+                  borderRadius={0}
+                  type="submit"
+                  variant="solid"
+                  colorScheme="linkedin"
+                  width="full"
+                  onClick={(e) =>
+                    handleSubmit(e, {
+                      setLoggedIn,
+                      isLoggedIn,
+                      setCourse,
+                      setDepartment,
+                      setHasVoted,
+                      setHostel,
+                      setToken,
+                      setError,
+                      setRollNo,
+                      setResidencyType,
+                      deviceToken,
+                    })
+                  }
+                >
+                  Login
+                </Button>
+              </Stack>
+            </form>
+          </Box>
+          {error == true ? (
+            <Center>
+              <Alert status="info">
+                <AlertIcon />
+                Invalid credentials or already voted!
+              </Alert>
             </Center>
-          </div>
-        </HStack>
-      </div>
+          ) : (
+            <></>
+          )}
+        </Stack>
+      </Flex>
     </div>
   );
 }

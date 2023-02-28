@@ -10,7 +10,19 @@ const contextStore = (set) => ({
   hasVoted: "",
   rollNo: "",
   isLoggedIn: "false",
+  deviceLoggedIn: "false",
+  deviceUsername: "",
+  deviceToken: "",
   residencyType: "",
+  setDeviceToken: (DeviceToken) => {
+    set (() => ({deviceToken: DeviceToken}))
+  },
+  setDeviceUsername: (DeviceUsername) => {
+    set (() => ({deviceUsername: DeviceUsername}))
+  },
+  setDeviceLoggedIn: (DeviceLoggedIn) => {
+    set (() => ({deviceLoggedIn: DeviceLoggedIn}))
+  },
   setResidencyType: (ResidencyType) => {
     set(() => ({residencyType: ResidencyType}))
   },

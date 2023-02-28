@@ -33,6 +33,29 @@ module.exports = buildSchema(`
         hasVoted: String!
         residencyType: String!
     }
+
+    type DeviceData {
+        username: String!
+        token: String!
+    }
+
+    type Device {
+        username: String!
+        password: String!
+    }
+
+    type DepartmentTurnout {
+        turnout: Int!
+    }
+
+    type HostelTurnout {
+        turnout: Int!
+    }
+
+    input DeviceInput {
+        username: String!
+        password: String!
+    }
     input CandidateInput {
         rollNo: String!
         name: String!
@@ -56,10 +79,14 @@ module.exports = buildSchema(`
         students: [Student!]!
         candidates(virtualHostel: String!, department: String!, program: String!): [Candidate!]!
         login(rollNo: String!, password: String!): AuthData!
+        deviceLogin(username: String!, password: String): DeviceData!
+        departmentStats(department: String!): DepartmentTurnout!
+        hostelStats(hostel: String!): HostelTurnout!
     }
     type RootMutation {
         createStudent(studentInput: StudentInput): Student
         createCandidate(candidateInput: CandidateInput): Candidate
+        addDevice(deviceInput: DeviceInput): Device
     }
     schema {
         query: RootQuery

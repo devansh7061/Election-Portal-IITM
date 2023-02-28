@@ -23,6 +23,6 @@ module.exports = (req, res, next) => {
         return next();
     }
     req.isAuth = true;
-    req.studentId = decodedToken.studentId;
+    // req.studentId = decodedToken.studentId;
     next();
 }
