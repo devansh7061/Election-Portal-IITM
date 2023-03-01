@@ -83,15 +83,23 @@ function validateForm({
   instiSS,
   instiSGS,
   hostelSGS,
+  hostelSGSTotalCandidates,
   hostelHHS,
+  hostelHHSTotalCandidates,
   hostelHL,
+  hostelHLTotalCandidates,
   hostelLL,
+  hostelLLTotalCandidates,
   hostelSL,
+  hostelSLTotalCandidates,
   hostelSS,
+  hostelSSTotalCandidates,
   hostelTAS,
+  hostelTASTotalCandidates,
   setFormError,
   residencyType,
 }) {
+  console.log(hostelSGSTotalCandidates, "Sggegdhehhhrhrh")
   if (instiAAS == null) {
     setFormError("Please select preference for Academic Affairs Secretary");
     throw new Error("Please select preference for Academic Affairs Secretary");
@@ -143,35 +151,35 @@ function validateForm({
     throw new Error("Please select preference for Students General Secretary");
   }
   if (residencyType == "H") {
-    if (hostelSGS == null) {
+    if (hostelSGS == null && hostelSGSTotalCandidates>0) {
       setFormError("Please select preference for General Secretary(Hostel)");
       throw new Error("Please select preference for General Secretary(Hostel)");
     }
-    if (hostelHHS == null) {
+    if (hostelHHS == null && hostelHHSTotalCandidates > 0) {
       setFormError("Please select preference for Health and Hygiene Secretary");
       throw new Error(
         "Please select preference for Health and Hygiene Secretary"
       );
     }
-    if (hostelSL == null) {
+    if (hostelSL == null && hostelSLTotalCandidates > 0) {
       setFormError("Please select preference for Social Secretary");
       throw new Error("Please select preference for Social Secretary");
     }
-    if (hostelLL == null) {
+    if (hostelLL == null && hostelLLTotalCandidates > 0) {
       setFormError("Please select preference for Literary Secretary");
       throw new Error("Please select preference for Literary Secretary");
     }
-    if (hostelHL == null) {
+    if (hostelHL == null && hostelHLTotalCandidates > 0) {
       setFormError("Please select preference for Hostel Legislator");
       throw new Error("Please select preference for Hostel Legislator");
     }
-    if (hostelTAS == null) {
+    if (hostelTAS == null && hostelTASTotalCandidates > 0) {
       setFormError("Please select preference for Technical Affairs Secretary");
       throw new Error(
         "Please select preference for Technical Affairs Secretary"
       );
     }
-    if (hostelSS == null) {
+    if (hostelSS == null && hostelSSTotalCandidates > 0) {
       setFormError("Please select preference for Sports Secretary");
       throw new Error("Please select preference for Sports Secretary");
     }
@@ -267,17 +275,23 @@ function handleClick( // vote function handler for the frontend
       instiSS,
       instiSGS,
       hostelSGS,
+      hostelSGSTotalCandidates,
       hostelHHS,
+      hostelHHSTotalCandidates,
       hostelHL,
+      hostelHLTotalCandidates,
       hostelLL,
+      hostelLLTotalCandidates,
       hostelSL,
+      hostelSLTotalCandidates,
       hostelSS,
+      hostelSSTotalCandidates,
       hostelTAS,
+      hostelTASTotalCandidates,
       setFormError,
       residencyType,
     });
     let resultArr = [];
-
     let result = instiAAS;
     const instiAASString = generateString1(
       "Academic Affairs Secretary",
@@ -359,75 +373,89 @@ function handleClick( // vote function handler for the frontend
     resultArr.push(instiSGSString);
 
     if (residencyType == "H") {
-      result = hostelSGS;
-      const hostelSGSString = generateString1(
-        "General Secretary (Hostel)",
-        "Hostel",
-        hostel,
-        hostelSGSTotalCandidates,
-        { result }
-      );
-    resultArr.push(hostelSGSString);
+      if (hostelSGSTotalCandidates > 0) {
+        result = hostelSGS;
+        const hostelSGSString = generateString1(
+          "General Secretary (Hostel)",
+          "Hostel",
+          hostel,
+          hostelSGSTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelSGSString);
+      }
 
-      result = hostelSS;
-      const hostelSSString = generateString1(
-        "Sports Secretary (Hostel)",
-        "Hostel",
-        hostel,
-        hostelSSTotalCandidates,
-        { result }
-      );
-    resultArr.push(hostelSSString);
+      if (hostelSSTotalCandidates > 0) {
+        result = hostelSS;
+        const hostelSSString = generateString1(
+          "Sports Secretary (Hostel)",
+          "Hostel",
+          hostel,
+          hostelSSTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelSSString);
+      }
 
-      result = hostelLL;
-      const hostelLLString = generateString1(
-        "Literary Secretary",
-        "Hostel",
-        hostel,
-        hostelLLTotalCandidates,
-        { result }
-      );
-    resultArr.push(hostelLLString);
+      if (hostelLLTotalCandidates > 0) {
+        result = hostelLL;
+        const hostelLLString = generateString1(
+          "Literary Secretary",
+          "Hostel",
+          hostel,
+          hostelLLTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelLLString);
+      }
 
-      result = hostelSL;
-      const hostelSLString = generateString1(
-        "Social Secretary",
-        "Hostel",
-        hostel,
-        hostelSLTotalCandidates,
-        { result }
-      );
-    resultArr.push(hostelSLString);
+      if (hostelSLTotalCandidates > 0) {
+        result = hostelSL;
+        const hostelSLString = generateString1(
+          "Social Secretary",
+          "Hostel",
+          hostel,
+          hostelSLTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelSLString);
+      }
 
-      result = hostelTAS;
-      const hostelTASString = generateString1(
-        "Technical Affairs Secretary",
-        "Hostel",
-        hostel,
-        hostelTASTotalCandidates,
-        { result }
-      );
-    resultArr.push(hostelTASString);
+      if (hostelTASTotalCandidates > 0) {
+        result = hostelTAS;
+        const hostelTASString = generateString1(
+          "Technical Affairs Secretary",
+          "Hostel",
+          hostel,
+          hostelTASTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelTASString);
 
-      result = hostelHL;
-      const hostelHLString = generateString1(
-        "Hostel Legislator",
-        "Hostel",
-        hostel,
-        hostelHLTotalCandidates,
-        { result }
-      );
-    resultArr.push(hostelHLString);
+      }
+      if (hostelHLTotalCandidates > 0) {
+        result = hostelHL;
+        const hostelHLString = generateString1(
+          "Hostel Legislator",
+          "Hostel",
+          hostel,
+          hostelHLTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelHLString);
+      }
 
-      result = hostelHHS;
-      const hostelHHSString = generateString1(
-        "Health and Hygiene Secretary",
-        "Hostel",
-        hostel,
-        hostelHHSTotalCandidates,
-        { result }
-      );
-      resultArr.push(hostelHHSString);
+      if (hostelHHSTotalCandidates > 0) {
+        result = hostelHHS;
+        const hostelHHSString = generateString1(
+          "Health and Hygiene Secretary",
+          "Hostel",
+          hostel,
+          hostelHHSTotalCandidates,
+          { result }
+        );
+        resultArr.push(hostelHHSString);
+      }
 
     }
     let userId = "user1";
@@ -671,7 +699,7 @@ function Home() {
     <>
       <Box className="navbar" bg="black" w="100%" p={6} color="white">
         <Flex>
-          <Text fontSize="xl">IITM- General Elections 2023</Text>
+          <Text fontSize="xl">IITM- Student General Elections 2023</Text>
           <Spacer />
           <Text fontSize="xl">Welcome {rollNo}!</Text>
         </Flex>

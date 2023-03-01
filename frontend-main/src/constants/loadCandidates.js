@@ -164,7 +164,7 @@ function loadCandidates({
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
-          candidate.post == "HEALTH & HYGIENE SECRETARY"
+          candidate.post == "HEALTH AND HYGIENE SECRETARY"
         ) {
           hostelHHSCandidates = [...hostelHHSCandidates, candidate];
         }

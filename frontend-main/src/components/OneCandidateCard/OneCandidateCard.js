@@ -36,7 +36,7 @@ function OneCandidateCard({ name, rollNo, picture, setVariable, variable, index 
         variant={variable == index ? "filled" : "outline"}
       >
         <CardBody>
-          <Image src={picture} alt={name} borderRadius="lg" />
+          <Image src={picture} alt={name} borderRadius="lg" boxSize="200px" />
           <Stack mt="6" spacing="3">
             <Center>
               <Heading size="md">{name}</Heading>

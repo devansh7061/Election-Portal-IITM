@@ -1,12 +1,9 @@
-import React, {useState} from 'react'
-import {
-  Card,
-  CardBody,
-  Image,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Card, CardBody, Image } from "@chakra-ui/react";
 import "./Reject.css";
+import RejectImage from "./Reject.png";
 
-function handleClick(e, { active, setActive,setVariable, variable }) {
+function handleClick(e, { active, setActive, setVariable, variable }) {
   e.preventDefault();
   setActive(!active);
   if (variable == "Reject") {
@@ -16,25 +13,29 @@ function handleClick(e, { active, setActive,setVariable, variable }) {
   }
 }
 
-function Reject({variable, setVariable}) {
+function Reject({ variable, setVariable }) {
   const [active, setActive] = useState(false);
   return (
-    <div className={variable == "Reject" ? "active" : ""}>
+    <div>
       <Card
         maxW="sm"
-        onClick={(e) => handleClick(e, { active, setActive, variable, setVariable })}
-        variant={variable == "Reject" ? "filled" : "outline"}
+        onClick={(e) =>
+          handleClick(e, { active, setActive, variable, setVariable })
+        }
       >
         <CardBody>
-          <Image
-            src="https://assets-api.kathmandupost.com/thumb.php?src=https://assets-cdn.kathmandupost.com/uploads/source/news/2016/miscellaneous/23102016082903right-to-reject.jpg&w=900&height=601"
-            alt="Reject"
-            borderRadius="lg"
-          />
+          <div className={variable == "Reject" ? "active" : ""}>
+            <Image
+              src={RejectImage}
+              alt="Reject"
+              borderRadius="lg"
+              boxSize="250px"
+            />
+          </div>
         </CardBody>
       </Card>
     </div>
   );
 }
 
-export default Reject
+export default Reject;

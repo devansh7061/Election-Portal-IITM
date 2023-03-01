@@ -4,7 +4,7 @@ import Reject from '../../Reject/Reject';
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
 import "./InstiAAS.css"
 
 function InstiAAS({instiAASCandidates}) {
@@ -28,10 +28,11 @@ function InstiAAS({instiAASCandidates}) {
         </Center>
         <br></br>
         <div className={many ? "show" : "hide"}>
-          <HStack spacing="150px">
+          <Flex>
             {instiAASCandidates.map((candidate, i) => {
               return (
-                <ManyCandidateCard
+                <>
+                  <ManyCandidateCard
                   name={candidate.name}
                   rollNo={candidate.rollNo}
                   picture={candidate.picture}
@@ -40,12 +41,15 @@ function InstiAAS({instiAASCandidates}) {
                   variable={instiAAS}
                   setVariable={setInstiAAS}
                   index={i}
-                />
+                  />
+                  <Spacer />
+                </>
               );
             })}
             <Abstain variable={instiAAS} setVariable={setInstiAAS} />
+            <Spacer />
             <Reject variable={instiAAS} setVariable={setInstiAAS} />
-          </HStack>
+          </Flex>
         </div>
         <div className={many ? "hide" : "show"}>
           <HStack spacing="150px">

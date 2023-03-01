@@ -4,7 +4,7 @@ import Reject from "../../Reject/Reject";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
 import "./InstiCULSECA.css";
 
 function InstiCULSECA({ instiCULSECACandidates }) {
@@ -27,24 +27,28 @@ function InstiCULSECA({ instiCULSECACandidates }) {
       </Center>
       <br></br>
       <div className={many ? "show" : "hide"}>
-        <HStack spacing="150px">
+        <Flex>
           {instiCULSECACandidates.map((candidate,i) => {
             return (
-              <ManyCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                preferences={instiCULSECAPreferences}
-                setPreferences={setInstiCULSECAPreferences}
-                variable={instiCULSECA}
-                setVariable={setInstiCULSECA}
-                index={i}
-              />
+              <>
+                <ManyCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  preferences={instiCULSECAPreferences}
+                  setPreferences={setInstiCULSECAPreferences}
+                  variable={instiCULSECA}
+                  setVariable={setInstiCULSECA}
+                  index={i}
+                />
+                <Spacer />
+              </>
             );
           })}
           <Abstain variable={instiCULSECA} setVariable={setInstiCULSECA} />
+          <Spacer />
           <Reject variable={instiCULSECA} setVariable={setInstiCULSECA} />
-        </HStack>
+        </Flex>
       </div>
       <div className={many ? "hide" : "show"}>
         <HStack spacing="150px">

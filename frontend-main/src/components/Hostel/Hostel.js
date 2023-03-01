@@ -17,13 +17,27 @@ function Hostel({ hostelSGSCandidates, hostelSSCandidates, hostelHHSCandidates, 
         </Heading>
       </Center>
       <br></br>
-      <HostelSGS hostelSGSCandidates={hostelSGSCandidates} />
-      <HostelSS hostelSSCandidates={hostelSSCandidates}></HostelSS>
-      <HostelHHS hostelHHSCandidates={hostelHHSCandidates} />
-      <HostelHL hostelHLCandidates={hostelHLCandidates} />
-      <HostelLL hostelLLCandidates={hostelLLCandidates} />
-      <HostelSL hostelSLCandidates={hostelSLCandidates} />
-      <HostelTAS hostelTASCandidates={hostelTASCandidates} />
+      {hostelSGSCandidates.length > 0 && (
+        <HostelSGS hostelSGSCandidates={hostelSGSCandidates} />
+      )}
+      {hostelSSCandidates.length > 0 && (
+        <HostelSS hostelSSCandidates={hostelSSCandidates} />
+      )}
+      {hostelHHSCandidates.length > 0 && (
+        <HostelHHS hostelHHSCandidates={hostelHHSCandidates} />
+      )}
+      {hostelHLCandidates.length > 0 && (
+        <HostelHL hostelHLCandidates={hostelHLCandidates} />
+      )}
+      {hostelLLCandidates.length > 0 && (
+        <HostelLL hostelLLCandidates={hostelLLCandidates} />
+      )}
+      {hostelSLCandidates.length > 0 && (
+        <HostelSL hostelSLCandidates={hostelSLCandidates} />
+      )}
+      {hostelTASCandidates.length > 0 && (
+        <HostelTAS hostelTASCandidates={hostelTASCandidates} />
+      )}
     </div>
   );
 }

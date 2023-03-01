@@ -1,7 +1,7 @@
 import React from "react";
 import Abstain from "../../Abstain/Abstain";
 import Reject from "../../Reject/Reject";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard";
 import useVoteStore from "../../../store/voteStore";
@@ -18,29 +18,33 @@ function HostelSL({ hostelSLCandidates }) {
     <div>
       <Center>
         <Heading as="h2" size="xl" noOfLines={1}>
-          Sports Secretary
+          Social Secretary
         </Heading>
       </Center>
       <br></br>
       <div className={many ? "show" : "hide"}>
-        <HStack spacing="150px">
+        <Flex>
           {hostelSLCandidates.map((candidate, i) => {
             return (
-              <ManyCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                preferences={hostelSLPreferences}
-                setPreferences={setHostelSLPreferences}
-                variable={hostelSL}
-                setVariable={setHostelSL}
-                index={i}
-              />
+              <>
+                <ManyCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  preferences={hostelSLPreferences}
+                  setPreferences={setHostelSLPreferences}
+                  variable={hostelSL}
+                  setVariable={setHostelSL}
+                  index={i}
+                />
+                <Spacer />
+              </>
             );
           })}
           <Abstain variable={hostelSL} setVariable={setHostelSL} />
+          <Spacer />
           <Reject variable={hostelSL} setVariable={setHostelSL} />
-        </HStack>
+        </Flex>
       </div>
       <div className={many ? "hide" : "show"}>
         <HStack spacing="150px">

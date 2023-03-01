@@ -1,7 +1,7 @@
 import React from "react";
 import Abstain from "../../Abstain/Abstain";
 import Reject from "../../Reject/Reject";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard";
 import useVoteStore from "../../../store/voteStore";
@@ -23,24 +23,28 @@ function HostelTAS({ hostelTASCandidates }) {
       </Center>
       <br></br>
       <div className={many ? "show" : "hide"}>
-        <HStack spacing="150px">
+        <Flex>
           {hostelTASCandidates.map((candidate, i) => {
             return (
-              <ManyCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                preferences={hostelTASPreferences}
-                setPreferences={setHostelTASPreferences}
-                variable={hostelTAS}
-                setVariable={setHostelTAS}
-                index={i}
-              />
+              <>
+                <ManyCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  preferences={hostelTASPreferences}
+                  setPreferences={setHostelTASPreferences}
+                  variable={hostelTAS}
+                  setVariable={setHostelTAS}
+                  index={i}
+                />
+                <Spacer />
+              </>
             );
           })}
           <Abstain variable={hostelTAS} setVariable={setHostelTAS} />
+          <Spacer />
           <Reject variable={hostelTAS} setVariable={setHostelTAS} />
-        </HStack>
+        </Flex>
       </div>
       <div className={many ? "hide" : "show"}>
         <HStack spacing="150px">

@@ -4,7 +4,7 @@ import Reject from '../../Reject/Reject';
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
 import "./AcademicLegislator.css"
 
 function AcademicLegislator({departmentCandidates}) {
@@ -27,30 +27,34 @@ function AcademicLegislator({departmentCandidates}) {
         </Center>
         <br></br>
         <div className={many ? "show" : "hide"}>
-          <HStack spacing="150px">
+          <Flex>
             {departmentCandidates.map((candidate, i) => {
               return (
-                <ManyCandidateCard
-                  name={candidate.name}
-                  rollNo={candidate.rollNo}
-                  picture={candidate.picture}
-                  preferences={departmentPreferences}
-                  setPreferences={setDepartmentPreferences}
-                  variable={departmentLegislator}
-                  setVariable={setDepartmentLegislator}
-                  index={i}
-                />
+                <>
+                  <ManyCandidateCard
+                    name={candidate.name}
+                    rollNo={candidate.rollNo}
+                    picture={candidate.picture}
+                    preferences={departmentPreferences}
+                    setPreferences={setDepartmentPreferences}
+                    variable={departmentLegislator}
+                    setVariable={setDepartmentLegislator}
+                    index={i}
+                  />
+                  <Spacer />
+                </>
               );
             })}
             <Abstain
               variable={departmentLegislator}
               setVariable={setDepartmentLegislator}
             />
+            <Spacer />
             <Reject
               variable={departmentLegislator}
               setVariable={setDepartmentLegislator}
             />
-          </HStack>
+          </Flex>
         </div>
         <div className={many ? "hide" : "show"}>
           <HStack spacing="150px">
