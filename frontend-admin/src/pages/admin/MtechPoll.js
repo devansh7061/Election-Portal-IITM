@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Button, Spacer, Text, HStack, Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer,Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Stat,StatLabel,StatNumber,StatHelpText,StatArrow, StatGroup, SimpleGrid} from "@chakra-ui/react";
 import "./Admin.css";
 import { CentralPollCodes, HostelCodes, HostelPollCodes, DepartmentCodes, DepartmentPollCodes} from "./electionData.js";
-
+import { ethers } from "ethers";
+import ContractAddresses from "./ContractAddresses.json";
 // rendering the preferential votes as objects
 const findOccurrences = (arr = []) => {
    const res = [];
@@ -23,6 +24,13 @@ const findOccurrences = (arr = []) => {
    return res;
 };
 
+function stringToBytes2(str) {
+    // convert the string to bytes
+    const bytes = ethers.utils.toUtf8Bytes(str);
+    // extract the first 2 bytes
+    const bytes2 = ethers.utils.hexDataSlice(bytes, 0, 2);
+    return bytes2;
+}
 
 function RenderMtechPolls() {
 
@@ -37,25 +45,16 @@ function RenderMtechPolls() {
                     "name": "Anirudh",
                     "rollNo": "NA20B007",
                     "candidateNo": 1,
-                    "program": "B.tech-20",
-                    "dept": "OE",
-                    "hostel": "Tapti"
                 },
                 {
                     "name": "Devansh",
                     "rollNo": "NA20B016",
                     "candidateNo": 2,
-                    "program": "B.tech-20",
-                    "dept": "OE",
-                    "hostel": "Tapti"
                 },
                 {
                     "name": "Devansh",
                     "rollNo": "NA20B016",
                     "candidateNo": 3,
-                    "program": "B.tech-20",
-                    "dept": "OE",
-                    "hostel": "Tapti"
                 },
             ],
             "abstainedVotes": 400, // SC API
@@ -99,8 +98,45 @@ function RenderMtechPolls() {
         }
     }
 
+    const [myMtechPolls, setMyMtechPolls] = useState([]);
 
-    const MtechPolls = mtechPolls.map((mtechPoll) => {
+    useEffect(() => {
+      async function fetchPolls() {
+        let provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.blockpi.network/v1/rpc/public")
+        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
+
+        const ElectionAddress = ContractAddresses.Election;
+        const ElectionABI = [
+            "function getMtechPollDetails (bytes2) public view returns (uint256[4] memory)",
+            "function getMtechPollVotes (bytes2) public view returns (uint256[] memory)",
+        ]
+        const ElectionContract = new ethers.Contract(ElectionAddress, ElectionABI, adminWallet)
+        
+        const promises = mtechPolls.map(async (mtechPoll) => {
+            const mtechPollDetails = await ElectionContract.getMtechPollDetails(stringToBytes2(mtechPoll.pollCode));
+            const abstainedVotes = mtechPollDetails[0]
+            const rejectedVotes = mtechPollDetails[1]
+            const totalVotes = mtechPollDetails[3]
+            const votes = await ElectionContract.getMtechPollVotes(stringToBytes2(mtechPoll.pollCode));
+            return {
+              ...mtechPoll,
+              abstainedVotes: abstainedVotes.toString(),
+              rejectedVotes: rejectedVotes.toString(),
+              totalVotes: totalVotes.toString(),
+              votes: votes.map(x => x.toString())
+            };
+          });
+        const updatedMtechPolls = await Promise.all(promises);
+        // Update the state with the value
+        setMyMtechPolls(updatedMtechPolls);
+      }
+  
+      fetchPolls();
+    }, []);
+
+
+    const MtechPolls = myMtechPolls.map((mtechPoll) => {
         return (
             <Accordion allowMultiple>
                 <Box borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -143,21 +179,15 @@ function RenderMtechPolls() {
                                         <Th> Name </Th>
                                         <Th> Roll No. </Th>
                                         <Th> Candidate No. </Th>
-                                        <Th> Program </Th>
-                                        <Th> Department </Th>
-                                        <Th> Hostel </Th>
                                     </Tr>
                                 </Thead>
                                 {
                                     mtechPoll.candidates.map((candidate) => {
                                         return ( <>
                                         <Tr>
-                                        <Td> {candidate.name} </Td>
+                                            <Td> {candidate.name} </Td>
                                             <Td> {candidate.rollNo} </Td>
                                             <Td> {candidate.candidateNo} </Td>
-                                            <Td> {candidate.program} </Td>
-                                            <Td> {candidate.dept} </Td>
-                                            <Td> {candidate.hostel} </Td>
                                         </Tr>
                                         </>
                                         )

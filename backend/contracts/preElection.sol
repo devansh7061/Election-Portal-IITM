@@ -59,6 +59,7 @@ contract PreElection {
     function startElection() public onlyAdmin {
         require(start == false, "ELECTION_ALREADY_STARTED");
         start = true;
+        end = false;
     }
 
     function viewElectionStarted() public view returns (bool) {

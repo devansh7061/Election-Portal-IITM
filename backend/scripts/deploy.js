@@ -66,8 +66,8 @@ async function main() {
   contractAddresses["Election"] = election.address;
 
   var ContractAddresses = JSON.stringify(contractAddresses);
-  fs.writeFileSync("ContractAddresses.json", ContractAddresses);
-  fs.writeFileSync("./frontend-admin/ContractAddresses.json", ContractAddresses)
+  fs.writeFileSync("./scripts/ContractAddresses.json", ContractAddresses);
+  fs.writeFileSync('../frontend-admin/src/pages/admin/ContractAddresses.json', ContractAddresses)
   console.log(contractAddresses)
 }
 

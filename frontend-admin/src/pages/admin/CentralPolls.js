@@ -2,6 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Box, Flex, Button, Spacer, Text, HStack, Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer,Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Stat,StatLabel,StatNumber,StatHelpText,StatArrow, StatGroup, SimpleGrid} from "@chakra-ui/react";
 import "./Admin.css";
 import { CentralPollCodes, HostelCodes, HostelPollCodes, DepartmentCodes, DepartmentPollCodes} from "./electionData.js";
+import { ethers } from 'ethers';
+import * as fs from "fs";
+import ContractAddresses from "./ContractAddresses.json";
+
+function stringToBytes2(str) {
+    // convert the string to bytes
+    const bytes = ethers.utils.toUtf8Bytes(str);
+    // extract the first 2 bytes
+    const bytes2 = ethers.utils.hexDataSlice(bytes, 0, 2);
+    return bytes2;
+}
+
+function stringToBytes4(str) {
+    // convert the string to bytes
+    const bytes = ethers.utils.toUtf8Bytes(str);
+    // extract the first 2 bytes
+    const bytes4 = ethers.utils.hexDataSlice(bytes, 0, 4);
+    return bytes4;
+}
 
 // rendering the preferential votes as objects
 const findOccurrences = (arr = []) => {
@@ -38,25 +57,19 @@ function RenderCentralPolls() {
                         "name": "Anirudh",
                         "rollNo": "NA20B007",
                         "candidateNo": 1,
-                        "program": "B.tech-20",
-                        "dept": "OE",
-                        "hostel": "Tapti"
+                        
                     },
                     {
                         "name": "Devansh",
                         "rollNo": "NA20B016",
                         "candidateNo": 2,
-                        "program": "B.tech-20",
-                        "dept": "OE",
-                        "hostel": "Tapti"
+                        
                     },
                     {
                         "name": "Devansh",
                         "rollNo": "NA20B016",
                         "candidateNo": 3,
-                        "program": "B.tech-20",
-                        "dept": "OE",
-                        "hostel": "Tapti"
+                        
                     },
                 ],
                 "abstainedVotes": 0, // SC API
@@ -100,9 +113,44 @@ function RenderCentralPolls() {
         }
     }
 
-    
+    const [myCentralPolls, setMyCentralPolls] = useState([]);
 
-    const CentralPolls = centralPolls.map((centralPoll) => {
+    useEffect(() => {
+      async function fetchPolls() {
+        let provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.blockpi.network/v1/rpc/public")
+        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
+
+        const ElectionAddress = ContractAddresses.Election;
+        const ElectionABI = [
+            "function getCentralPollDetails (bytes2) public view returns (uint256[4] memory)",
+            "function getCentralPollVotes (bytes2) public view returns (uint256[] memory)",
+        ]
+        const ElectionContract = new ethers.Contract(ElectionAddress, ElectionABI, adminWallet)
+        
+        const promises = centralPolls.map(async (centralPoll) => {
+            const centralPollDetails = await ElectionContract.getCentralPollDetails(stringToBytes2(centralPoll.pollCode));
+            const abstainedVotes = centralPollDetails[0]
+            const rejectedVotes = centralPollDetails[1]
+            const totalVotes = centralPollDetails[3]
+            const votes = await ElectionContract.getCentralPollVotes(stringToBytes2(centralPoll.pollCode));
+            return {
+              ...centralPoll,
+              abstainedVotes: abstainedVotes.toString(),
+              rejectedVotes: rejectedVotes.toString(),
+              totalVotes: totalVotes.toString(),
+              votes: votes.map(x => x.toString())
+            };
+          });
+        const updatedCentralPolls = await Promise.all(promises);
+        // Update the state with the value
+        setMyCentralPolls(updatedCentralPolls);
+      }
+  
+      fetchPolls();
+    }, []);
+
+    const CentralPolls = myCentralPolls.map((centralPoll) => {
         return (
             <Accordion allowMultiple>
                 <Box borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -145,9 +193,6 @@ function RenderCentralPolls() {
                                         <Th> Name </Th>
                                         <Th> Roll No. </Th>
                                         <Th> Candidate No. </Th>
-                                        <Th> Program </Th>
-                                        <Th> Department </Th>
-                                        <Th> Hostel </Th>
                                     </Tr>
                                 </Thead>
                                 {
@@ -157,9 +202,6 @@ function RenderCentralPolls() {
                                         <Td> {candidate.name} </Td>
                                             <Td> {candidate.rollNo} </Td>
                                             <Td> {candidate.candidateNo} </Td>
-                                            <Td> {candidate.program} </Td>
-                                            <Td> {candidate.dept} </Td>
-                                            <Td> {candidate.hostel} </Td>
                                         </Tr>
                                         </>
                                         )
@@ -236,11 +278,12 @@ function RenderCentralPolls() {
                         }
                         </SimpleGrid>
                     </Box>
-        
+
                     </AccordionPanel>
                 </AccordionItem>
                 </Box>
                 </Accordion>
+                
             )
         }
     )
@@ -256,6 +299,8 @@ function CentralPolls() {
         <RenderCentralPolls />
     </>        
 }
+
+
 
 export default CentralPolls;
 

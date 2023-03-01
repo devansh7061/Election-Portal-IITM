@@ -6,21 +6,7 @@ import { ethers } from 'ethers';
 import InElectionArtifact from '../artifacts/contracts/in_election.sol';
  */
 
-function stringToBytes2(str) {
-    // convert the string to bytes
-    const bytes = ethers.utils.toUtf8Bytes(str);
-    // extract the first 2 bytes
-    const bytes2 = ethers.utils.hexDataSlice(bytes, 0, 2);
-    return bytes2;
-}
 
-function stringToBytes4(str) {
-    // convert the string to bytes
-    const bytes = ethers.utils.toUtf8Bytes(str);
-    // extract the first 2 bytes
-    const bytes4 = ethers.utils.hexDataSlice(bytes, 0, 4);
-    return bytes4;
-}
 
 
 const main = async () => {
@@ -28,7 +14,7 @@ const main = async () => {
     let contractAddresses = JSON.parse(fs.readFileSync('./ContractAddresses.json'));
     let INFURA_ID = '80f66721ab284276b1faeb59e5b83e46';
     // let provider = new ethers.providers.JsonRpcProvider(`https://goerli.infura.io/v3/${INFURA_ID}`)
-    let provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.blockpi.network/v1/rpc/public")
+    let provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_mumbai")
     let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
     let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
     let gasPrice= await provider.getGasPrice();

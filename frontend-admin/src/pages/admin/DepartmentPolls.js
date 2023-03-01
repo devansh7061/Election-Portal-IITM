@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Button, Spacer, Text, HStack, Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer,Accordion,AccordionItem,AccordionButton,AccordionPanel,AccordionIcon,Stat,StatLabel,StatNumber,StatHelpText,StatArrow, StatGroup, SimpleGrid, Tabs, TabList, TabPanels, Tab, TabPanel} from "@chakra-ui/react";
 import { CentralPollCodes, HostelCodes, HostelPollCodes, DepartmentCodes, DepartmentPollCodes} from "./electionData.js"
+import { ethers } from "ethers";
+import ContractAddresses from "./ContractAddresses.json";
 
 const findOccurrences = (arr = []) => {
     const res = [];
@@ -20,6 +22,15 @@ const findOccurrences = (arr = []) => {
     });
     return res;
  };
+
+ function stringToBytes4(str) {
+    // convert the string to bytes
+    const bytes = ethers.utils.toUtf8Bytes(str);
+    // extract the first 2 bytes
+    const bytes4 = ethers.utils.hexDataSlice(bytes, 0, 4);
+    return bytes4;
+}
+
  
  function RenderDepartmentPolls() {
 
@@ -45,25 +56,16 @@ const findOccurrences = (arr = []) => {
                         "name": "Anirudh",
                         "rollNo": "NA20B007",
                         "candidateNo": 1,
-                        "program": "B.tech-20",
-                        "dept": "OE",
-                        "hostel": "Tapti"
                     },
                     {
                         "name": "Devansh",
                         "rollNo": "NA20B016",
                         "candidateNo": 2,
-                        "program": "B.tech-20",
-                        "dept": "OE",
-                        "hostel": "Tapti"
                     },
                     {
                         "name": "Devansh",
                         "rollNo": "NA20B016",
                         "candidateNo": 3,
-                        "program": "B.tech-20",
-                        "dept": "OE",
-                        "hostel": "Tapti"
                     },
                 ],
                 "abstainedVotes": 500,
@@ -92,7 +94,49 @@ const findOccurrences = (arr = []) => {
         }
     }
 
-    const DepartmentPolls = departmentPolls.map((departmentPoll) => {
+    const [myDepartmentPolls, setMyDepartmentPolls] = useState([]);
+
+    useEffect(() => {
+        let provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.blockpi.network/v1/rpc/public")
+        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
+
+        const ElectionAddress = ContractAddresses.Election;
+        const ElectionABI = [
+            "function getDepartmentPollDetails (bytes4) public view returns (uint256[4] memory)",
+            "function getDepartmentPollVotes (bytes4) public view returns (uint256[] memory)",
+        ]
+        const ElectionContract = new ethers.Contract(ElectionAddress, ElectionABI, adminWallet)
+        const updatedDepartmentPolls = async () => {
+        const updatedDepartments = await Promise.all(
+            departmentPolls.map(async (departmentPoll) => {
+            const updatedPolls = await Promise.all(
+                departmentPoll.polls.map(async (poll) => {
+                    // Call ethers view function and update signup properties
+                    const pollDetails = await ElectionContract.getDepartmentPollDetails(stringToBytes4(poll.departmentPollCode));
+                    const abstainedVotes = pollDetails[0]
+                    const rejectedVotes = pollDetails[1]
+                    const totalVotes = pollDetails[3]
+                    const votes = await ElectionContract.getDepartmentPollVotes(stringToBytes4(poll.departmentPollCode));
+                    return {
+                    ...poll,
+                    abstainedVotes: abstainedVotes.toString(),
+                    rejectedVotes: rejectedVotes.toString(),
+                    totalVotes: totalVotes.toString(),
+                    votes: votes.map(x => x.toString())
+                };
+                })
+            );
+            return { ...departmentPoll, polls: updatedPolls };
+            })
+        );
+        setMyDepartmentPolls(updatedDepartments);
+        };
+
+        updatedDepartmentPolls();
+    }, []);
+
+    const DepartmentPolls = myDepartmentPolls.map((departmentPoll) => {
         return (
             <>
             <Tabs isFitted variant='line' colorScheme='black'>
@@ -146,9 +190,6 @@ const findOccurrences = (arr = []) => {
                                                       <Th> Name </Th>
                                                       <Th> Roll No. </Th>
                                                       <Th> Candidate No. </Th>
-                                                      <Th> Program </Th>
-                                                      <Th> Department </Th>
-                                                      <Th> Hostel </Th>
                                                   </Tr>
                                               </Thead>
                                               {
@@ -158,9 +199,6 @@ const findOccurrences = (arr = []) => {
                                                           <Td> {candidate.name} </Td>
                                                           <Td> {candidate.rollNo} </Td>
                                                           <Td> {candidate.candidateNo} </Td>
-                                                          <Td> {candidate.program} </Td>
-                                                          <Td> {candidate.dept} </Td>
-                                                          <Td> {candidate.hostel} </Td>
                                                       </Tr>
                                                       </>
                                                       )
