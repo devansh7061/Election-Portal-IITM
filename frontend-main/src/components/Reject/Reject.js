@@ -16,24 +16,16 @@ function handleClick(e, { active, setActive, setVariable, variable }) {
 function Reject({ variable, setVariable }) {
   const [active, setActive] = useState(false);
   return (
-    <div>
-      <Card
-        maxW="sm"
+    <div className={variable == "Reject" ? "active" : "inactive"}>
+      <Image
+        src={RejectImage}
+        alt="Reject"
+        borderRadius="lg"
+        boxSize="250px"
         onClick={(e) =>
           handleClick(e, { active, setActive, variable, setVariable })
         }
-      >
-        <CardBody>
-          <div className={variable == "Reject" ? "active" : ""}>
-            <Image
-              src={RejectImage}
-              alt="Reject"
-              borderRadius="lg"
-              boxSize="250px"
-            />
-          </div>
-        </CardBody>
-      </Card>
+      />
     </div>
   );
 }

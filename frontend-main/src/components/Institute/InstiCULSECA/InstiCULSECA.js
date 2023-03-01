@@ -4,7 +4,7 @@ import Reject from "../../Reject/Reject";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer, Box } from "@chakra-ui/react";
 import "./InstiCULSECA.css";
 
 function InstiCULSECA({ instiCULSECACandidates }) {
@@ -20,15 +20,17 @@ function InstiCULSECA({ instiCULSECACandidates }) {
   );
   return (
     <div>
-      <Center>
-        <Heading as="h2" size="xl" noOfLines={1}>
-          Cultural Affairs Secretary (Arts)
-        </Heading>
-      </Center>
+      <Box bg="black" padding="8px" margin="15px 0px">
+        <Center>
+          <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+            Cultural Affairs Secretary (Arts)
+          </Heading>
+        </Center>
+      </Box>
       <br></br>
       <div className={many ? "show" : "hide"}>
         <Flex>
-          {instiCULSECACandidates.map((candidate,i) => {
+          {instiCULSECACandidates.map((candidate, i) => {
             return (
               <>
                 <ManyCandidateCard

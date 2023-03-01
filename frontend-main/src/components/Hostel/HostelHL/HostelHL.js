@@ -1,7 +1,7 @@
 import React from "react";
 import Abstain from "../../Abstain/Abstain";
 import Reject from "../../Reject/Reject";
-import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer, Box } from "@chakra-ui/react";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard";
 import useVoteStore from "../../../store/voteStore";
@@ -16,11 +16,13 @@ function HostelHL({ hostelHLCandidates }) {
   const setHostelHLPreferences = useVoteStore((state) => state.setHostelHLPreferences);
   return (
     <div>
-      <Center>
-        <Heading as="h2" size="xl" noOfLines={1}>
-          Hostel Legislator
-        </Heading>
-      </Center>
+      <Box bg="black" padding="8px" margin="15px 0px">
+        <Center>
+          <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+            Hostel Legislator
+          </Heading>
+        </Center>
+      </Box>
       <br></br>
       <div className={many ? "show" : "hide"}>
         <Flex>
@@ -47,22 +49,24 @@ function HostelHL({ hostelHLCandidates }) {
         </Flex>
       </div>
       <div className={many ? "hide" : "show"}>
-        <HStack spacing="150px">
-          {hostelHLCandidates.map((candidate, i) => {
-            return (
-              <OneCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                variable={hostelHL}
-                setVariable={setHostelHL}
-                index={i}
-              />
-            );
-          })}
-          <Abstain variable={hostelHL} setVariable={setHostelHL} />
-          <Reject variable={hostelHL} setVariable={setHostelHL} />
-        </HStack>
+        <Center>
+          <HStack spacing="150px">
+            {hostelHLCandidates.map((candidate, i) => {
+              return (
+                <OneCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  variable={hostelHL}
+                  setVariable={setHostelHL}
+                  index={i}
+                />
+              );
+            })}
+            <Abstain variable={hostelHL} setVariable={setHostelHL} />
+            <Reject variable={hostelHL} setVariable={setHostelHL} />
+          </HStack>
+        </Center>
       </div>
     </div>
   );

@@ -1,4 +1,9 @@
 .active{
     border-color: black;
     border-width: 2px;
+    /* height: 250px; */
+}
+
+.inactive{
+    /* height: 250px; */
 }

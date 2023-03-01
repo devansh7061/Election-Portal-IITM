@@ -4,7 +4,7 @@ import Reject from '../../Reject/Reject';
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack } from "@chakra-ui/react";
 import "./InstiRAS.css"
 
 function InstiRAS({instiRASCandidates}) {
@@ -20,11 +20,13 @@ function InstiRAS({instiRASCandidates}) {
     );
     return (
       <div>
-        <Center>
-          <Heading as="h2" size="xl" noOfLines={1}>
-            Research Affairs Secretary
-          </Heading>
-        </Center>
+        <Box bg="black" padding="8px" margin="15px 0px">
+          <Center>
+            <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+              Research Affairs Secretary
+            </Heading>
+          </Center>
+        </Box>
         <br></br>
         <div className={many ? "show" : "hide"}>
           <HStack spacing="150px">

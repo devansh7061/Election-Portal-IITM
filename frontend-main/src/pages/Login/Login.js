@@ -120,7 +120,7 @@ function Login() {
   return loggedInStatus ? (
     <Navigate to="/home" replace />
   ) : (
-    <div>
+    <div className="studentLogin">
       <Flex
         flexDirection="column"
         width="100wh"

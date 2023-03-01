@@ -4,7 +4,7 @@ import Reject from "../../Reject/Reject";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack } from "@chakra-ui/react";
 import "./InstiSGS.css";
 
 function InstiSGS({ instiSGSCandidates }) {
@@ -17,11 +17,13 @@ function InstiSGS({ instiSGSCandidates }) {
   const setInstiSGSPreferences = useVoteStore((state) => state.setInstiSGSPreferences);
   return (
     <div>
-      <Center>
-        <Heading as="h2" size="xl" noOfLines={1}>
-          Students General Secretary
-        </Heading>
-      </Center>
+      <Box bg="black" padding="8px" margin="15px 0px">
+        <Center>
+          <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+            Students General Secretary
+          </Heading>
+        </Center>
+      </Box>
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
@@ -44,22 +46,24 @@ function InstiSGS({ instiSGSCandidates }) {
         </HStack>
       </div>
       <div className={many ? "hide" : "show"}>
-        <HStack spacing="150px">
-          {instiSGSCandidates.map((candidate,i) => {
-            return (
-              <OneCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                variable={instiSGS}
-                setVariable={setInstiSGS}
-                index={i}
-              />
-            );
-          })}
-          <Abstain variable={instiSGS} setVariable={setInstiSGS} />
-          <Reject variable={instiSGS} setVariable={setInstiSGS} />
-        </HStack>
+        <Center>
+          <HStack spacing="150px">
+            {instiSGSCandidates.map((candidate, i) => {
+              return (
+                <OneCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  variable={instiSGS}
+                  setVariable={setInstiSGS}
+                  index={i}
+                />
+              );
+            })}
+            <Abstain variable={instiSGS} setVariable={setInstiSGS} />
+            <Reject variable={instiSGS} setVariable={setInstiSGS} />
+          </HStack>
+        </Center>
       </div>
     </div>
   );

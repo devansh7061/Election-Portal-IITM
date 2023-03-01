@@ -4,7 +4,7 @@ import Reject from "../../Reject/Reject";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack } from "@chakra-ui/react";
 import "./InstiCULSECL.css";
 
 function InstiCULSECL({ instiCULSECLCandidates }) {
@@ -20,15 +20,17 @@ function InstiCULSECL({ instiCULSECLCandidates }) {
   );
   return (
     <div>
-      <Center>
-        <Heading as="h2" size="xl" noOfLines={1}>
-          Cultural Affairs Secretary (Literary)
-        </Heading>
-      </Center>
+      <Box bg="black" padding="8px" margin="15px 0px">
+        <Center>
+          <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+            Cultural Affairs Secretary (Literary)
+          </Heading>
+        </Center>
+      </Box>
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiCULSECLCandidates.map((candidate,i) => {
+          {instiCULSECLCandidates.map((candidate, i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
@@ -47,22 +49,24 @@ function InstiCULSECL({ instiCULSECLCandidates }) {
         </HStack>
       </div>
       <div className={many ? "hide" : "show"}>
-        <HStack spacing="150px">
-          {instiCULSECLCandidates.map((candidate, i) => {
-            return (
-              <OneCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                variable={instiCULSECL}
-                setVariable={setInstiCULSECL}
-                index={i}
-              />
-            );
-          })}
-          <Abstain variable={instiCULSECL} setVariable={setInstiCULSECL} />
-          <Reject variable={instiCULSECL} setVariable={setInstiCULSECL} />
-        </HStack>
+        <Center>
+          <HStack spacing="150px">
+            {instiCULSECLCandidates.map((candidate, i) => {
+              return (
+                <OneCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  variable={instiCULSECL}
+                  setVariable={setInstiCULSECL}
+                  index={i}
+                />
+              );
+            })}
+            <Abstain variable={instiCULSECL} setVariable={setInstiCULSECL} />
+            <Reject variable={instiCULSECL} setVariable={setInstiCULSECL} />
+          </HStack>
+        </Center>
       </div>
     </div>
   );

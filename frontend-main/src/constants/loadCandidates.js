@@ -87,6 +87,7 @@ function loadCandidates({
   setInstiSGSTotalCandidates,
   setDepartmentPreferences,
   setDepartmentTotalCandidates,
+  setDepartmentLegislator
 }) {
   const requestBody = {
     query: `
@@ -349,12 +350,14 @@ function loadCandidates({
       setHostelTASPreferences(hostelTASPreferences);
       setDepartmentCandidates(departmentCandidates);
       const totalDepartmentCandidates = departmentCandidates.length;
+      console.log("Totalccc", totalDepartmentCandidates)
       setDepartmentTotalCandidates(totalDepartmentCandidates);
       let departmentPreferences = [];
       for (let i = 1; i <= totalDepartmentCandidates; i++) {
         departmentPreferences.push({ value: i, label: i });
       }
       setDepartmentPreferences(departmentPreferences);
+      console.log(departmentPreferences);
       setInstiAAS(null);
       setInstiRAS(null);
       setInstiCOCAS(null);
@@ -371,6 +374,7 @@ function loadCandidates({
       setHostelLL(null);
       setHostelHL(null);
       setHostelTAS(null);
+      setDepartmentLegislator(null);
     })
     .catch((err) => {
       console.log(err);

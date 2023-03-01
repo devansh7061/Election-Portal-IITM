@@ -4,7 +4,7 @@ import Reject from '../../Reject/Reject';
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack, Flex, Spacer } from "@chakra-ui/react";
+import { Center, Heading, HStack, Flex, Spacer, Box } from "@chakra-ui/react";
 import "./AcademicLegislator.css"
 
 function AcademicLegislator({departmentCandidates}) {
@@ -20,11 +20,13 @@ function AcademicLegislator({departmentCandidates}) {
     );
     return (
       <div>
-        <Center>
-          <Heading as="h2" size="xl" noOfLines={1}>
-            DEPARTMENT LEGISLATOR (ACADEMIC)
-          </Heading>
-        </Center>
+        <Box bg="black" padding="8px">
+          <Center>
+            <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+              DEPARTMENT LEGISLATOR (ACADEMIC)
+            </Heading>
+          </Center>
+        </Box>
         <br></br>
         <div className={many ? "show" : "hide"}>
           <Flex>
@@ -57,28 +59,30 @@ function AcademicLegislator({departmentCandidates}) {
           </Flex>
         </div>
         <div className={many ? "hide" : "show"}>
-          <HStack spacing="150px">
-            {departmentCandidates.map((candidate, i) => {
-              return (
-                <OneCandidateCard
-                  name={candidate.name}
-                  rollNo={candidate.rollNo}
-                  picture={candidate.picture}
-                  variable={departmentLegislator}
-                  setVariable={setDepartmentLegislator}
-                  index={i}
-                />
-              );
-            })}
-            <Abstain
-              variable={departmentLegislator}
-              setVariable={setDepartmentLegislator}
-            />
-            <Reject
-              variable={departmentLegislator}
-              setVariable={setDepartmentLegislator}
-            />
-          </HStack>
+          <Center>
+            <HStack spacing="150px">
+              {departmentCandidates.map((candidate, i) => {
+                return (
+                  <OneCandidateCard
+                    name={candidate.name}
+                    rollNo={candidate.rollNo}
+                    picture={candidate.picture}
+                    variable={departmentLegislator}
+                    setVariable={setDepartmentLegislator}
+                    index={i}
+                  />
+                );
+              })}
+              <Abstain
+                variable={departmentLegislator}
+                setVariable={setDepartmentLegislator}
+              />
+              <Reject
+                variable={departmentLegislator}
+                setVariable={setDepartmentLegislator}
+              />
+            </HStack>
+          </Center>
         </div>
       </div>
     );

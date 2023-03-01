@@ -1,4 +1,10 @@
 .active{
     border-color: black;
     border-width: 2px;
+    height: 200px;
+    
+}
+
+.inactive{
+    height: 200px;
 }

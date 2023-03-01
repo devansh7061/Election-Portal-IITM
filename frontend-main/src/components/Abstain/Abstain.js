@@ -16,25 +16,16 @@ function handleClick(e, { active, setActive, variable, setVariable }) {
 function Abstain({ variable, setVariable }) {
   const [active, setActive] = useState(false);
   return (
-    <div>
-      <Card
-        maxW="sm"
+    <div className={variable == "Abstain" ? "active" : "inactive"}>
+      <Image
+        src={AbstainImage}
+        alt="Abstain"
+        borderRadius="lg"
+        boxSize="250px"
         onClick={(e) =>
           handleClick(e, { active, setActive, variable, setVariable })
         }
-        
-      >
-        <CardBody>
-          <div className={variable == "Abstain" ? "active" : ""}>
-            <Image
-              src={AbstainImage}
-              alt="Abstain"
-              borderRadius="lg"
-              boxSize="250px"
-            />
-          </div>
-        </CardBody>
-      </Card>
+      />
     </div>
   );
 }

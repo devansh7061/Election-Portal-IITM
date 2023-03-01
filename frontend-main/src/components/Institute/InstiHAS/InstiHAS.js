@@ -4,7 +4,7 @@ import Reject from "../../Reject/Reject";
 import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard.js";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
-import { Center, Heading, HStack } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack } from "@chakra-ui/react";
 import "./InstiHAS.css";
 
 function InstiHAS({ instiHASCandidates }) {
@@ -21,15 +21,17 @@ function InstiHAS({ instiHASCandidates }) {
   );
   return (
     <div>
-      <Center>
-        <Heading as="h2" size="xl" noOfLines={1}>
-          Hostel Affairs Secretary
-        </Heading>
-      </Center>
+      <Box bg="black" padding="8px" margin="15px 0px">
+        <Center>
+          <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
+            Hostel Affairs Secretary
+          </Heading>
+        </Center>
+      </Box>
       <br></br>
       <div className={many ? "show" : "hide"}>
         <HStack spacing="150px">
-          {instiHASCandidates.map((candidate,i) => {
+          {instiHASCandidates.map((candidate, i) => {
             return (
               <ManyCandidateCard
                 name={candidate.name}
@@ -48,22 +50,24 @@ function InstiHAS({ instiHASCandidates }) {
         </HStack>
       </div>
       <div className={many ? "hide" : "show"}>
-        <HStack spacing="150px">
-          {instiHASCandidates.map((candidate, i) => {
-            return (
-              <OneCandidateCard
-                name={candidate.name}
-                rollNo={candidate.rollNo}
-                picture={candidate.picture}
-                variable={instiHAS}
-                setVariable={setInstiHAS}
-                index={i}
-              />
-            );
-          })}
-          <Abstain variable={instiHAS} setVariable={setInstiHAS} />
-          <Reject variable={instiHAS} setVariable={setInstiHAS} />
-        </HStack>
+        <Center>
+          <HStack spacing="150px">
+            {instiHASCandidates.map((candidate, i) => {
+              return (
+                <OneCandidateCard
+                  name={candidate.name}
+                  rollNo={candidate.rollNo}
+                  picture={candidate.picture}
+                  variable={instiHAS}
+                  setVariable={setInstiHAS}
+                  index={i}
+                />
+              );
+            })}
+            <Abstain variable={instiHAS} setVariable={setInstiHAS} />
+            <Reject variable={instiHAS} setVariable={setInstiHAS} />
+          </HStack>
+        </Center>
       </div>
     </div>
   );

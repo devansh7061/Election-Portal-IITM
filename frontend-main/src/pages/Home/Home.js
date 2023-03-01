@@ -193,12 +193,24 @@ function generateString1(post, poll, category, totalCandidates, { result }) {
     finalString = "1";
   } else if (poll == "Hostel") {
     finalString = "2";
+  } else if (poll == "Department") {
+    finalString = "3";
+    finalString = finalString.concat(category);
+    if(post == "DEPARTMENT LEGISLATOR (ACADEMIC)"){
+      finalString = finalString.concat("BT");
+    } else {
+      finalString = finalString.concat("PD");
+    }
+  } else if (poll == "MTECH LEGISLATORS") {
+    finalString = "4MT"
   }
-  if (poll == "Hostel") {
-    finalString = finalString.concat(hostelMap.get(category));
-    console.log("Category: ", category, "finalstring: ", finalString)
+    if (poll == "Hostel") {
+      finalString = finalString.concat(hostelMap.get(category));
+      console.log("Category: ", category, "finalstring: ", finalString);
+    }
+  if(poll == "Hostel" || poll == "Institute"){
+    finalString = finalString.concat(pollMap.get(post));
   }
-  finalString = finalString.concat(pollMap.get(post));
   if (result == "Abstain") {
     finalString = finalString.concat("10");
     for (let i = 0; i < totalCandidates; i++) {
@@ -226,6 +238,10 @@ function handleClick( // vote function handler for the frontend
   {
     hostel,
     rollNo,
+    course,
+    department,
+    departmentLegislator,
+    departmentTotalCandidates,
     instiAAS,
     instiCOCAS,
     instiCULSECA,
@@ -290,6 +306,8 @@ function handleClick( // vote function handler for the frontend
       hostelTASTotalCandidates,
       setFormError,
       residencyType,
+      departmentLegislator,
+      departmentTotalCandidates
     });
     let resultArr = [];
     let result = instiAAS;
@@ -458,6 +476,40 @@ function handleClick( // vote function handler for the frontend
       }
 
     }
+    if (departmentTotalCandidates > 0) {
+      result = departmentLegislator;
+      let departmentLegislatorString;
+      if (course == "B.Tech" || course == "DD" || course == "M.Sc" || course == "MBA" || course == "MA") {
+        departmentLegislatorString = generateString1(
+          "DEPARTMENT LEGISLATOR (ACADEMIC)",
+          "Department",
+          department,
+          departmentTotalCandidates,
+          {result}
+        );
+        resultArr.push(departmentLegislatorString);
+      } else if (course == "M.Tech") {
+        departmentLegislatorString = generateString1(
+          "MTECH LEGISLATORS",
+          "MTECH LEGISLATORS",
+          "MTECH LEGISLATORS",
+          departmentTotalCandidates,
+          { result }
+        );
+        resultArr.push(departmentLegislatorString);
+      }
+      else {
+        departmentLegislatorString = generateString1(
+          "DEPARTMENT LEGISLATOR (RESEARCH)",
+          "Department",
+          department,
+          departmentTotalCandidates,
+          {result}
+        );
+        resultArr.push(departmentLegislatorString);
+      }
+
+    }
     let userId = "user1";
     let ballotObject = {
       userId: userId,
@@ -582,7 +634,8 @@ function Home() {
   const [hostelTASTotalCandidates, setHostelTASTotalCandidates] = useState();
   const [departmentCandidates, setDepartmentCandidates] = useState([]);
   const [departmentTotalCandidates, setDepartmentTotalCandidates] = useState();
-
+  const departmentLegislator = useVoteStore((state) => state.departmentLegislator);
+  const setDepartmentLegislator = useVoteStore((state) => state.setDepartmentLegislator);
   const setInstiSGSPreferences = useVoteStore(
     (state) => state.setInstiSGSPreferences
   );
@@ -643,6 +696,7 @@ function Home() {
       token,
       instiAASCandidates,
       setInstiAAS,
+      setDepartmentLegislator,
       setInstiAASCandidates,
       setInstiAASTotalCandidates,
       setDepartmentTotalCandidates,
@@ -729,7 +783,7 @@ function Home() {
   }, []);
   return (
     <>
-      <Box className="navbar" bg="black" w="100%" p={6} color="white">
+      <Box className="navbar" bg="black" w="100%" p={6} color="#ffdf58">
         <Flex>
           <Text fontSize="xl">IITM- Student General Elections 2023</Text>
           <Spacer />
@@ -766,11 +820,16 @@ function Home() {
       <br></br>
       <Center>
         <Button
-          colorScheme="blue"
+          bg="black"
+          color="#ffdf58"
           onClick={(e) =>
             handleClick(e, {
               hostel,
               rollNo,
+              course,
+              department,
+              departmentLegislator,
+              departmentTotalCandidates,
               instiAAS,
               instiAASTotalCandidates,
               instiRAS,
@@ -827,12 +886,8 @@ function Home() {
       <Box className="navbar" bg="black" w="100%" p={4} color="white">
         <Center>
           <VStack>
-            <Text fontSize="lg">
-              Made with ❤
-            </Text>
-            <Text fontSize="lg">
-              Devansh Saini & Anirudh Varna
-            </Text>
+            <Text fontSize="lg">Made with ❤</Text>
+            <Text fontSize="lg">Devansh Saini & Anirudh Varna</Text>
             <Text fontSize="lg" color="#fec901">
               © Webops and Blockchain Club, IIT Madras
             </Text>
