@@ -4,44 +4,60 @@ function loadCandidates({
   course,
   token,
   instiAASCandidates,
+  setInstiAAS,
   instiRASCandidates,
+  setInstiRAS,
   instiCOCASCandidates,
+  setInstiCOCAS,
   instiCULSECACandidates,
+  setInstiCULSECA,
   instiCULSECLCandidates,
   setInstiCULSECLCandidates,
+  setInstiCULSECL,
   instiHASCandidates,
+  setInstiHAS,
   setInstiHASCandidates,
   instiIARCandidates,
+  setInstiIAR,
   setInstiIARCandidates,
   instiSSCandidates,
+  setInstiSS,
   setInstiSSCandidates,
   instiSGSCandidates,
+  setInstiSGS,
   setInstiSGSCandidates,
   hostelSGSCandidates,
+  setHostelSGS,
   setHostelSGSCandidates,
   setHostelSGSTotalCandidates,
   setHostelSGSPreferences,
   hostelHHSCandidates,
+  setHostelHHS,
   setHostelHHSCandidates,
   setHostelHHSTotalCandidates,
   setHostelHHSPreferences,
   hostelHLCandidates,
+  setHostelHL,
   setHostelHLCandidates,
   setHostelHLTotalCandidates,
   setHostelHLPreferences,
   hostelLLCandidates,
+  setHostelLL,
   setHostelLLCandidates,
   setHostelLLTotalCandidates,
   setHostelLLPreferences,
   hostelSLCandidates,
+  setHostelSL,
   setHostelSLCandidates,
   setHostelSLTotalCandidates,
   setHostelSLPreferences,
   hostelTASCandidates,
+  setHostelTAS,
   setHostelTASCandidates,
   setHostelTASTotalCandidates,
   setHostelTASPreferences,
   hostelSSCandidates,
+  setHostelSS,
   setHostelSSCandidates,
   setHostelSSTotalCandidates,
   setHostelSSPreferences,
@@ -70,7 +86,7 @@ function loadCandidates({
   setInstiSSTotalCandidates,
   setInstiSGSTotalCandidates,
   setDepartmentPreferences,
-  setDepartmentTotalCandidates
+  setDepartmentTotalCandidates,
 }) {
   const requestBody = {
     query: `
@@ -198,9 +214,7 @@ function loadCandidates({
         ) {
           hostelTASCandidates = [...hostelTASCandidates, candidate];
         }
-        if (
-          candidate.poll == "Department"
-        ) {
+        if (candidate.poll == "Department") {
           departmentCandidates = [...departmentCandidates, candidate];
         }
       });
@@ -212,7 +226,7 @@ function loadCandidates({
         instiAASPreferences.push({ value: i, label: i });
       }
       setInstiAASPreferences(instiAASPreferences);
-      console.log("PPPPP", instiAASPreferences)
+      console.log("PPPPP", instiAASPreferences);
       setInstiRASCandidates(instiRASCandidates);
       const totalInstiRASCandidates = instiRASCandidates.length;
       setInstiRASTotalCandidates(totalInstiRASCandidates);
@@ -341,6 +355,22 @@ function loadCandidates({
         departmentPreferences.push({ value: i, label: i });
       }
       setDepartmentPreferences(departmentPreferences);
+      setInstiAAS(null);
+      setInstiRAS(null);
+      setInstiCOCAS(null);
+      setInstiCULSECA(null);
+      setInstiCULSECL(null);
+      setInstiHAS(null);
+      setInstiIAR(null);
+      setInstiSGS(null);
+      setInstiSS(null);
+      setHostelSGS(null);
+      setHostelHHS(null);
+      setHostelSS(null);
+      setHostelSL(null);
+      setHostelLL(null);
+      setHostelHL(null);
+      setHostelTAS(null);
     })
     .catch((err) => {
       console.log(err);

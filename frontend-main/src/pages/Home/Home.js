@@ -515,21 +515,37 @@ function Home() {
   const hostel = useContextStore((state) => state.hostel);
   const token = useContextStore((state) => state.token);
   const instiAAS = useVoteStore((state) => state.instiAAS);
+  const setInstiAAS = useVoteStore((state) => state.setInstiAAS);
   const instiRAS = useVoteStore((state) => state.instiRAS);
+  const setInstiRAS = useVoteStore((state) => state.setInstiRAS);
   const instiCOCAS = useVoteStore((state) => state.instiCOCAS);
+  const setInstiCOCAS = useVoteStore((state) => state.setInstiCOCAS);
   const instiCULSECA = useVoteStore((state) => state.instiCULSECA);
+  const setInstiCULSECA = useVoteStore((state) => state.setInstiCULSECA);
   const instiCULSECL = useVoteStore((state) => state.instiCULSECL);
+  const setInstiCULSECL = useVoteStore((state) => state.setInstiCULSECL);
   const instiHAS = useVoteStore((state) => state.instiHAS);
+  const setInstiHAS = useVoteStore((state) => state.setInstiHAS);
   const instiIAR = useVoteStore((state) => state.instiIAR);
+  const setInstiIAR = useVoteStore((state) => state.setInstiIAR);
   const instiSS = useVoteStore((state) => state.instiSS);
+  const setInstiSS = useVoteStore((state) => state.setInstiSS);
   const instiSGS = useVoteStore((state) => state.instiSGS);
+  const setInstiSGS = useVoteStore((state) => state.setInstiSGS);
   const hostelSGS = useVoteStore((state) => state.hostelSGS);
+  const setHostelSGS = useVoteStore((state) => state.setHostelSGS);
   const hostelHHS = useVoteStore((state) => state.hostelHHS);
+  const setHostelHHS = useVoteStore((state) => state.setHostelHHS);
   const hostelSS = useVoteStore((state) => state.hostelSS);
+  const setHostelSS = useVoteStore((state) => state.setHostelSS);
   const hostelLL = useVoteStore((state) => state.hostelLL);
+  const setHostelLL = useVoteStore((state) => state.setHostelLL);
   const hostelSL = useVoteStore((state) => state.hostelSL);
+  const setHostelSL = useVoteStore((state) => state.setHostelSL);
   const hostelHL = useVoteStore((state) => state.hostelHL);
+  const setHostelHL = useVoteStore((state) => state.setHostelHL);
   const hostelTAS = useVoteStore((state) => state.hostelTAS);
+  const setHostelTAS = useVoteStore((state) => state.setHostelTAS);
   const [instiAASCandidates, setInstiAASCandidates] = useState([]);
   const [instiAASTotalCandidates, setInstiAASTotalCandidates] = useState();
   const [instiRASCandidates, setInstiRASCandidates] = useState([]);
@@ -626,52 +642,68 @@ function Home() {
       department,
       token,
       instiAASCandidates,
+      setInstiAAS,
       setInstiAASCandidates,
       setInstiAASTotalCandidates,
       setDepartmentTotalCandidates,
       instiRASCandidates,
+      setInstiRAS,
       setInstiRASCandidates,
       setInstiRASTotalCandidates,
       instiCOCASCandidates,
+      setInstiCOCAS,
       setInstiCOCASTotalCandidates,
       setInstiCOCASCandidates,
       instiCULSECACandidates,
+      setInstiCULSECA,
       setInstiCULSECATotalCandidates,
       setInstiCULSECACandidates,
       instiCULSECLCandidates,
+      setInstiCULSECL,
       setInstiCULSECLCandidates,
       setInstiCULSECLTotalCandidates,
       instiHASCandidates,
+      setInstiHAS,
       setInstiHASCandidates,
       setInstiHASTotalCandidates,
       instiIARCandidates,
+      setInstiIAR,
       setInstiIARCandidates,
       setInstiIARTotalCandidates,
       instiSSCandidates,
+      setInstiSS,
       setInstiSSCandidates,
       setInstiSSTotalCandidates,
       instiSGSCandidates,
+      setInstiSGS,
       setInstiSGSCandidates,
       setInstiSGSTotalCandidates,
       hostelSGSCandidates,
+      setHostelSGS,
       setHostelSGSCandidates,
       setHostelSGSTotalCandidates,
       hostelHHSCandidates,
+      setHostelHHS,
       setHostelHHSCandidates,
       setHostelHHSTotalCandidates,
       hostelSSCandidates,
+      setHostelSS,
       setHostelSSCandidates,
       setHostelSSTotalCandidates,
       hostelSLCandidates,
+      setHostelSL,
       setHostelSLCandidates,
       setHostelSLTotalCandidates,
       hostelLLCandidates,
+      setHostelLL,
       setHostelLLCandidates,
       setHostelLLTotalCandidates,
       hostelTASCandidates,
+      setHostelTAS,
       setHostelTASCandidates,
       setHostelTASTotalCandidates,
       hostelHLCandidates,
+      setHostelHL,
       setHostelHLCandidates,
       setHostelHLTotalCandidates,
       departmentCandidates,
