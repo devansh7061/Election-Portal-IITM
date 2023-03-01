@@ -24,6 +24,7 @@ import Institute from "../../components/Institute/Institute";
 import Hostel from "../../components/Hostel/Hostel";
 import Department from "../../components/Department/Department";
 import "./Home.css";
+import header from  "./header.png"
 
 // Password to generate the hash and salt for encryption
 const password = "WBGSE2023";
@@ -277,6 +278,8 @@ function handleClick( // vote function handler for the frontend
     navigate,
     setLoggedIn,
     residencyType,
+    confirmVote,
+    setConfirmVote
   }
 ) {
   e.preventDefault();
@@ -524,7 +527,12 @@ function handleClick( // vote function handler for the frontend
       body: JSON.stringify(ballotObject)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      if(data != "1"){
+        setFormError("Something went wrong!")
+        throw new Error("Something went wrong")
+      }
+    })
       .catch(error => console.error(error));
     setHasVoted(true);
     const requestBody = {
@@ -549,7 +557,7 @@ function handleClick( // vote function handler for the frontend
       return res.json();
     })
     setLoggedIn(false);
-    navigate("/");
+    navigate("/thankyou");
   } catch (error) {
     console.log(error);
   }
@@ -687,7 +695,6 @@ function Home() {
   const setDepartmentPreferences = useVoteStore(
     (state) => state.setDepartmentPreferences
   );
-
   useEffect(() => {
     loadCandidates({
       hostel,
@@ -779,16 +786,18 @@ function Home() {
       setHostelTASPreferences,
       setHostelHLPreferences,
       setDepartmentPreferences,
+      
     });
   }, []);
   return (
     <>
-      <Box className="navbar" bg="black" w="100%" p={6} color="#ffdf58">
-        <Flex>
-          <Text fontSize="xl">IITM- Student General Elections 2023</Text>
-          <Spacer />
-          <Text fontSize="xl">Welcome {rollNo}!</Text>
-        </Flex>
+      <Image src={header}></Image>
+      <Box className="navbar" bg="black" w="100%" p={6} color="white" fontSize="xl">
+ 
+          <Center>
+            <Text fontSize="xl" as='b'>Welcome {rollNo}!</Text>
+          </Center>
+
       </Box>
       <Institute
         instiAASCandidates={instiAASCandidates}
@@ -874,6 +883,9 @@ function Home() {
         </Button>
       </Center>
       <br></br>
+      <div>
+
+      </div>
       <div className={formError == null ? "hide" : ""}>
         <Center>
           <Alert status="error">

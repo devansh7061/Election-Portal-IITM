@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Protected from "./components/Protected";
 import DeviceLogin from "./pages/DeviceLogin/DeviceLogin";
 import DeviceProtected from "./components/DeviceProtected";
+import Thankyou from "./pages/Thankyou/Thankyou";
 
 function App() {
   
@@ -27,6 +28,7 @@ function App() {
             </Protected>
           }
         />
+        <Route path="/thankyou" element={<Thankyou />}></Route>
       </Routes>
     </BrowserRouter>
   );

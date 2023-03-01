@@ -10,6 +10,7 @@ const loginRouter = require("./routes/login");
 const isAuth = require("./middleware/is-auth");
 const csvRoutes = require("./routes/csvRoutes");
 const app = express();
+const txnRouter = require("./scripts/TxnApi.js");
 
 app.use(bodyParser.json());
 
@@ -55,3 +56,5 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  app.use("/api/ballots", txnRouter);
