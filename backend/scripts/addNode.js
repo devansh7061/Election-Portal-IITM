@@ -12,9 +12,7 @@ import InElectionArtifact from '../artifacts/contracts/in_election.sol';
 const main = async () => {
 
     let contractAddresses = JSON.parse(fs.readFileSync('./ContractAddresses.json'));
-    let INFURA_ID = '80f66721ab284276b1faeb59e5b83e46';
-    // let provider = new ethers.providers.JsonRpcProvider(`https://goerli.infura.io/v3/${INFURA_ID}`)
-    let provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_mumbai")
+    let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
     let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
     let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
     let gasPrice= await provider.getGasPrice();
@@ -43,7 +41,7 @@ const main = async () => {
     // transaction for addNode function
     let nonce = await provider.getTransactionCount(adminWallet.address);
     let ElectionInterface = new ethers.utils.Interface(ElectionABI);
-    let addNodeTxData = ElectionInterface.encodeFunctionData("addNode", ["0x9024c6352F9C4273CFb07C6fc2Dd423ded165Ea6"])
+    let addNodeTxData = ElectionInterface.encodeFunctionData("addNode", ["0x88d52cb7747D01977B3409Cb255Fc102C3b6ce3F"])
     const addNodeTx = {
         to: ElectionAddress,
         nonce: nonce,

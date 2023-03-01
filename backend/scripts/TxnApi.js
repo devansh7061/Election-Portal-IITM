@@ -6,8 +6,7 @@ const fs = require("fs");
 const { AddrMap } = require("./AddrMap.json");
 const contractAddresses = require("./ContractAddresses.json")
 
-let INFURA_ID = 'f235d9fd779240a79b91330a917cdd7c';
-let provider = new ethers.providers.JsonRpcProvider(`https://goerli.infura.io/v3/${INFURA_ID}`)
+let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
 let gasLimit = 2500000;
 
 const ElectionAddress = contractAddresses["Election"];

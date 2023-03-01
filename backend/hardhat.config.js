@@ -18,7 +18,7 @@ module.exports = {
       allowUnlimitedContractSize: true
     },
     mumbai: {
-      url: "https://rpc.ankr.com/polygon_mumbai",
+      url: "https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c",
       chainId: 80001,
       accounts: ["a0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea"],
       allowUnlimitedContractSize: true

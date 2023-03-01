@@ -4,8 +4,7 @@ const { AddrMap } = require("./AddrMap.json");
 
 let contractAddresses = JSON.parse(fs.readFileSync('ContractAddresses.json'));
 let INFURA_ID = '80f66721ab284276b1faeb59e5b83e46';
-// let provider = new ethers.providers.JsonRpcProvider(`https://goerli.infura.io/v3/${INFURA_ID}`)
-let provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.blockpi.network/v1/rpc/public")
+let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
 let gasLimit = 2500000;
 
 const ElectionAddress = contractAddresses["Election"];
