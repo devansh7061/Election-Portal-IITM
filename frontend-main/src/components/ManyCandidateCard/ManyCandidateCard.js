@@ -16,9 +16,13 @@ function handleChange(e, { index, variable, setVariable, selectedOption, setSele
   console.log(e, "abc");
   let order;
   if (e == null) {
-    // order = variable.filter((x) => x.preference !== selectedOption);
-    // setVariable(order);
-    // setSelectedOption(null);
+    if (variable == null || variable == "Abstain" || variable == "Reject") {
+      
+    } else {
+      order = variable.filter((x) => x.preference !== selectedOption);
+      setVariable(order);
+      setSelectedOption(null);
+    }
   } else {
     if (variable == null || variable == "Abstain" || variable == "Reject") {
       order = [{ preference: e.value, candidate: index }];
