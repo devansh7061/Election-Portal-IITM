@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { ethers } = require("ethers");
 const fs = require("fs");
-const { AddrMap } = require("./AddrMap.json");
+const AddrMap = require("./AddrMap.json");
 const contractAddresses = require("./ContractAddresses.json")
 
 let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
@@ -28,7 +28,7 @@ const ElectionABI = [
 let ElectionInterface = new ethers.utils.Interface(ElectionABI);
 
 // Define a POST route that receives an object 'ballot' in the request body
-router.post('/api/ballots', async (req, res) => {
+router.post('/ballots', async (req, res) => {
   
   const ballotObject = req.body;
   // Do something with the object
@@ -36,7 +36,8 @@ router.post('/api/ballots', async (req, res) => {
 
   // send the ballot transaction
   let gasPrice= await provider.getGasPrice();
-  let nodePrivateKey = AddrMap.get(ballotObject.userId);
+  let nodePrivateKey = AddrMap[ballotObject.userId];
+  
   let nodeWallet = new ethers.Wallet(nodePrivateKey, provider);
   try {
       nonce = await provider.getTransactionCount(nodeWallet.address);

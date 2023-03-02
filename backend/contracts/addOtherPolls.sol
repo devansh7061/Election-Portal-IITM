@@ -185,15 +185,15 @@ contract AddOtherPolls is PreElection {
         hostelPolls["MMPD"] = MMPD;
         departmentPollCodes.push("MMPD");
 
-        PollStruct memory OEBT;
-        OEBT.noOfCandidates = 3;
-        hostelPolls["OEBT"] = OEBT;
-        departmentPollCodes.push("OEBT");
+        PollStruct memory NABT;
+        NABT.noOfCandidates = 3;
+        hostelPolls["NABT"] = NABT;
+        departmentPollCodes.push("NABT");
 
-        PollStruct memory OEPD;
-        OEPD.noOfCandidates = 3;
-        hostelPolls["OEPD"] = OEPD;
-        departmentPollCodes.push("OEPD");
+        PollStruct memory NAPD;
+        NAPD.noOfCandidates = 3;
+        hostelPolls["NAPD"] = NAPD;
+        departmentPollCodes.push("NAPD");
 
         PollStruct memory PHBT;
         PHBT.noOfCandidates = 3;

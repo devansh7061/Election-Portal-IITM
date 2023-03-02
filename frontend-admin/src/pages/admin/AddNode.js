@@ -26,7 +26,7 @@ function AddVoter() {
   
     useEffect(() => {
       async function fetchNodes() {
-        let provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon_mumbai")
+        let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
         let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
 

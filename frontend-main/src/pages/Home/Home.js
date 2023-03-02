@@ -521,7 +521,7 @@ function handleClick( // vote function handler for the frontend
       votes: resultArr,
     };
 
-    fetch("http://localhost:3002/api/ballots", {
+    fetch("http://localhost:5000/api/ballots", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -535,7 +535,10 @@ function handleClick( // vote function handler for the frontend
           throw new Error("Something went wrong");
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error)
+        throw new Error("Something went wrong")
+      });
     setHasVoted(true);
     const requestBody = {
       query: `

@@ -44,6 +44,7 @@ app.get("/", (req, res, next) => {
 app.use("/", loginRouter);
 app.use("/uploadCsv", csvRoutes);
 app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/api", txnRouter);
 
 mongoose
   .connect(
@@ -56,5 +57,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-  app.use("/api/ballots", txnRouter);
