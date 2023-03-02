@@ -10,6 +10,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import Select from "react-select";
+import MTechLegislator from "../Department/MTechLegislator/MTechLegislator";
 function handleChange(e, { index, variable, setVariable, selectedOption, setSelectedOption }) {
   console.log(index);
   console.log(e);
@@ -55,6 +56,7 @@ function ManyCandidateCard({
       // console.log(updatedPreferences);
     });
   }
+  console.log("MTechLegislatorPreferences", variable);
   return (
     <div>
       <Card maxW="sm">

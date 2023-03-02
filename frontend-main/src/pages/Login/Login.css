@@ -1,4 +1,4 @@
-/* .landing{
+ .landing{
     background-color: #9c37b7;
     position: fixed;
     top: 0px;
@@ -33,7 +33,7 @@
 .form{
     position: fixed;
     margin-top: 500px !important;
-} */
+}
 
 .studentLogin{
     background-color: black;

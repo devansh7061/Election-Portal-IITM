@@ -3,6 +3,8 @@ function loadCandidates({
   department,
   course,
   token,
+  setTotalHostelCandidates,
+  totalHostelCandidates,
   instiAASCandidates,
   setInstiAAS,
   instiRASCandidates,
@@ -178,47 +180,55 @@ function loadCandidates({
           candidate.post == "GENERAL SECRETARY"
         ) {
           hostelSGSCandidates = [...hostelSGSCandidates, candidate];
+          totalHostelCandidates+=1;
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "HEALTH AND HYGIENE SECRETARY"
         ) {
           hostelHHSCandidates = [...hostelHHSCandidates, candidate];
+          totalHostelCandidates += 1;
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "HOSTEL LEGISLATOR"
         ) {
           hostelHLCandidates = [...hostelHLCandidates, candidate];
+          totalHostelCandidates += 1;
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "LITERARY SECRETARY"
         ) {
           hostelLLCandidates = [...hostelLLCandidates, candidate];
+          totalHostelCandidates += 1;
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "SOCIAL SECRETARY"
         ) {
           hostelSLCandidates = [...hostelSLCandidates, candidate];
+          totalHostelCandidates += 1;
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "SPORTS SECRETARY"
         ) {
           hostelSSCandidates = [...hostelSSCandidates, candidate];
+          totalHostelCandidates += 1;
         }
         if (
           candidate.category.toUpperCase() == hostel.toUpperCase() &&
           candidate.post == "TECHNICAL AFFAIRS SECRETARY"
         ) {
           hostelTASCandidates = [...hostelTASCandidates, candidate];
+          totalHostelCandidates += 1;
         }
         if (candidate.poll == "Department") {
           departmentCandidates = [...departmentCandidates, candidate];
         }
       });
+      setTotalHostelCandidates(totalHostelCandidates);
       setInstiAASCandidates(instiAASCandidates);
       const totalInstiAASCandidates = instiAASCandidates.length;
       setInstiAASTotalCandidates(totalInstiAASCandidates);

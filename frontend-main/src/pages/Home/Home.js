@@ -67,7 +67,7 @@ const hostelMap = new Map([
   ["Sabarmati", "SM"],
   ["Saraswathi", "SS"],
   ["Sarayu", "SU"],
-  ["Sharavati", "SH"],
+  ["Sharavathi", "SH"],
   ["Sindhu", "SN"],
   ["Swarnamukhi", "SW"],
   ["Tamiraparani", "TM"],
@@ -99,6 +99,8 @@ function validateForm({
   hostelTASTotalCandidates,
   setFormError,
   residencyType,
+  departmentLegislator,
+  departmentTotalCandidates
 }) {
   console.log(hostelSGSTotalCandidates, "Sggegdhehhhrhrh");
   if (instiAAS == null) {
@@ -184,6 +186,10 @@ function validateForm({
       setFormError("Please select preference for Sports Secretary");
       throw new Error("Please select preference for Sports Secretary");
     }
+  }
+  if (departmentLegislator == null && departmentTotalCandidates > 0) {
+    setFormError("Please select preference for Department Legislator");
+    throw new Error("Please select preference for Department Legislator");
   }
 }
 
@@ -647,6 +653,7 @@ function Home() {
   const [hostelTASTotalCandidates, setHostelTASTotalCandidates] = useState();
   const [departmentCandidates, setDepartmentCandidates] = useState([]);
   const [departmentTotalCandidates, setDepartmentTotalCandidates] = useState();
+  const [totalHostelCandidates, setTotalHostelCandidates] = useState(0);
   const departmentLegislator = useVoteStore(
     (state) => state.departmentLegislator
   );
@@ -709,6 +716,8 @@ function Home() {
       hostel,
       course,
       department,
+      setTotalHostelCandidates,
+      totalHostelCandidates,
       token,
       instiAASCandidates,
       setInstiAAS,
@@ -820,7 +829,7 @@ function Home() {
         course={course}
       />
       <br></br>
-      {residencyType == "H" && (
+      {residencyType == "H" &&  totalHostelCandidates>0 && (
         <Hostel
           hostelSGSCandidates={hostelSGSCandidates}
           hostelSSCandidates={hostelSSCandidates}
@@ -907,7 +916,8 @@ function Home() {
             {/* <Text fontSize="lg">Made with ❤</Text> */}
             {/* <Text fontSize="lg">Devansh Saini & Anirudh Varna</Text> */}
             <Text fontSize="lg" color="#fec901">
-              © Webops and Blockchain Club, CFI || Student Election Commission, IIT Madras
+              © Webops and Blockchain Club, CFI || Student Election Commission,
+              IIT Madras
             </Text>
           </VStack>
         </Center>

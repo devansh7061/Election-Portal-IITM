@@ -11,11 +11,13 @@ import {
   chakra,
   Box,
   Avatar,
+  Image,
   FormControl,
   InputRightElement,
   Center,
   Alert,
-  AlertIcon
+  AlertIcon,
+  Text,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import useContextStore from "../../store/contextStore";
@@ -36,7 +38,7 @@ function handleSubmit(
     setError,
     setRollNo,
     setResidencyType,
-    deviceToken
+    deviceToken,
   }
 ) {
   e.preventDefault();
@@ -59,7 +61,7 @@ function handleSubmit(
                     residencyType
                 }
             }
-        `
+        `,
   };
   fetch("http://localhost:5000/graphql", {
     method: "POST",
@@ -92,7 +94,6 @@ function handleSubmit(
         console.log(isLoggedIn);
         setLoggedIn("true");
         console.log(isLoggedIn);
-        
       }
     })
     .catch((err) => {
@@ -114,18 +115,18 @@ function Login() {
   const setResidencyType = useContextStore((state) => state.setResidencyType);
   const deviceToken = useContextStore((state) => state.deviceToken);
   console.log(isLoggedIn);
-  const loggedInStatus = (isLoggedIn == "true");
+  const loggedInStatus = isLoggedIn == "true";
   const setLoggedIn = useContextStore((state) => state.setLoggedIn);
   const [error, setError] = useState(false);
   return loggedInStatus ? (
     <Navigate to="/home" replace />
   ) : (
-    <div className="studentLogin">
+    <div>
       <Flex
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.200"
+        backgroundColor="#2e363f"
         justifyContent="center"
         alignItems="center"
       >
@@ -134,16 +135,27 @@ function Login() {
           mb="2"
           justifyContent="center"
           alignItems="center"
+          borderRadius="10px"
+          borderColor="#2e363f"
+          borderWidth="2px"
         >
-          <Avatar bg="gray" />
-          <Heading color="blackAlpha.800">Student Login</Heading>
-          <Box minW={{ base: "90%", md: "468px" }}>
+          <Box minW={{ base: "90%", md: "468px" }} bg="#2b333b" padding="10px">
+            <Center>
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png"
+                boxSize="50px"
+              ></Image>
+              <Text color="gray.300" fontSize="2xl" marginLeft="5px">
+                Student Login
+              </Text>
+            </Center>
             <form>
               <Stack
                 spacing={4}
                 p="1rem"
                 backgroundColor="whiteAlpha.900"
                 boxShadow="md"
+                bg="#2b333b"
               >
                 <FormControl>
                   <InputGroup>
@@ -151,7 +163,7 @@ function Login() {
                       pointerEvents="none"
                       children={<CFaUserAlt color="gray.300" />}
                     />
-                    <Input placeholder="rollNo" id="rollNo" />
+                    <Input placeholder="rollNo" id="rollNo" color="gray.300" />
                   </InputGroup>
                 </FormControl>
                 <FormControl>
@@ -165,6 +177,7 @@ function Login() {
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       id="password"
+                      color="gray.300"
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleShowClick}>

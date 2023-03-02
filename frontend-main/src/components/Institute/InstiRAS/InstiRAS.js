@@ -20,14 +20,13 @@ function InstiRAS({instiRASCandidates}) {
     );
     return (
       <div>
-        <Box bg="black" padding="8px" margin="15px 0px">
+        <Box bg="black" padding="8px" marginBottom="15px">
           <Center>
             <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
               Research Affairs Secretary
             </Heading>
           </Center>
         </Box>
-        <br></br>
         <div className={many ? "show" : "hide"}>
           <HStack spacing="150px">
             {instiRASCandidates.map((candidate, i) => {

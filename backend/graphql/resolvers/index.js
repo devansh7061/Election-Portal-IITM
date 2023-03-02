@@ -128,10 +128,15 @@ module.exports = {
           hostelCandidates = [...hostelCandidates, candidate];
         }
         if (
-          candidate.poll == "Institute" &&
-          candidate.category == studentCategory
+          candidate.poll == "Institute"
         ) {
-          instituteCandidates = [...instituteCandidates, candidate];
+          if(candidate.post == "Research Affairs Secretary" && studentCategory == "Research"){
+            instituteCandidates = [...instituteCandidates, candidate];
+          } else if (candidate.post == "Research Affairs Secretary" && studentCategory == "Academic") {
+            instituteCandidates = [...instituteCandidates, candidate];
+          } else {
+            instituteCandidates = [...instituteCandidates, candidate];
+          }
         }
         if (
           candidate.category.toUpperCase() == department.toUpperCase() &&
