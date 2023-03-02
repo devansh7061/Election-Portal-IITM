@@ -1,0 +1,65 @@
+rollNo,password,department,currentHostel,virtualHostel,course,hasVoted,program,residencyType
+ME22B092,ME22B092,ME,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+BS21B011,BS21B011,BS,Sarayu,Bhadra,B.Tech-21,FALSE,B.Tech,H
+CH21B043 ,CH21B043 ,CH,Cauvery,Jamuna,B.Tech-21,FALSE,B.Tech,H
+HS22H043,HS22H043,HS,Mandakini - B,Brahmaputra,MA-22,FALSE,MA,H
+EE22B043,EE22B043,EE,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+EE22B095 ,EE22B095 ,EE,Swarnamukhi,Sharavathi,B.Tech-22,FALSE,B.Tech,H
+ME21B201,ME21B201,ME,Sarayu,Bhadra,B.Tech-21,FALSE,B.Tech,H
+ME21B131,ME21B131,ME,Cauvery,Tapti,B.Tech-21,FALSE,B.Tech,H
+NA21B034,NA21B034,NA,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+CH22B091,CH22B091,CH,Swarnamukhi,Sharavathi,B.Tech-22,FALSE,B.Tech,H
+EE22B036,EE22B036,EE,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+HS22H071,HS22H071,HS,Mandakini - B,Brahmaputra,MA-22,FALSE,MA,H
+CE21S400 ,CE21S400 ,CE,Mahanadhi,Mahanadhi,MS-21,FALSE,MS,H
+MM21B052 ,MM21B052 ,MM,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+ED22B066,ED22B066,ED,Swarnamukhi,Sharavathi,B.Tech-22,FALSE,B.Tech,H
+NA21B036 ,NA21B036 ,NA,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+CH21B115,CH21B115,CH,Cauvery,Jamuna,B.Tech-21,FALSE,B.Tech,H
+CE22M127,CE22M127,CE,Mandakini - A,Jamuna,M.Tech-22,FALSE,M.Tech,H
+NA21B006,NA21B006,NA,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+AE22B063,AE22B063,AE,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+HS22H028,HS22H028,HS,Mandakini - B,Brahmaputra,MA-22,FALSE,MA,H
+EE22B052,EE22B052,EE,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+CE21B131,CE21B131,CE,Cauvery,Ganga,B.Tech-21,FALSE,B.Tech,H
+ME22M092,ME22M092,ME,Mandakini - A,Saraswathi,M.Tech-22,FALSE,M.Tech,H
+EP22B001,EP22B001,EP,Mandakini - B,Brahmaputra,B.Tech-22,FALSE,B.Tech,H
+ED21B052,ED21B052,ED,Brahmaputra,Saraswathi,B.Tech-21,FALSE,B.Tech,H
+EE21B070,EE21B070,EE,Cauvery,Godavari,B.Tech-21,FALSE,B.Tech,H
+MM22B042,MM22B042,MM,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+EE21B100,EE21B100,EE,Cauvery,Godavari,B.Tech-21,FALSE,B.Tech,H
+HS21H025 ,HS21H025 ,HS,Sarayu,Sharavathi,MA-22,FALSE,MA,H
+NA21B015,NA21B015,NA,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+EE21B091,EE21B091,EE,Sarayu,Bhadra,B.Tech-21,FALSE,B.Tech,H
+HS22H021,HS22H021,HS,Swarnamukhi,Sharavathi,MA-22,FALSE,MA,H
+HS22H030,HS22H030,HS,Mandakini - B,Brahmaputra,MA-22,FALSE,MA,H
+NA21B067,NA21B067,NA,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+MM22B006,MM22B006,MM,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+HS22H070,HS22H070,HS,Swarnamukhi,Sharavathi,MA-22,FALSE,MA,H
+HS21H031,HS21H031,HS,Sarayu,Sharavathi,MA-21,FALSE,MA,H
+HS21H019,HS21H019,HS,Brahmaputra,Jamuna,MA-21,FALSE,MA,H
+CE19B086,CE19B086,CE,NA,NA,B.Tech-19,FALSE,B.Tech,H
+EE21B101,EE21B101,EE,Cauvery,Godavari,B.Tech-21,FALSE,B.Tech,H
+MM22B039,MM22B039,MM,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+HS21H059,HS21H059,HS,Brahmaputra,Jamuna,MA-21,FALSE,MA,H
+CH22B083,CH22B083,CH,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+CE21B087,CE21B087,CE,Cauvery,Ganga,B.Tech-21,FALSE,B.Tech,H
+BS21B034,BS21B034,BS,Brahmaputra,Alakananda,B.Tech-21,FALSE,B.Tech,H
+MM21B057,MM21B057,MM,Cauvery,Narmada,B.Tech-21,FALSE,B.Tech,H
+CH21B078 ,CH21B078 ,CH,Sarayu,Bhadra,B.Tech-21,FALSE,B.Tech,H
+ED21B026,ED21B026,ED,Brahmaputra,Saraswathi,B.Tech-21,FALSE,B.Tech,H
+MM22B068 ,MM22B068 ,MM,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+MS22A024,MS22A024,MS,Swarnamukhi,Tunga,MBA-22,FALSE,MBA,H
+AE22B060,AE22B060,AE,Mandakini - B,NA,B.Tech-22,FALSE,B.Tech,H
+MS22A039,MS22A039,MS,Swarnamukhi,Tunga,MBA-22,FALSE,MBA,H
+HS21H042,HS21H042,HS,Brahmaputra,Jamuna,MA-21,FALSE,MA,H
+HS22H062,HS22H062,HS,Swarnamukhi,Sharavathi,MA-22,FALSE,MA,H
+EE22B118,EE22B118,EE,Mandakini - B,Cauvery,B.Tech-22,FALSE,B.Tech,H
+CH20B106,CH20B106,CH,Alakananda,Alakananda,B.Tech-20,FALSE,B.Tech,H
+NA20B009,NA20B009,NA,Tapti,Tapti,B.Tech-20,FALSE,B.Tech,H
+ME21B109,ME21B109,ME,Cauvery,Tapti,B.Tech-21,FALSE,B.Tech,H
+CH21B059,CH21B059,CH,Cauvery,Jamuna,B.Tech-21,FALSE,B.Tech,H
+NA20B016,NA20B016,NA,Tapti,Tapti,B.Tech-20,FALSE,B.Tech,H
+NA20B007,NA20B007,NA,Tapti,Tapti,B.Tech-20,FALSE,B.Tech,H
+HS20H043,HS20H043,HS,Brahmaputra,Alakananda,MA-20,FALSE,MA,H
+ME20B021,ME20B021,ME,Sharavathi,Sharavathi,B.Tech-20,FALSE,B.Tech,H

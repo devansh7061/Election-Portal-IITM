@@ -25,7 +25,7 @@ import Hostel from "../../components/Hostel/Hostel";
 import Department from "../../components/Department/Department";
 import "./Home.css";
 import header from "./header.png";
-
+import footer from "./developed.png";
 // Password to generate the hash and salt for encryption
 const password = "WBGSE2023";
 
@@ -846,8 +846,7 @@ function Home() {
       <br></br>
       <Center>
         <Button
-          bg="black"
-          color="#ffdf58"
+          colorScheme="linkedin"
           onClick={(e) =>
             handleClick(e, {
               hostel,
@@ -910,18 +909,7 @@ function Home() {
         </Center>
       </div>
       <br></br>
-      <Box className="navbar" bg="black" w="100%" p={4} color="white">
-        <Center>
-          <VStack>
-            {/* <Text fontSize="lg">Made with ❤</Text> */}
-            {/* <Text fontSize="lg">Devansh Saini & Anirudh Varna</Text> */}
-            <Text fontSize="lg" color="#fec901">
-              © Webops and Blockchain Club, CFI || Student Election Commission,
-              IIT Madras
-            </Text>
-          </VStack>
-        </Center>
-      </Box>
+      <Image src={footer}></Image>
     </>
   );
 }
