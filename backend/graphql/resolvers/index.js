@@ -249,7 +249,7 @@ module.exports = {
     if (!req.isAuth) {
       throw new Error("Unauthenticated");
     }
-    const student = await Student.findOne({ rollNo: rollNo });
+    const student = await Student.findOne({ rollNo: rollNo.toUpperCase() });
     if (!student) {
       throw new Error("User does not exist");
     }

@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
       .on("error", (error) => console.error(error))
       .on("data", async (row) => {
         let password = row.password
-        row.password = await bcrypt.hash(password.trim(), 12)
+        row.password = await bcrypt.hash(password.trim(), 6)
         try {
             const student = new Student({
               rollNo: row.rollNo.trim(),
