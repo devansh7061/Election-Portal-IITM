@@ -10,7 +10,7 @@ import "./ResearchLegislator.css"
 function ResearchLegislator({departmentCandidates}) {
     const totalCandidates = departmentCandidates.length;
     const many = (totalCandidates > 1) ? true : false;
-    const departmentLegislator = useVoteStore((state) => state.dep);
+    const departmentLegislator = useVoteStore((state) => state.departmentLegislator);
     const setDepartmentLegislator = useVoteStore((state) => state.setDepartmentLegislator);
     const departmentPreferences = useVoteStore(
       (state) => state.departmentPreferences
