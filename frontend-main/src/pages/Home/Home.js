@@ -748,7 +748,7 @@ function handleClick( // vote function handler for the frontend
       votes: resultArr,
     };
 
-    fetch("http://localhost:5000/api/ballots", {
+    fetch("http://wbsec2023.iitm.ac.in/api/api/ballots", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -776,7 +776,7 @@ function handleClick( // vote function handler for the frontend
                 }
       `,
     };
-    fetch("http://localhost:5000/graphql", {
+    fetch("http://wbsec2023.iitm.ac.in/api/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

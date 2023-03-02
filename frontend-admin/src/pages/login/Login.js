@@ -53,7 +53,7 @@ function verifyLogin(e, { setLoggedIn }) {
     password: document.getElementById("password").value,
   };
   axios
-    .post("http://localhost:5000/login", request)
+    .post("http://wbsec2023.iitm.ac.in/api/login", request)
     .then((resp) => {
       if (resp.data.message === "Successful Login!") {
         setLoggedIn(true);

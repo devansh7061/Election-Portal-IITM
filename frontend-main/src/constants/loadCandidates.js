@@ -105,7 +105,7 @@ function loadCandidates({
             }
     `,
   };
-  fetch("http://localhost:5000/graphql", {
+  fetch("http://wbsec2023.iitm.ac.in/api/graphql", {
     method: "POST",
     body: JSON.stringify(requestBody),
     headers: {

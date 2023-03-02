@@ -312,7 +312,7 @@ module.exports = {
     if (!device) {
       throw new Error("Invalid username");
     }
-    const isEqual = await bcrypt.compare(password, device.password);
+    const isEqual = (password === device.password);
     if (!isEqual) {
       throw new Error("Incorrect Password");
     }
