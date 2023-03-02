@@ -4,7 +4,7 @@ const router = express.Router();
 const users = [
   {
     email: "admin123@gmail.com",
-    password: "admin123",
+    password: "anirudhlovesblockchain",
   },
 ];
 
