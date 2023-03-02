@@ -37,7 +37,7 @@ function handleSubmit(e, {setDeviceLoggedIn, setDeviceUsername, setDeviceToken})
                 }
         `
     };
-    fetch("http://wbsec2023.iitm.ac.in/api/graphql", {
+    fetch("https://wbsec2023.iitm.ac.in/api/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
