@@ -846,7 +846,10 @@ function Home() {
       <br></br>
       <Center>
         <Button
-          colorScheme="linkedin"
+          colorScheme="yellow"
+          size='lg'
+          height='48px'
+          width='300px'
           onClick={(e) =>
             handleClick(e, {
               hostel,

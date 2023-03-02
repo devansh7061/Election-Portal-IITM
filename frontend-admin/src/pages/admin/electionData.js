@@ -163,7 +163,7 @@ export const DepartmentCodes = [
         "MA",
         "ME",
         "MM",
-        "OE",
+        "NA",
         "PH",
         "AM",
     ]
