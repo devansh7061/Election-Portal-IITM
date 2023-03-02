@@ -48,7 +48,7 @@ app.use("/api", txnRouter);
 
 mongoose
   .connect(
-    `mongodb://ds:na20b016@ac-26uy7sd-shard-00-00.m45ofac.mongodb.net:27017,ac-26uy7sd-shard-00-01.m45ofac.mongodb.net:27017,ac-26uy7sd-shard-00-02.m45ofac.mongodb.net:27017/?ssl=true&replicaSet=atlas-ztv0lj-shard-0&authSource=admin&retryWrites=true&w=majority`
+    `mongodb+srv://na20b007:na20b007@cluster0.gfde4.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("connected");

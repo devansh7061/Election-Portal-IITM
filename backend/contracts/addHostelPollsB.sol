@@ -6,6 +6,11 @@ import {PreElection} from "../contracts/preElection.sol";
 
 contract AddHostelPollsB is PreElection {
     constructor() {
+        PollStruct memory JMGS;
+        JMGS.noOfCandidates = 3;
+        hostelPolls["JMGS"] = JMGS;
+        hostelPollCodes.push("JMGS");
+
         PollStruct memory JMHH;
         JMHH.noOfCandidates = 3;
         hostelPolls["JMHH"] = JMHH;
