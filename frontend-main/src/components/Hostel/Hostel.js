@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Center, Heading, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Center, Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import HostelSGS from "./HostelSGS/HostelSGS";
 import HostelSS from "./HostelSS/HostelSS";
 import HostelHHS from "./HostelHHS/HostelHHS";
@@ -11,12 +11,13 @@ import HostelTAS from "./HostelTAS/HostelTAS";
 function Hostel({ hostelSGSCandidates, hostelSSCandidates, hostelHHSCandidates, hostelHLCandidates, hostelLLCandidates, hostelSLCandidates, hostelTASCandidates }) {
   return (
     <div className="hostel">
-      <Center>
-        <Heading as="h1" size="4xl" noOfLines={1}>
-          Hostel Elections
-        </Heading>
-      </Center>
-      <br></br>
+      <Box bg="black" marginTop="50px">
+        <Center>
+          <Heading as="h1" size="4xl" noOfLines={1} color="#ffdf58">
+            Hostel Elections
+          </Heading>
+        </Center>
+      </Box>
       {hostelSGSCandidates.length > 0 && (
         <HostelSGS hostelSGSCandidates={hostelSGSCandidates} />
       )}

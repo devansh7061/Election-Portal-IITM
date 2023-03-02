@@ -1,5 +1,5 @@
 import React from "react";
-import { Center, Heading } from "@chakra-ui/react";
+import { Center, Heading, Box, Text } from "@chakra-ui/react";
 import InstiAAS from "./InstiAAS/InstiAAS";
 import InstiCOCAS from "./InstiCOCAS/InstiCOCAS";
 import InstiCULSECA from "./InstiCULSECA/InstiCULSECA";
@@ -30,16 +30,19 @@ function Institute({
   }
   return (
     <div className="institute">
-      <Center>
-        <Heading as="h1" size="4xl" noOfLines={1}>
-          Institute Elections
-        </Heading>
-      </Center>
-      <br></br>
+      <Box bg="black">
+        <Center>
+          <Heading as="h1" size="4xl" noOfLines={1} color="#ffdf58">
+            Institute Elections
+          </Heading>
+        </Center>
+      </Box>
       {studentCategory == "Academic" && (
         <InstiAAS instiAASCandidates={instiAASCandidates} />
       )}
-      {studentCategory == "Research" && (<InstiRAS instiRASCandidates={instiRASCandidates} />)}
+      {studentCategory == "Research" && (
+        <InstiRAS instiRASCandidates={instiRASCandidates} />
+      )}
       <InstiCOCAS instiCOCASCandidates={instiCOCASCandidates} />
       <InstiCULSECA instiCULSECACandidates={instiCULSECACandidates} />
       <InstiCULSECL instiCULSECLCandidates={instiCULSECLCandidates} />

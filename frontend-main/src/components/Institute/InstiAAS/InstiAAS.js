@@ -21,7 +21,7 @@ function InstiAAS({ instiAASCandidates }) {
   console.log(instiAASPreferences, "dgegegeg");
   return (
     <div>
-      <Box bg="black" padding="8px" margin="15px 0px">
+      <Box bg="black" padding="8px" marginBottom="15px">
         <Center>
           <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
             Academic Affairs Secretary

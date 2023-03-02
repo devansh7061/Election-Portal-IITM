@@ -16,7 +16,7 @@ function HostelSGS({ hostelSGSCandidates }) {
   const setHostelSGSPreferences = useVoteStore((state) => state.setHostelSGSPreferences);
   return (
     <div>
-      <Box bg="black" padding="8px" margin="15px 0px">
+      <Box bg="black" padding="8px" marginBottom="15px">
         <Center>
           <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
             General Secretary (Hostel)

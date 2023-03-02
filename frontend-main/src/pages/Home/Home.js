@@ -24,7 +24,7 @@ import Institute from "../../components/Institute/Institute";
 import Hostel from "../../components/Hostel/Hostel";
 import Department from "../../components/Department/Department";
 import "./Home.css";
-import header from  "./header.png"
+import header from "./header.png";
 
 // Password to generate the hash and salt for encryption
 const password = "WBGSE2023";
@@ -100,7 +100,7 @@ function validateForm({
   setFormError,
   residencyType,
 }) {
-  console.log(hostelSGSTotalCandidates, "Sggegdhehhhrhrh")
+  console.log(hostelSGSTotalCandidates, "Sggegdhehhhrhrh");
   if (instiAAS == null) {
     setFormError("Please select preference for Academic Affairs Secretary");
     throw new Error("Please select preference for Academic Affairs Secretary");
@@ -152,7 +152,7 @@ function validateForm({
     throw new Error("Please select preference for Students General Secretary");
   }
   if (residencyType == "H") {
-    if (hostelSGS == null && hostelSGSTotalCandidates>0) {
+    if (hostelSGS == null && hostelSGSTotalCandidates > 0) {
       setFormError("Please select preference for General Secretary(Hostel)");
       throw new Error("Please select preference for General Secretary(Hostel)");
     }
@@ -197,19 +197,19 @@ function generateString1(post, poll, category, totalCandidates, { result }) {
   } else if (poll == "Department") {
     finalString = "3";
     finalString = finalString.concat(category);
-    if(post == "DEPARTMENT LEGISLATOR (ACADEMIC)"){
+    if (post == "DEPARTMENT LEGISLATOR (ACADEMIC)") {
       finalString = finalString.concat("BT");
     } else {
       finalString = finalString.concat("PD");
     }
   } else if (poll == "MTECH LEGISLATORS") {
-    finalString = "4MT"
+    finalString = "4MT";
   }
-    if (poll == "Hostel") {
-      finalString = finalString.concat(hostelMap.get(category));
-      console.log("Category: ", category, "finalstring: ", finalString);
-    }
-  if(poll == "Hostel" || poll == "Institute"){
+  if (poll == "Hostel") {
+    finalString = finalString.concat(hostelMap.get(category));
+    console.log("Category: ", category, "finalstring: ", finalString);
+  }
+  if (poll == "Hostel" || poll == "Institute") {
     finalString = finalString.concat(pollMap.get(post));
   }
   if (result == "Abstain") {
@@ -279,7 +279,7 @@ function handleClick( // vote function handler for the frontend
     setLoggedIn,
     residencyType,
     confirmVote,
-    setConfirmVote
+    setConfirmVote,
   }
 ) {
   e.preventDefault();
@@ -310,7 +310,7 @@ function handleClick( // vote function handler for the frontend
       setFormError,
       residencyType,
       departmentLegislator,
-      departmentTotalCandidates
+      departmentTotalCandidates,
     });
     let resultArr = [];
     let result = instiAAS;
@@ -321,7 +321,7 @@ function handleClick( // vote function handler for the frontend
       instiAASTotalCandidates,
       { result }
     );
-    resultArr.push(instiAASString)
+    resultArr.push(instiAASString);
 
     result = instiCOCAS;
     const instiCOCASString = generateString1(
@@ -452,7 +452,6 @@ function handleClick( // vote function handler for the frontend
           { result }
         );
         resultArr.push(hostelTASString);
-
       }
       if (hostelHLTotalCandidates > 0) {
         result = hostelHL;
@@ -477,18 +476,23 @@ function handleClick( // vote function handler for the frontend
         );
         resultArr.push(hostelHHSString);
       }
-
     }
     if (departmentTotalCandidates > 0) {
       result = departmentLegislator;
       let departmentLegislatorString;
-      if (course == "B.Tech" || course == "DD" || course == "M.Sc" || course == "MBA" || course == "MA") {
+      if (
+        course == "B.Tech" ||
+        course == "DD" ||
+        course == "M.Sc" ||
+        course == "MBA" ||
+        course == "MA"
+      ) {
         departmentLegislatorString = generateString1(
           "DEPARTMENT LEGISLATOR (ACADEMIC)",
           "Department",
           department,
           departmentTotalCandidates,
-          {result}
+          { result }
         );
         resultArr.push(departmentLegislatorString);
       } else if (course == "M.Tech") {
@@ -500,18 +504,16 @@ function handleClick( // vote function handler for the frontend
           { result }
         );
         resultArr.push(departmentLegislatorString);
-      }
-      else {
+      } else {
         departmentLegislatorString = generateString1(
           "DEPARTMENT LEGISLATOR (RESEARCH)",
           "Department",
           department,
           departmentTotalCandidates,
-          {result}
+          { result }
         );
         resultArr.push(departmentLegislatorString);
       }
-
     }
     let userId = "user1";
     let ballotObject = {
@@ -519,21 +521,21 @@ function handleClick( // vote function handler for the frontend
       votes: resultArr,
     };
 
-    fetch('http://localhost:3002/api/ballots', {
-      method: 'POST',
+    fetch("http://localhost:3002/api/ballots", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(ballotObject)
+      body: JSON.stringify(ballotObject),
     })
-    .then(response => response.json())
-    .then(data => {
-      if(data != "1"){
-        setFormError("Something went wrong!")
-        throw new Error("Something went wrong")
-      }
-    })
-      .catch(error => console.error(error));
+      .then((response) => response.json())
+      .then((data) => {
+        if (data != "1") {
+          setFormError("Something went wrong!");
+          throw new Error("Something went wrong");
+        }
+      })
+      .catch((error) => console.error(error));
     setHasVoted(true);
     const requestBody = {
       query: `
@@ -542,20 +544,20 @@ function handleClick( // vote function handler for the frontend
                     hasVoted
                   }
                 }
-      `
-    }
+      `,
+    };
     fetch("http://localhost:5000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).then((res) => {
       if (res.status != 200 && res.status != 201) {
         throw new Error("Failed");
       }
       return res.json();
-    })
+    });
     setLoggedIn(false);
     navigate("/thankyou");
   } catch (error) {
@@ -642,8 +644,12 @@ function Home() {
   const [hostelTASTotalCandidates, setHostelTASTotalCandidates] = useState();
   const [departmentCandidates, setDepartmentCandidates] = useState([]);
   const [departmentTotalCandidates, setDepartmentTotalCandidates] = useState();
-  const departmentLegislator = useVoteStore((state) => state.departmentLegislator);
-  const setDepartmentLegislator = useVoteStore((state) => state.setDepartmentLegislator);
+  const departmentLegislator = useVoteStore(
+    (state) => state.departmentLegislator
+  );
+  const setDepartmentLegislator = useVoteStore(
+    (state) => state.setDepartmentLegislator
+  );
   const setInstiSGSPreferences = useVoteStore(
     (state) => state.setInstiSGSPreferences
   );
@@ -786,19 +792,18 @@ function Home() {
       setHostelTASPreferences,
       setHostelHLPreferences,
       setDepartmentPreferences,
-      
     });
   }, []);
   return (
     <>
-      <Image src={header}></Image>
-      <Box className="navbar" bg="black" w="100%" p={6} color="white" fontSize="xl">
- 
-          <Center>
-            <Text fontSize="xl" as='b'>Welcome {rollNo}!</Text>
-          </Center>
-
+      <Box className="navbar" bg="black" w="100%" p={6} color="#ffdf58">
+        <Flex>
+          <Text fontSize="xl">IITM - Student Voting Portal 2023</Text>
+          <Spacer />
+          <Text fontSize="xl">Welcome {rollNo}!</Text>
+        </Flex>
       </Box>
+      <Image src={header} marginBottom="100px"></Image>
       <Institute
         instiAASCandidates={instiAASCandidates}
         instiRASCandidates={instiRASCandidates}
@@ -883,9 +888,7 @@ function Home() {
         </Button>
       </Center>
       <br></br>
-      <div>
-
-      </div>
+      <div></div>
       <div className={formError == null ? "hide" : ""}>
         <Center>
           <Alert status="error">
@@ -898,10 +901,10 @@ function Home() {
       <Box className="navbar" bg="black" w="100%" p={4} color="white">
         <Center>
           <VStack>
-            <Text fontSize="lg">Made with ❤</Text>
-            <Text fontSize="lg">Devansh Saini & Anirudh Varna</Text>
+            {/* <Text fontSize="lg">Made with ❤</Text> */}
+            {/* <Text fontSize="lg">Devansh Saini & Anirudh Varna</Text> */}
             <Text fontSize="lg" color="#fec901">
-              © Webops and Blockchain Club, IIT Madras
+              © Webops and Blockchain Club, CFI || Student Election Commission, IIT Madras
             </Text>
           </VStack>
         </Center>

@@ -6,6 +6,7 @@ const Student = require("../models/student");
 
 exports.create = async (req, res) => {
   console.log(req.file);
+  let totalRecords = []
   try {
     console.log(
       path.join(__dirname, "../", "/public/csv/" + req.file.filename)

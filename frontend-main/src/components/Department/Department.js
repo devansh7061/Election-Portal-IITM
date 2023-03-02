@@ -1,5 +1,5 @@
 import React from "react";
-import { Center, Heading } from "@chakra-ui/react";
+import { Center, Heading, Box } from "@chakra-ui/react";
 import AcademicLegislator from "./AcademicLegislator/AcademicLegislator";
 import ResearchLegislator from "./ResearchLegislator/ResearchLegislator";
 import MTechLegislator from "./MTechLegislator/MTechLegislator";
@@ -15,15 +15,22 @@ function Department({ departmentCandidates, course }) {
   }
   return (
     <div className="department">
-      <Center>
-        <Heading as="h1" size="4xl" noOfLines={1}>
-          Department Elections
-        </Heading>
-      </Center>
-      <br></br>
-      {studentCategory == "Academic" && (<AcademicLegislator departmentCandidates={departmentCandidates} />)}
-      {studentCategory == "Research" && (<ResearchLegislator departmentCandidates={departmentCandidates}/>)}
-      {studentCategory == "M.Tech" && (<MTechLegislator departmentCandidates={departmentCandidates}/>)}
+      <Box bg="black" marginTop="50px">
+        <Center>
+          <Heading as="h1" size="4xl" noOfLines={1} color="#ffdf58">
+            Department Elections
+          </Heading>
+        </Center>
+      </Box>
+      {studentCategory == "Academic" && (
+        <AcademicLegislator departmentCandidates={departmentCandidates} />
+      )}
+      {studentCategory == "Research" && (
+        <ResearchLegislator departmentCandidates={departmentCandidates} />
+      )}
+      {studentCategory == "M.Tech" && (
+        <MTechLegislator departmentCandidates={departmentCandidates} />
+      )}
     </div>
   );
 }
