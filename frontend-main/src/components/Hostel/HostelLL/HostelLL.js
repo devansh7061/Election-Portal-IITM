@@ -6,6 +6,7 @@ import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard";
 import useVoteStore from "../../../store/voteStore";
 import "./HostelLL.css";
+import useContextStore from "../../../store/contextStore";
 
 function HostelLL({ hostelLLCandidates }) {
   const totalCandidates = hostelLLCandidates.length;
@@ -14,12 +15,13 @@ function HostelLL({ hostelLLCandidates }) {
   const setHostelLL = useVoteStore((state) => state.setHostelLL);
   const hostelLLPreferences = useVoteStore((state) => state.hostelLLPreferences);
   const setHostelLLPreferences = useVoteStore((state) => state.setHostelLLPreferences);
+  const hostel = useContextStore((state) => state.hostel);
   return (
     <div>
       <Box bg="black" padding="8px" margin="15px 0px">
         <Center>
           <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
-            Literary Secretary
+            Literary Secretary- {hostel}
           </Heading>
         </Center>
       </Box>

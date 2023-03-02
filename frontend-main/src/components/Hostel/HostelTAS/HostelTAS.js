@@ -6,7 +6,7 @@ import OneCandidateCard from "../../OneCandidateCard/OneCandidateCard";
 import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard";
 import useVoteStore from "../../../store/voteStore";
 import "./HostelTAS.css";
-
+import useContextStore from "../../../store/contextStore";
 function HostelTAS({ hostelTASCandidates }) {
   const totalCandidates = hostelTASCandidates.length;
   const many = totalCandidates > 1 ? true : false;
@@ -14,12 +14,13 @@ function HostelTAS({ hostelTASCandidates }) {
   const setHostelTAS = useVoteStore((state) => state.setHostelTAS);
   const hostelTASPreferences = useVoteStore((state) => state.hostelTASPreferences);
   const setHostelTASPreferences = useVoteStore((state) => state.setHostelTASPreferences);
+  const hostel = useContextStore((state) => state.hostel);
   return (
     <div>
       <Box bg="black" padding="8px" margin="15px 0px">
         <Center>
           <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
-            Technical Affairs Secretary
+            Technical Affairs Secretary- {hostel}
           </Heading>
         </Center>
       </Box>

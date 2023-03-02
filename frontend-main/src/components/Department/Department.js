@@ -3,7 +3,7 @@ import { Center, Heading, Box } from "@chakra-ui/react";
 import AcademicLegislator from "./AcademicLegislator/AcademicLegislator";
 import ResearchLegislator from "./ResearchLegislator/ResearchLegislator";
 import MTechLegislator from "./MTechLegislator/MTechLegislator";
-
+import useContextStore from "../../store/contextStore";
 function Department({ departmentCandidates, course }) {
   let studentCategory;
   if (course == "MS" || course == "Ph.D") {
@@ -13,12 +13,13 @@ function Department({ departmentCandidates, course }) {
   } else {
     studentCategory = "Academic";
   }
+  const department = useContextStore((state) => state.department);
   return (
     <div className="department">
       <Box bg="black" marginTop="50px">
         <Center>
           <Heading as="h1" size="4xl" noOfLines={1} color="#ffdf58">
-            Department Elections
+            Department Elections- {department}
           </Heading>
         </Center>
       </Box>

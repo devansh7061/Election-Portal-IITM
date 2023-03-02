@@ -7,14 +7,16 @@ import HostelHL from "./HostelHL/HostelHL";
 import HostelLL from "./HostelLL/HostelLL";
 import HostelSL from "./HostelSL/HostelSL";
 import HostelTAS from "./HostelTAS/HostelTAS";
+import useContextStore from "../../store/contextStore";
 
 function Hostel({ hostelSGSCandidates, hostelSSCandidates, hostelHHSCandidates, hostelHLCandidates, hostelLLCandidates, hostelSLCandidates, hostelTASCandidates }) {
+  const hostel = useContextStore((state) => state.hostel);
   return (
     <div className="hostel">
       <Box bg="black" marginTop="50px">
         <Center>
           <Heading as="h1" size="4xl" noOfLines={1} color="#ffdf58">
-            Hostel Elections
+            Hostel Elections- {hostel}
           </Heading>
         </Center>
       </Box>

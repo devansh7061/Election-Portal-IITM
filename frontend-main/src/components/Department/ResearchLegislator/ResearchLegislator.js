@@ -6,7 +6,7 @@ import ManyCandidateCard from "../../ManyCandidateCard/ManyCandidateCard.js";
 import useVoteStore from "../../../store/voteStore";
 import { Center, Heading, HStack, Box, Flex, Spacer } from "@chakra-ui/react";
 import "./ResearchLegislator.css"
-
+import useContextStore from '../../../store/contextStore';
 function ResearchLegislator({departmentCandidates}) {
     const totalCandidates = departmentCandidates.length;
     const many = (totalCandidates > 1) ? true : false;
@@ -17,13 +17,14 @@ function ResearchLegislator({departmentCandidates}) {
     );
     const setDepartmentPreferences = useVoteStore(
       (state) => state.setDepartmentPreferences
-    );
+  );
+  const department = useContextStore((state) => state.department);
     return (
       <div>
         <Box bg="black" padding="8px">
           <Center>
             <Heading as="h2" size="xl" noOfLines={1} color="#ffdf58">
-              DEPARTMENT LEGISLATOR (Research)
+              DEPARTMENT LEGISLATOR (Research)- {department}
             </Heading>
           </Center>
         </Box>
