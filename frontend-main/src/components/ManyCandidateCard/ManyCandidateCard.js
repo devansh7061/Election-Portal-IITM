@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import {
   Card,
   CardBody,
@@ -10,29 +10,36 @@ import {
   Center,
 } from "@chakra-ui/react";
 import Select from "react-select";
-import MTechLegislator from "../Department/MTechLegislator/MTechLegislator";
+
 function handleChange(e, { index, variable, setVariable, selectedOption, setSelectedOption }) {
-  console.log(index);
-  console.log(e);
+  console.log(index, "abc");
+  console.log(e, "abc");
   let order;
-  if (variable == null || variable == "Abstain" || variable == "Reject") {
-    order = [{ preference: e.value, candidate: index }];
-    // console.log(order);
-    setVariable(order);
+  if (e == null) {
+    // order = variable.filter((x) => x.preference !== selectedOption);
+    // setVariable(order);
+    // setSelectedOption(null);
   } else {
-    if (e == null) {
-      order = variable.filter((x) => x.preference !== selectedOption);
+    if (variable == null || variable == "Abstain" || variable == "Reject") {
+      order = [{ preference: e.value, candidate: index }];
+      // console.log(order);
+      setVariable(order);
     } else {
-      order = [...variable, { preference: e.value, candidate: index }];
+      if (e == null) {
+        order = variable.filter((x) => x.preference !== selectedOption);
+      } else {
+        order = [...variable, { preference: e.value, candidate: index }];
+      }
+      // console.log(order);
+      setVariable(order);
     }
-    // console.log(order);
-    setVariable(order);
+    if (e != null) {
+      setSelectedOption(e.value);
+    } else {
+      setSelectedOption(null);
+    }
   }
-  if (e != null) {
-    setSelectedOption(e.value);
-  } else {
-    setSelectedOption(null);
-  }
+  
 }
 function ManyCandidateCard({
   name,
@@ -56,7 +63,16 @@ function ManyCandidateCard({
       // console.log(updatedPreferences);
     });
   }
-  console.log("MTechLegislatorPreferences", variable);
+  console.log(variable);
+  const selectInputRef = useRef();
+  const onClear = () => {
+    selectInputRef.current.clearValue();
+  };
+  useEffect(() => {
+    if (variable == "Reject" || variable == "Abstain") {
+      onClear();
+    }
+  }, [variable])
   return (
     <div>
       <Card maxW="sm">
@@ -78,10 +94,17 @@ function ManyCandidateCard({
               variant="filled"
               placeholder="Select your preference"
               onChange={(e) =>
-                handleChange(e, { index, variable, setVariable, selectedOption, setSelectedOption })
+                handleChange(e, {
+                  index,
+                  variable,
+                  setVariable,
+                  selectedOption,
+                  setSelectedOption,
+                })
               }
               options={updatedPreferences}
               isClearable={true}
+              ref={selectInputRef}
             />
           </CardFooter>
         </Center>

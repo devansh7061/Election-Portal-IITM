@@ -76,6 +76,8 @@ const hostelMap = new Map([
 ]);
 function validateForm({
   instiAAS,
+  instiRAS,
+  course,
   instiCOCAS,
   instiCULSECA,
   instiCULSECL,
@@ -100,12 +102,43 @@ function validateForm({
   setFormError,
   residencyType,
   departmentLegislator,
-  departmentTotalCandidates
+  departmentTotalCandidates,
+  instiAASTotalCandidates,
+    instiCOCASTotalCandidates,
+    instiCULSECATotalCandidates,
+    instiCULSECLTotalCandidates,
+    instiHASTotalCandidates,
+    instiIARTotalCandidates,
+    instiSSTotalCandidates,
+  instiSGSTotalCandidates,
+    instiRASTotalCandidates
 }) {
   console.log(hostelSGSTotalCandidates, "Sggegdhehhhrhrh");
-  if (instiAAS == null) {
+  let studentCategory;
+  if (course == "MS" || course == "Ph.D") {
+    studentCategory = "Research";
+  } else {
+    studentCategory = "Academic";
+  }
+  if (instiAAS == null && studentCategory == "Academic") {
     setFormError("Please select preference for Academic Affairs Secretary");
     throw new Error("Please select preference for Academic Affairs Secretary");
+  }
+  if (instiAAS != "Abstain" && instiAAS != "Reject" && studentCategory == "Academic") {
+    if (instiAAS.length != instiAASTotalCandidates) {
+      setFormError("Please select all the preference for Academic Affairs Secretary");
+    throw new Error("Please select all the preference for Academic Affairs Secretary");
+    }
+  }
+  if (instiRAS == null && studentCategory == "Research") {
+    setFormError("Please select preference for Research Affairs Secretary");
+    throw new Error("Please select preference for Research Affairs Secretary");
+  }
+  if (instiRAS != "Abstain" && instiRAS != "Reject" && studentCategory == "Research") {
+    if (instiRAS.length != instiRASTotalCandidates) {
+      setFormError("Please select all the preference for Research Affairs Secretary");
+    throw new Error("Please select all the preference for Research Affairs Secretary");
+    }
   }
   if (instiCOCAS == null) {
     setFormError(
@@ -115,6 +148,16 @@ function validateForm({
       "Please select preference for Co Curricular Affairs Secretary"
     );
   }
+  if (instiCOCAS != "Abstain" && instiCOCAS != "Reject") {
+    if (instiCOCAS.length != instiCOCASTotalCandidates) {
+      setFormError(
+        "Please select all the preference for Co Curricular Affairs Secretary"
+      );
+      throw new Error(
+        "Please select all the preference for Co Curricular Affairs Secretary"
+      );
+    }
+  }
   if (instiCULSECA == null) {
     setFormError(
       "Please select preference for Cultural Affairs Secretary (Arts)"
@@ -122,6 +165,16 @@ function validateForm({
     throw new Error(
       "Please select preference for Cultural Affairs Secretary (Arts)"
     );
+  }
+  if (instiCULSECA != "Abstain" && instiCULSECA != "Reject") {
+    if (instiCULSECA.length != instiCULSECATotalCandidates) {
+      setFormError(
+        "Please select all the preference for Cultural Affairs Secretary (Arts)"
+      );
+      throw new Error(
+        "Please select all the preference for Cultural Affairs Secretary (Arts)"
+      );
+    }
   }
   if (instiCULSECL == null) {
     setFormError(
@@ -131,9 +184,29 @@ function validateForm({
       "Please select preference for Cultural Affairs Secretary (Literary)"
     );
   }
+  if (instiCULSECL != "Abstain" && instiCULSECL != "Reject") {
+    if (instiCULSECL.length != instiCULSECLTotalCandidates) {
+      setFormError(
+        "Please select all the preference for Cultural Affairs Secretary (Literary)"
+      );
+      throw new Error(
+        "Please select all the preference for Cultural Affairs Secretary (Literary)"
+      );
+    }
+  }
   if (instiHAS == null) {
     setFormError("Please select preference for Hostel Affairs Secretary");
     throw new Error("Please select preference for Hostel Affairs Secretary");
+  }
+  if (instiHAS != "Abstain" && instiHAS != "Reject") {
+    if (instiHAS.length != instiHASTotalCandidates) {
+      setFormError(
+        "Please select all the preference for Hostel Affairs Secretary"
+      );
+      throw new Error(
+        "Please select all the preference for Hostel Affairs Secretary"
+      );
+    }
   }
   if (instiIAR == null) {
     setFormError(
@@ -143,20 +216,64 @@ function validateForm({
       "Please select preference for International and Alumni Relations Secretary"
     );
   }
+  if (instiIAR != "Abstain" && instiIAR != "Reject") {
+    if (instiIAR.length != instiIARTotalCandidates) {
+      setFormError(
+        "Please select all the preference for International and Alumni Relations Secretary"
+      );
+      throw new Error(
+        "Please select all the preference for International and Alumni Relations Secretary"
+      );
+    }
+  }
   if (instiSS == null) {
     setFormError("Please select preference for Sports Secretary (Institute)");
     throw new Error(
       "Please select preference for Sports Secretary (Institute)"
     );
   }
+  if (instiSS != "Abstain" && instiSS != "Reject") {
+    if (instiSS.length != instiSSTotalCandidates) {
+      setFormError(
+        "Please select all the preference for Sports Secretary (Institute)"
+      );
+      throw new Error(
+        "Please select all the preference for Sports Secretary (Institute)"
+      );
+    }
+  }
   if (instiSGS == null) {
     setFormError("Please select preference for Students General Secretary");
     throw new Error("Please select preference for Students General Secretary");
+  }
+  if (instiSGS != "Abstain" && instiSGS != "Reject") {
+    if (instiSGS.length != instiSGSTotalCandidates) {
+      setFormError(
+        "Please select all the preference for Students General Secretary"
+      );
+      throw new Error(
+        "Please select all the preference for Students General Secretary"
+      );
+    }
   }
   if (residencyType == "H") {
     if (hostelSGS == null && hostelSGSTotalCandidates > 0) {
       setFormError("Please select preference for General Secretary(Hostel)");
       throw new Error("Please select preference for General Secretary(Hostel)");
+    }
+    if (
+      hostelSGS != "Abstain" &&
+      hostelSGS != "Reject" &&
+      hostelSGSTotalCandidates > 0
+    ) {
+      if (hostelSGS.length != hostelSGSTotalCandidates) {
+        setFormError(
+          "Please select all the preference for Students General Secretary(Hostel)"
+        );
+        throw new Error(
+          "Please select all the preference for Students General Secretary(Hostel)"
+        );
+      }
     }
     if (hostelHHS == null && hostelHHSTotalCandidates > 0) {
       setFormError("Please select preference for Health and Hygiene Secretary");
@@ -164,17 +281,68 @@ function validateForm({
         "Please select preference for Health and Hygiene Secretary"
       );
     }
+    if (
+      hostelHHS != "Abstain" &&
+      hostelHHS != "Reject" &&
+      hostelHHSTotalCandidates > 0
+    ) {
+      if (hostelHHS.length != hostelHHSTotalCandidates) {
+        setFormError(
+          "Please select all the preference for Health and Hygiene Secretary"
+        );
+        throw new Error(
+          "Please select all the preference for Health and Hygiene Secretary"
+        );
+      }
+    }
     if (hostelSL == null && hostelSLTotalCandidates > 0) {
       setFormError("Please select preference for Social Secretary");
       throw new Error("Please select preference for Social Secretary");
     }
+    if (
+      hostelSL != "Abstain" &&
+      hostelSL != "Reject" &&
+      hostelSLTotalCandidates > 0
+    ) {
+      if (hostelSL.length != hostelSLTotalCandidates) {
+        setFormError("Please select all the preference for Social Secretary");
+        throw new Error(
+          "Please select all the preference for Social Secretary"
+        );
+      }
+    }
+    
     if (hostelLL == null && hostelLLTotalCandidates > 0) {
       setFormError("Please select preference for Literary Secretary");
       throw new Error("Please select preference for Literary Secretary");
     }
+    if (
+      hostelLL != "Abstain" &&
+      hostelLL != "Reject" &&
+      hostelLLTotalCandidates > 0
+    ) {
+      if (hostelLL.length != hostelLLTotalCandidates) {
+        setFormError("Please select all the preference for Literary Secretary");
+        throw new Error(
+          "Please select all the preference for Literary Secretary"
+        );
+      }
+    }
     if (hostelHL == null && hostelHLTotalCandidates > 0) {
       setFormError("Please select preference for Hostel Legislator");
       throw new Error("Please select preference for Hostel Legislator");
+    }
+    if (
+      hostelHL != "Abstain" &&
+      hostelHL != "Reject" &&
+      hostelHLTotalCandidates > 0
+    ) {
+      if (hostelHL.length != hostelHLTotalCandidates) {
+        setFormError("Please select all the preference for Hostel Legislator");
+        throw new Error(
+          "Please select all the preference for Hostel Legislator"
+        );
+      }
     }
     if (hostelTAS == null && hostelTASTotalCandidates > 0) {
       setFormError("Please select preference for Technical Affairs Secretary");
@@ -182,14 +350,54 @@ function validateForm({
         "Please select preference for Technical Affairs Secretary"
       );
     }
+    if (
+      hostelTAS != "Abstain" &&
+      hostelTAS != "Reject" &&
+      hostelTASTotalCandidates > 0
+    ) {
+      if (hostelTAS.length != hostelTASTotalCandidates) {
+        setFormError(
+          "Please select all the preference for Technical Affairs Secretary"
+        );
+        throw new Error(
+          "Please select all the preference for Technical Affairs Secretary"
+        );
+      }
+    }
     if (hostelSS == null && hostelSSTotalCandidates > 0) {
       setFormError("Please select preference for Sports Secretary");
       throw new Error("Please select preference for Sports Secretary");
+    }
+    if (
+      hostelSS != "Abstain" &&
+      hostelSS != "Reject" &&
+      hostelSSTotalCandidates > 0
+    ) {
+      if (hostelSS.length != hostelSSTotalCandidates) {
+        setFormError("Please select all the preference for Sports Secretary");
+        throw new Error(
+          "Please select all the preference for Sports Secretary"
+        );
+      }
     }
   }
   if (departmentLegislator == null && departmentTotalCandidates > 0) {
     setFormError("Please select preference for Department Legislator");
     throw new Error("Please select preference for Department Legislator");
+  }
+  if (
+    departmentLegislator != "Abstain" &&
+    departmentLegislator != "Reject" &&
+    departmentTotalCandidates > 0
+  ) {
+    if (departmentLegislator.length != departmentTotalCandidates) {
+      setFormError(
+        "Please select all the preference for Department Legislator"
+      );
+      throw new Error(
+        "Please select all the preference for Department Legislator"
+      );
+    }
   }
 }
 
@@ -250,6 +458,8 @@ function handleClick( // vote function handler for the frontend
     departmentLegislator,
     departmentTotalCandidates,
     instiAAS,
+    instiRAS,
+    instiRASTotalCandidates,
     instiCOCAS,
     instiCULSECA,
     instiCULSECL,
@@ -292,6 +502,8 @@ function handleClick( // vote function handler for the frontend
   try {
     validateForm({
       instiAAS,
+      course,
+      instiRAS,
       instiCOCAS,
       instiCULSECA,
       instiCULSECL,
@@ -317,6 +529,15 @@ function handleClick( // vote function handler for the frontend
       residencyType,
       departmentLegislator,
       departmentTotalCandidates,
+      instiAASTotalCandidates,
+    instiCOCASTotalCandidates,
+    instiCULSECATotalCandidates,
+    instiCULSECLTotalCandidates,
+    instiHASTotalCandidates,
+    instiIARTotalCandidates,
+    instiSSTotalCandidates,
+      instiSGSTotalCandidates,
+    instiRASTotalCandidates
     });
     let resultArr = [];
     let result = instiAAS;
