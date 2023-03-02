@@ -1050,7 +1050,7 @@ function Home() {
         course={course}
       />
       <br></br>
-      {residencyType == "H" &&  totalHostelCandidates>0 && (
+      {residencyType == "H" && totalHostelCandidates > 0 && (
         <Hostel
           hostelSGSCandidates={hostelSGSCandidates}
           hostelSSCandidates={hostelSSCandidates}
@@ -1063,14 +1063,19 @@ function Home() {
       )}
 
       <br></br>
-      <Department departmentCandidates={departmentCandidates} course={course} />
+      {departmentTotalCandidates > 0 && (
+        <Department
+          departmentCandidates={departmentCandidates}
+          course={course}
+        />
+      )}
       <br></br>
       <Center>
         <Button
           colorScheme="yellow"
-          size='lg'
-          height='48px'
-          width='300px'
+          size="lg"
+          height="48px"
+          width="300px"
           onClick={(e) =>
             handleClick(e, {
               hostel,
