@@ -765,7 +765,7 @@ function handleClick( // vote function handler for the frontend
       votes: resultArr,
     };
     axios
-      .post("https://wbsec2023.iitm.ac.in/votes/sendVotes", ballotObject)
+      .post("https://wbsec2023.iitm.ac.in/api/votes/sendVotes", ballotObject)
       .then((res) => {
         if (res.status != 200 && res.status != 201) {
           setFormError("Something went wrong");
