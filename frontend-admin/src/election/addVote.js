@@ -4,7 +4,7 @@ const fs = require("fs");
 const main = async () => {
 
     let contractAddresses = JSON.parse(fs.readFileSync('../ContractAddresses.json'));
-    let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
+    let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
     let nodePrivateKey = "0x25a1335874be70669269b861e513a212b1633db72a7c1400870aa27dfbbc1dc8";
     let nodeWallet = new ethers.Wallet(nodePrivateKey, provider);
     let gasPrice= await provider.getGasPrice();
@@ -45,7 +45,7 @@ const main = async () => {
         gasPrice: gasPrice,
         gasLimit: gasLimit,
         data: addVoteData,
-        chainId: 5
+        chainId: 137
     }
 
     let addVoteSentTx = await nodeWallet.sendTransaction(addVoteTx);

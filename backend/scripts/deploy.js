@@ -7,6 +7,7 @@
 const hre = require("hardhat");
 const fs = require("fs");
 const fsExtra = require('fs-extra');
+const {ethers} = require("ethers")
 
 let contractAddresses = {};
 
@@ -18,32 +19,51 @@ async function main() {
   fsExtra.emptyDirSync("../artifacts/build-info");
   fsExtra.emptyDirSync("../artifacts/contracts");
 
+  nonce = 12345
   const PreElection = await hre.ethers.getContractFactory("PreElection");
-  const preElection = await PreElection.deploy();
+  const preElection = await PreElection.deploy({
+    nonce: nonce
+  });
   await preElection.deployed();
 
+  nonce += 1;
   const AddHostelPollsA = await hre.ethers.getContractFactory("AddHostelPollsA");
-  const addHostelPollsA = await AddHostelPollsA.deploy();
-  await addHostelPollsA.deployed();
+  const addHostelPollsA = await AddHostelPollsA.deploy({
+    nonce: nonce
+  });
+  await addHostelPollsA.deployed({
+    nonce: nonce
+  });
 
+  nonce +=1 
   const AddHostelPollsB = await hre.ethers.getContractFactory("AddHostelPollsB");
-  const addHostelPollsB = await AddHostelPollsB.deploy();
+  const addHostelPollsB = await AddHostelPollsB.deploy({
+    nonce: nonce
+  });
   await addHostelPollsB.deployed();
 
   const AddHostelPollsC = await hre.ethers.getContractFactory("AddHostelPollsC");
-  const addHostelPollsC = await AddHostelPollsC.deploy();
+  const addHostelPollsC = await AddHostelPollsC.deploy({
+    nonce: nonce
+  });
   await addHostelPollsC.deployed();
 
   const AddHostelPollsD = await hre.ethers.getContractFactory("AddHostelPollsD");
-  const addHostelPollsD = await AddHostelPollsD.deploy();
+  const addHostelPollsD = await AddHostelPollsD.deploy({
+    nonce: nonce
+  });
   await addHostelPollsD.deployed();
 
   const AddOtherPolls = await hre.ethers.getContractFactory("AddOtherPolls");
-  const addOtherPolls = await AddOtherPolls.deploy();
+  const addOtherPolls = await AddOtherPolls.deploy({
+    nonce: nonce
+  });
   await addOtherPolls.deployed();
 
   const Election = await hre.ethers.getContractFactory("Election");
-  const election = await Election.deploy();
+  const election = await Election.deploy({
+    nonce: nonce
+  });
   await election.deployed();
 
 

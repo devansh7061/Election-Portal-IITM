@@ -5,8 +5,8 @@ const main = async () => {
 
     let contractAddresses = JSON.parse(fs.readFileSync('ContractAddresses.json'));
     let INFURA_ID = '80f66721ab284276b1faeb59e5b83e46';
-    let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
-    let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+    let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
+    let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
     let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
     let gasPrice= await provider.getGasPrice();
     let gasLimit = 2500000;
@@ -40,7 +40,7 @@ const main = async () => {
         gasPrice: gasPrice,
         gasLimit: gasLimit,
         data: startElectionData,
-        chainId: 80001
+        chainId: 137
     }
 
     let startElectionSentTx = await adminWallet.sendTransaction(startElectionTx);

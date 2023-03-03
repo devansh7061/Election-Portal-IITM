@@ -34,6 +34,7 @@ const saltRounds = 10;
 
 const pollMap = new Map([
   ["Academic Affairs Secretary", "AA"],
+  ["Research Affairs Secretary", "RA"],
   ["Co Curricular Affairs Secretary", "CO"],
   ["Cultural Affairs Secretary (Arts)", "CA"],
   ["Cultural Affairs Secretary (Literary)", "CL"],
@@ -540,15 +541,30 @@ function handleClick( // vote function handler for the frontend
     instiRASTotalCandidates
     });
     let resultArr = [];
-    let result = instiAAS;
-    const instiAASString = generateString1(
-      "Academic Affairs Secretary",
-      "Institute",
-      "Institute",
-      instiAASTotalCandidates,
-      { result }
-    );
-    resultArr.push(instiAASString);
+
+    let studentCategory;
+    if (course == "MS" || course == "Ph.D") {
+      studentCategory = "Research";
+    } else {
+      studentCategory = "Academic";
+    }
+    let result ;
+    if (studentCategory == "Academic") {
+      result = instiAAS;
+      const instiAASString = generateString1(
+        "Academic Affairs Secretary",
+        "Institute",
+        "Institute",
+        instiAASTotalCandidates,
+        { result }
+      );
+      resultArr.push(instiAASString);
+    }
+    if (studentCategory == "Research") {
+      result = instiRAS;
+      const instiRASString = generateString1("Research Affairs Secretary", "Institute", "Institute", instiRASTotalCandidates, { result })
+      resultArr.push(instiRASString);
+    }
 
     result = instiCOCAS;
     const instiCOCASString = generateString1(

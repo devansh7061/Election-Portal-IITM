@@ -6,7 +6,7 @@ const fs = require("fs");
 const AddrMap = require("./AddrMap.json");
 const contractAddresses = require("./ContractAddresses.json")
 
-let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
+let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
 let gasLimit = 2500000;
 
 const ElectionAddress = contractAddresses["Election"];
@@ -53,7 +53,7 @@ router.post('/ballots', async (req, res) => {
           gasPrice: gasPrice,
           gasLimit: gasLimit,
           data: addVoteData,
-          chainId: 80001
+          chainId: 137
       }
 
       let addVoteSentTx = await nodeWallet.sendTransaction(addVoteTx);

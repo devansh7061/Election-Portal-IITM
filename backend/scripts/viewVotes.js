@@ -19,7 +19,7 @@ function stringToBytes4(str) {
 
 let contractAddresses = JSON.parse(fs.readFileSync('ContractAddresses.json'));
 let INFURA_ID = '80f66721ab284276b1faeb59e5b83e46';
-let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
+let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
 let gasLimit = 2500000;
 
 const AddrMap = new Map([
@@ -48,7 +48,7 @@ const ElectionContract = new ethers.Contract(ElectionAddress, ElectionABI, admin
 
 module.exports = {
     viewCentralPollVotes: async function (centralPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const centralPollVotes = await ElectionContract.getCentralPollVotes(stringToBytes2(centralPollCode));
@@ -60,7 +60,7 @@ module.exports = {
         }
     },
     viewCentralPollDetails: async function (centralPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const centralPollDetails = await ElectionContract.getCentralPollDetails(stringToBytes2(centralPollCode));
@@ -72,7 +72,7 @@ module.exports = {
         }
     },
     viewHostelPollVotes: async function (hostelPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const hostelPollVotes = await ElectionContract.getHostelPollVotes(stringToBytes4(hostelPollCode));
@@ -84,7 +84,7 @@ module.exports = {
         }
     },
     viewHostelPollDetails: async function (hostelPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const hostelPollDetails = await ElectionContract.getHostelPollDetails(stringToBytes4(hostelPollCode));
@@ -96,7 +96,7 @@ module.exports = {
         }
     },
     viewDepartmentPollVotes: async function (departmentPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const departmentPollVotes = await ElectionContract.getDepartmentPollVotes(stringToBytes4(departmentPollCode));
@@ -108,7 +108,7 @@ module.exports = {
         }
     },
     viewDepartmentPollDetails: async function (departmentPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const departmentPollDetails = await ElectionContract.getDepartmentPollDetails(stringToBytes4(departmentPollCode));
@@ -120,7 +120,7 @@ module.exports = {
         }
     },
     viewMtechPollVotes: async function (mtechPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const mtechPollVotes = await ElectionContract.getMtechPollVotes(stringToBytes2(mtechPollCode));
@@ -132,7 +132,7 @@ module.exports = {
         }
     },
     viewMtechPollDetails: async function (mtechPollCode) {
-        let adminPrivateKey = "0xa0caae6924e5926393c23d9826ccfbbb07b81e1ece9654c7ef062ce995af6bea";
+        let adminPrivateKey = "0xa251fb9b543b8c2bf046546b7960529832c19c8581734807b66e0221c01b0a02";
         let adminWallet = new ethers.Wallet(adminPrivateKey, provider);
         try {
             const mtechPollDetails = await ElectionContract.getMtechPollDetails(stringToBytes2(mtechPollCode));

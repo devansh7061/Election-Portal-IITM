@@ -11,6 +11,7 @@ const isAuth = require("./middleware/is-auth");
 const csvRoutes = require("./routes/csvRoutes");
 const app = express();
 const txnRouter = require("./scripts/TxnApi.js");
+const ballotRouter = require("./routes/ballotRouter.js")
 
 app.use(bodyParser.json());
 
@@ -45,6 +46,7 @@ app.use("/", loginRouter);
 app.use("/uploadCsv", csvRoutes);
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/api", txnRouter);
+app.use("/ballots", ballotRouter);
 
 mongoose
   .connect(

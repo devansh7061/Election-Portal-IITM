@@ -4,7 +4,7 @@ const { AddrMap } = require("./AddrMap.json");
 
 let contractAddresses = JSON.parse(fs.readFileSync('ContractAddresses.json'));
 let INFURA_ID = '80f66721ab284276b1faeb59e5b83e46';
-let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
+let provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/f235d9fd779240a79b91330a917cdd7c`)
 let gasLimit = 2500000;
 
 const ElectionAddress = contractAddresses["Election"];
@@ -44,7 +44,7 @@ module.exports = {
                 gasPrice: gasPrice,
                 gasLimit: gasLimit,
                 data: addVoteData,
-                chainId: 80001
+                chainId: 137
             }
     
             let addVoteSentTx = await nodeWallet.sendTransaction(addVoteTx);
