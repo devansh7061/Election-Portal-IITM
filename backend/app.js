@@ -12,7 +12,7 @@ const csvRoutes = require("./routes/csvRoutes");
 const app = express();
 const txnRouter = require("./scripts/TxnApi.js");
 const ballotRouter = require("./routes/ballotRouter.js")
-
+const resultRouter = require("./routes/resultRouter")
 app.use(bodyParser.json());
 
 app.use(isAuth);
@@ -44,6 +44,8 @@ app.get("/", (req, res, next) => {
 });
 app.use("/", loginRouter);
 app.use("/uploadCsv", csvRoutes);
+app.use("/votes", ballotRouter);
+app.use("/result", resultRouter);
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/api", txnRouter);
 app.use("/ballots", ballotRouter);

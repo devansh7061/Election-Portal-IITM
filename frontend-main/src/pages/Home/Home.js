@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -33,47 +34,47 @@ const password = "WBGSE2023";
 const saltRounds = 10;
 
 const pollMap = new Map([
-  ["Academic Affairs Secretary", "AA"],
-  ["Research Affairs Secretary", "RA"],
-  ["Co Curricular Affairs Secretary", "CO"],
-  ["Cultural Affairs Secretary (Arts)", "CA"],
-  ["Cultural Affairs Secretary (Literary)", "CL"],
-  ["Hostel Affairs Secretary", "HA"],
-  ["International and Alumni Relations Secretary", "IA"],
-  ["Sports Secretary (Institute)", "SP"],
-  ["Students General Secretary", "GS"],
-  ["General Secretary (Hostel)", "GS"],
-  ["Health and Hygiene Secretary", "HH"],
-  ["Hostel Legislator", "HL"],
-  ["Literary Secretary", "LS"],
-  ["Social Secretary", "SO"],
-  ["Sports Secretary (Hostel)", "SP"],
-  ["Technical Affairs Secretary", "TS"],
+  ["ACADEMIC AFFAIRS SECRETARY", "AA"],
+  ["RESEARCH AFFAIRS SECRETARY", "RA"],
+  ["CO CURRICULAR AFFAIRS SECRETARY", "CO"],
+  ["CULTURAL AFFAIRS SECRETARY (ARTS)", "CA"],
+  ["CULTURAL AFFAIRS SECRETARY (LITERARY)", "CL"],
+  ["HOSTEL AFFAIRS SECRETARY", "HA"],
+  ["INTERNATIONAL AND ALUMNI RELATIONS SECRETARY", "IA"],
+  ["SPORTS SECRETARY (INSTITUTE)", "SP"],
+  ["STUDENTS GENERAL SECRETARY", "GS"],
+  ["GENERAL SECRETARY (HOSTEL)", "GS"],
+  ["HEALTH AND HYGIENE SECRETARY", "HH"],
+  ["HOSTEL LEGISLATOR", "HL"],
+  ["LITERARY SECRETARY", "LS"],
+  ["SOCIAL SECRETARY", "SO"],
+  ["SPORTS SECRETARY (HOSTEL)", "SP"],
+  ["TECHNICAL AFFAIRS SECRETARY", "TS"],
 ]);
 
 const hostelMap = new Map([
-  ["Alakananda", "AK"],
-  ["Bhadra", "BH"],
-  ["Brahmaputra", "BR"],
-  ["Cauvery", "CA"],
-  ["Ganga", "GN"],
-  ["Godavari", "GD"],
-  ["Jamuna", "JM"],
-  ["Krishna", "KR"],
-  ["Mahanadi", "MH"],
-  ["Mandakini A", "MA"],
-  ["Mandakini B", "MB"],
-  ["Narmada", "NM"],
-  ["Pampa", "PM"],
-  ["Sabarmati", "SM"],
-  ["Saraswathi", "SS"],
-  ["Sarayu", "SU"],
-  ["Sharavathi", "SH"],
-  ["Sindhu", "SN"],
-  ["Swarnamukhi", "SW"],
-  ["Tamiraparani", "TM"],
-  ["Tapti", "TP"],
-  ["Tunga", "TU"],
+  ["ALAKANANDA", "AK"],
+  ["BHADRA", "BH"],
+  ["BRAHMAPUTRA", "BR"],
+  ["CAUVERY", "CA"],
+  ["GANGA", "GN"],
+  ["GODAVARI", "GD"],
+  ["JAMUNA", "JM"],
+  ["KRISHNA", "KR"],
+  ["MAHANADI", "MH"],
+  ["MANDAKINI A", "MA"],
+  ["MANDAKINI B", "MB"],
+  ["NARMADA", "NM"],
+  ["PAMPA", "PM"],
+  ["SABARMATI", "SM"],
+  ["SARASWATHI", "SS"],
+  ["SARAYU", "SU"],
+  ["SHARAVATHI", "SH"],
+  ["SINDHU", "SN"],
+  ["SWARNAMUKHI", "SW"],
+  ["TAMIRAPARANI", "TM"],
+  ["TAPTI", "TP"],
+  ["TUNGA", "TU"],
 ]);
 function validateForm({
   instiAAS,
@@ -421,11 +422,11 @@ function generateString1(post, poll, category, totalCandidates, { result }) {
     finalString = "4MT";
   }
   if (poll == "Hostel") {
-    finalString = finalString.concat(hostelMap.get(category));
+    finalString = finalString.concat(hostelMap.get(category.toUpperCase()));
     console.log("Category: ", category, "finalstring: ", finalString);
   }
   if (poll == "Hostel" || poll == "Institute") {
-    finalString = finalString.concat(pollMap.get(post));
+    finalString = finalString.concat(pollMap.get(post.toUpperCase()));
   }
   if (result == "Abstain") {
     finalString = finalString.concat("10");
@@ -497,6 +498,7 @@ function handleClick( // vote function handler for the frontend
     residencyType,
     confirmVote,
     setConfirmVote,
+    deviceUsername
   }
 ) {
   e.preventDefault();
@@ -758,30 +760,22 @@ function handleClick( // vote function handler for the frontend
         resultArr.push(departmentLegislatorString);
       }
     }
-    let userId = "user1";
     let ballotObject = {
-      userId: userId,
+      username: deviceUsername,
       votes: resultArr,
     };
-
-    fetch("https://wbsec2023.iitm.ac.in/api/api/ballots", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(ballotObject),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data != "1") {
-          setFormError("Something went wrong!");
-          throw new Error("Something went wrong");
+    axios
+      .post("https://wbsec2023.iitm.ac.in/votes/sendVotes", ballotObject)
+      .then((res) => {
+        if (res.status != 200 && res.status != 201) {
+          setFormError("Something went wrong");
+          throw new Error("Failed");
         }
       })
-      .catch((error) => {
-        console.error(error)
-        throw new Error("Something went wrong")
+      .catch((err) => {
+        console.log(err);
       });
+    
     setHasVoted(true);
     const requestBody = {
       query: `
@@ -800,6 +794,7 @@ function handleClick( // vote function handler for the frontend
       },
     }).then((res) => {
       if (res.status != 200 && res.status != 201) {
+        setFormError("Something went wrong");
         throw new Error("Failed");
       }
       return res.json();
@@ -819,6 +814,7 @@ function Home() {
   const [formError, setFormError] = useState(null);
   const rollNo = useContextStore((state) => state.rollNo);
   const department = useContextStore((state) => state.department);
+  const deviceUsername = useContextStore((state) => state.deviceUsername);
   const course = useContextStore((state) => state.course);
   const hostel = useContextStore((state) => state.hostel);
   const token = useContextStore((state) => state.token);
@@ -1095,6 +1091,7 @@ function Home() {
           onClick={(e) =>
             handleClick(e, {
               hostel,
+              deviceUsername,
               rollNo,
               course,
               department,
